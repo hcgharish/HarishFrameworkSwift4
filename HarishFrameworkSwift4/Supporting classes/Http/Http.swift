@@ -838,6 +838,8 @@ open class Http: NSObject {
         }
     }
     
+    //Harish
+    
     open class func alertFailed (title:NSString?, _ json:NSDictionary?, _ key:String) {
         let message = json?[key] as! String!
         
