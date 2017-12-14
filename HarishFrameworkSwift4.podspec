@@ -4,17 +4,17 @@ s.name               = "HarishFrameworkSwift4"
 #2.
 s.version            = "1.0.5"
 #3.
-s.summary         = "Sort description of 'HarishFrameworkSwift4' framework"
+s.summary            = "Sort description of 'HarishFrameworkSwift4' framework"
 #4.
-s.homepage        = "http://www.hcgharish.com"
+s.homepage           = "http://www.hcgharish.com"
 #5.
-s.license              = "MIT"
+s.license            = "MIT"
 #6.
-s.author               = "harish"
+s.author             = "harish"
 #7.
-s.platform            = :ios, "10.0"
+s.platform           = :ios, "10.0"
 #8.
-s.source              = { :git => "https://github.com/hcgharish/HarishFrameworkSwift4.git", :tag => "1.0.5" }
+s.source             = { :git => "https://github.com/hcgharish/HarishFrameworkSwift4.git", :tag => "1.0.5" }
 #9.
-s.source_files     = "HarishFrameworkSwift4", "HarishFrameworkSwift4/**/*.{h,m,swift}"
+s.source_files       = "HarishFrameworkSwift4", "HarishFrameworkSwift4/**/*.{h,m,swift}"
 end
