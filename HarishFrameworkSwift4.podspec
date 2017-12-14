@@ -14,7 +14,7 @@ s.author               = "harish"
 #7.
 s.platform            = :ios, "10.0"
 #8.
-s.source              = { :git => "https://github.com/hcgharish/HarishFrameworkSwift4.git", :tag => "1.0.2" }
+s.source              = { :git => "https://github.com/hcgharish/HarishFrameworkSwift4.git", :tag => "1.0.3" }
 #9.
 s.source_files     = "HarishFrameworkSwift4", "HarishFrameworkSwift4/**/*.{h,m,swift}"
 end
