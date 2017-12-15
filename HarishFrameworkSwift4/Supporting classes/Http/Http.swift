@@ -12,14 +12,6 @@ import MapKit
 let kCouldnotconnect = "Could not connect to the server. Please try again later."
 let kInternetNotAvailable = "Please establish network connection."
 
-//
-//  ValidatorClass.swift
-//  Zooma
-//
-//  Created by kavya_mac_1 on 12/15/16.
-//  Copyright © 2016 kavya_mac_1. All rights reserved.
-//
-
 import UIKit
 
 open class Valid: NSObject {
@@ -967,6 +959,17 @@ open class ImageView: UIImageView {
         }
     }
     
+    open func willZoomImage (_ image:UIImage) {
+        willZoom = true
+        self.image = image
+        
+        self.createZoomView(superView)
+        
+        if willZoom {
+            addClickButton (self.frame)
+        }
+    }
+    
     var urlImage:String? = nil
     var dImage:String? = nil
     var boolScal:Bool = false
@@ -1076,8 +1079,17 @@ open class ImageView: UIImageView {
                 makeInCenter ()
             }
         }
+      
+        var superView = self.superview
         
-        superView?.addSubview(viewZoomContainer!)
+        while (true) {
+            if superView is UIWindow {
+                superView?.addSubview(viewZoomContainer!)
+                break
+            } else {
+                superView = superView?.superview
+            }
+        }
     }
     
     var frameImage:CGRect? = nil

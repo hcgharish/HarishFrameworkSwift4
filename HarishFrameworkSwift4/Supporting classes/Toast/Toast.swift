@@ -109,7 +109,7 @@ public class Toast: UIView {
     }
 }
 
-let lockQueue = DispatchQueue.init(label: "com.kavya.LockQueue")
+let lockQueue = DispatchQueue.init(label: "com.kavya.LockQueue.Toast")
 
 
 

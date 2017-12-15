@@ -8,22 +8,15 @@ public class ActivityIndicator {
     
     static let sharedInstance: ActivityIndicator = { ActivityIndicator() }()
     
-    var appDelegate:UIApplicationDelegate? = nil// = UIApplication.shared.delegate as! AppDelegate
+    var appDelegate:UIApplicationDelegate? = nil
     
-    //let lockQueue = dispatch_queue_create("com.test.LockQueue", nil)
-    //let lockQueue = DispatchQueue("com.test.LockQueue", nil)
-    
-    let lockQueue = DispatchQueue.init(label: "com.kavya.LockQueue")
+    let lockQueue = DispatchQueue.init(label: "com.kavya.LockQueue.ActivityIndicator")
     var noofrequest = 0
     
     func showActivityIndicator() {
         DispatchQueue.main.async {
             self.lockQueue.sync {
-                //print("showActivityIndicator-\(self.noofrequest)-")
-                
-                self.noofrequest += 1
-                
-                if self.noofrequest == 1 {
+                if self.noofrequest == 0 {
                     
                     if self.container == nil {
                         self.container = UIView()
@@ -61,21 +54,30 @@ public class ActivityIndicator {
                     self.appDelegate?.window??.addSubview(self.container!)
                     self.activityIndicator?.startAnimating()
                 }
+                
+                self.noofrequest += 1
             }
         }
     }
     
     func hideActivityIndicator() {
-        DispatchQueue.main.async {
-            self.lockQueue.sync {
-                //print("hideActivityIndicator-\(self.noofrequest)-")
-                
-                if self.noofrequest == 1 {
-                    self.activityIndicator?.stopAnimating()
-                    self.container?.removeFromSuperview()
+        DispatchQueue.global().async {
+            while self.noofrequest == 0 {
+                sleep(1)
+            }
+            
+            DispatchQueue.main.async {
+                self.lockQueue.sync {
+                    
+                    if self.noofrequest == 1 {
+                        self.activityIndicator?.stopAnimating()
+                        self.container?.removeFromSuperview()
+                    }
+                    
+                    if self.noofrequest > 0 {
+                        self.noofrequest -= 1
+                    }
                 }
-                
-                self.noofrequest -= 1
             }
         }
     }
