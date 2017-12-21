@@ -16,6 +16,7 @@ public class Toast: UIView {
             if app?.window != nil {
                 if msg.count > 0 {
                     let lbl = UILabel()
+                    lbl.frame.size.width = UIScreen.main.bounds.size.width - 40
                     var frame_lbl = lbl.frame
                     lbl.frame = frame_lbl
                     lbl.textColor = UIColor.white
@@ -27,7 +28,7 @@ public class Toast: UIView {
                     lbl.sizeToFit()
                     
                     frame_lbl = lbl.frame
-                    frame_lbl.size.width = frame_lbl.size.width + 20
+                    frame_lbl.size.width = frame_lbl.size.width// + 20
                     lbl.frame = frame_lbl
                     
                     let view = self
