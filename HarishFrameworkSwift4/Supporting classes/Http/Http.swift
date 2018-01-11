@@ -856,8 +856,8 @@ open class Http: NSObject {
 }
 
 protocol AlertDelegate {
- func alertZero ()
- func alertOne ()
+    func alertZero ()
+    func alertOne ()
 }
 
 open class ImageView: UIImageView {
@@ -1586,8 +1586,6 @@ public extension String {
     }
     
     public func base64 (_ quality:CGFloat) -> String {
-        /*let imgD1:Data?  = UIImageJPEGRepresentation(self, quality)! as Data
-         let img1:UIImage = UIImage(data: imgD1!)!*/
         let imageData:NSData = UIImagePNGRepresentation(self)! as NSData
         
         let bytes = Double(imageData.length)/8.0
@@ -2376,6 +2374,7 @@ func langUI (_ view:UIView?) {
         }
     }
 }
+
 
 
 
