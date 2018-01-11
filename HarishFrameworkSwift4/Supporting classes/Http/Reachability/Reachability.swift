@@ -103,7 +103,7 @@ public class Reachability {
     fileprivate var notifierRunning = false
     fileprivate var reachabilityRef: SCNetworkReachability?
     
-    fileprivate let reachabilitySerialQueue = DispatchQueue(label: "uk.co.ashleymills.reachability")
+    fileprivate let reachabilitySerialQueue = DispatchQueue(label: "com.kavya.reachability")
     
     required public init(reachabilityRef: SCNetworkReachability) {
         reachableOnWWAN = true
@@ -249,33 +249,43 @@ fileprivate extension Reachability {
             return false
         #endif
     }
+    
     var isReachableFlagSet: Bool {
         return reachabilityFlags.contains(.reachable)
     }
+    
     var isConnectionRequiredFlagSet: Bool {
         return reachabilityFlags.contains(.connectionRequired)
     }
+    
     var isInterventionRequiredFlagSet: Bool {
         return reachabilityFlags.contains(.interventionRequired)
     }
+    
     var isConnectionOnTrafficFlagSet: Bool {
         return reachabilityFlags.contains(.connectionOnTraffic)
     }
+    
     var isConnectionOnDemandFlagSet: Bool {
         return reachabilityFlags.contains(.connectionOnDemand)
     }
+    
     var isConnectionOnTrafficOrDemandFlagSet: Bool {
         return !reachabilityFlags.intersection([.connectionOnTraffic, .connectionOnDemand]).isEmpty
     }
+    
     var isTransientConnectionFlagSet: Bool {
         return reachabilityFlags.contains(.transientConnection)
     }
+    
     var isLocalAddressFlagSet: Bool {
         return reachabilityFlags.contains(.isLocalAddress)
     }
+    
     var isDirectFlagSet: Bool {
         return reachabilityFlags.contains(.isDirect)
     }
+    
     var isConnectionRequiredAndTransientFlagSet: Bool {
         return reachabilityFlags.intersection([.connectionRequired, .transientConnection]) == [.connectionRequired, .transientConnection]
     }
@@ -296,3 +306,4 @@ fileprivate extension Reachability {
         }
     }
 }
+

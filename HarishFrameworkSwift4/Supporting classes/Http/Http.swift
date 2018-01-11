@@ -744,31 +744,6 @@ open class Http: NSObject {
         }
     }
     
-    public func attributedString() {
-        /*
-         // 1
-         let string = "Don't have an account? SIGN UP NOW!" as NSString
-         
-         //let string = "Testing Attributed Strings" as NSString
-         var attributedString = NSMutableAttributedString(string: string as String)
-         
-         // 2
-         let firstAttributes = [NSForegroundColorAttributeName: UIColor.blue, NSBackgroundColorAttributeName: UIColor.yellow, NSUnderlineStyleAttributeName: 1] as [String : Any]
-         let secondAttributes = [NSForegroundColorAttributeName: UIColor.red,
-         NSBackgroundColorAttributeName: UIColor.blue,
-         NSStrikethroughStyleAttributeName: 1] as [String : Any]
-         let thirdAttributes = [NSForegroundColorAttributeName: UIColor.green, NSBackgroundColorAttributeName: UIColor.black, NSFontAttributeName: UIFont.systemFont(ofSize: 40)]
-         
-         // 3
-         //attributedString.addAttributes(firstAttributes, range: string.range(of: "Testing"))
-         attributedString.addAttributes(secondAttributes, range: string.range(of: "SIGN UP NOW!"))
-         //attributedString.addAttributes(thirdAttributes, range: string.range(of: "Strings"))
-         
-         // 4
-         //myTestLabel.attributedText = attributedString
-         */
-    }
-    
     open class func alert (_ ttl:String?, _ msg:String?) {
         if (msg != nil) {
             if (msg?.count)! > 0 {
@@ -1062,7 +1037,7 @@ open class ImageView: UIImageView {
                     
                     self.imgZoom?.image = image
                     
-                    let size = getImageSize((image?.size)!)
+                    let size = getImageSizeByUIScreen((image?.size)!)
                     
                     var frame = self.imgZoom?.frame
                     frame?.origin.x = (self.viewZoomContainer?.frame.size.width)! / 2 - size.width / 2
@@ -1345,7 +1320,7 @@ public extension NSDictionary {
     }
 }
 
- public extension String {
+public extension String {
     public func currTime () -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = self//"yyyy-MM-dd HH:mm:ss"//.SSSZ"
@@ -1420,11 +1395,6 @@ public extension NSDictionary {
     }
     
     public func capFirstLetter() -> String {
-        //self.prefix(1)
-        /*let first = String(characters.prefix(1)).capitalized
-        let other = String(characters.dropFirst())
-        return first + other*/
-        
         let first = String(prefix(1)).capitalized
         let other = String(dropFirst())
         return first + other
@@ -1624,7 +1594,7 @@ public extension NSDictionary {
         let kb = bytes/1024.0
         let mb = kb/1024.0
         
-        print("imageData size-\(kb)-\(mb)-")
+        print("imageData size -> KB[\(kb)], MB[\(mb)]")
         
         let profilePicture = imageData.base64EncodedString(options: .lineLength64Characters)
         
@@ -1712,7 +1682,7 @@ public extension NSDictionary {
 }
 
  public extension UIImageView {
-    public func saveImageDocumentDirectory(){
+    public func saveImageDocumentDirectory() {
         let fileManager = FileManager.default
         let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("apple.jpg")
         let image = UIImage(named: "apple.jpg")
@@ -2113,7 +2083,7 @@ public extension NSDictionary {
     }
 }
 
-public func getImageSize (_ size:CGSize) -> CGSize {
+public func getImageSizeByUIScreen (_ size:CGSize) -> CGSize {
     var width = size.width
     var height = size.height
     
