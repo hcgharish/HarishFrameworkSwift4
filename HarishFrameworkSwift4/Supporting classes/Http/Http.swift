@@ -592,6 +592,7 @@ open class Http: NSObject {
                         self.stopActivityIndicator()
                     }
                 }
+                
                 if (api != nil) { md["api"] = api! as String  }
                 if (params != nil) { md["params"] = params! as NSMutableDictionary }
                 if (method != nil) { md["method"] = method! as String }
