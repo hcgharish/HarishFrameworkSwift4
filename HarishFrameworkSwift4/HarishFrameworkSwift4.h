@@ -2,8 +2,8 @@
 //  HarishFrameworkSwift4.h
 //  HarishFrameworkSwift4
 //
-//  Created by Harish on 17/11/17.
-//  Copyright © 2017 Harish. All rights reserved.
+//  Created by Harish on 16/01/18.
+//  Copyright © 2018 Harish. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
