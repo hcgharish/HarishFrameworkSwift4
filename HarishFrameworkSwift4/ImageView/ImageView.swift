@@ -200,7 +200,7 @@ open class ImageView: UIImageView {
             if frameImage != nil {
                 self.imgZoom?.frame = frameImage!
                 
-                makeInCenter ()
+                makeInCenter (true)
             }
         }
         
@@ -242,10 +242,14 @@ open class ImageView: UIImageView {
         imgZoom?.transform = (imgZoom?.transform.scaledBy(x: scale, y: scale))!;
         recognizer.scale = 1.0;
         
-        makeInCenter ()
+        makeInCenter (false)
     }
     
-    func makeInCenter () {
+    func makeInCenter (_ boolCenter:Bool) {
+        //print("1scZoom?.contentSize-\(scZoom?.contentSize)-")
+        //print("1scZoom?.contentSize-\(imgZoom?.frame)-")
+        //print("1scZoom?.contentSize-\(scZoom?.contentOffset)-")
+        
         var width = viewZoomContainer?.frame.size.width
         var height = viewZoomContainer?.frame.size.height
         
@@ -258,10 +262,33 @@ open class ImageView: UIImageView {
             height = imgZoom?.frame.size.height
         }
         
-        scZoom?.contentSize = CGSize(width:width!, height:height!)
+        //let lastSize = scZoom?.contentSize
+        //let lastOffset = scZoom?.contentOffset
         
+        scZoom?.contentSize = CGSize(width:width!, height:height!)
         imgZoom?.center = CGPoint(x: (scZoom?.contentSize.width)! / 2, y: (scZoom?.contentSize.height)! / 2)
         scZoom?.contentOffset = CGPoint(x: (imgZoom?.center.x)! - (scZoom?.frame.size.width)! / 2, y: (imgZoom?.center.y)! - (scZoom?.frame.size.height)! / 2)
+        
+        //print("2scZoom?.contentSize-\(scZoom?.contentSize)-")
+        //print("2scZoom?.contentSize-\(imgZoom?.frame)-")
+        //print("2scZoom?.contentSize-\(scZoom?.contentOffset)-")
+        
+        //print("==========================================================")
+        /*if boolCenter {
+            imgZoom?.center = CGPoint(x: (scZoom?.contentSize.width)! / 2, y: (scZoom?.contentSize.height)! / 2)
+        } else {
+            var frame = imgZoom?.frame
+            frame?.origin.x = 0.0
+            frame?.origin.y = 0.0
+            imgZoom?.frame = frame!
+        }*/
+        
+        //let newSize = scZoom?.contentSize
+        
+        //let w_diff = (newSize?.width)! - (lastSize?.width)!
+        //let h_diff = (newSize?.height)! - (lastSize?.height)!
+        
+        //scZoom?.contentOffset = CGPoint(x: (lastOffset?.x)! + w_diff / 2, y: (lastOffset?.y)! + h_diff / 2)
     }
 }
 
@@ -382,55 +409,57 @@ public extension UIImageView {
     }
     
     @objc public func displayImage (_ dict:NSDictionary) {
-        let boolCustomScale:Bool = dict["scale"] as! Bool
-        
-        if (boolCustomScale) {
-            self.clipsToBounds = true;
-            self.contentMode = .scaleAspectFill
-        }
-        
-        let url:String = dict["url"] as! String
-        
-        let imgV = self as? ImageView
-        
-        if imgV != nil {
-            let superView = dict["superView"] as? UIView
+        DispatchQueue.main.async {
+            let boolCustomScale:Bool = dict["scale"] as! Bool
             
-            if (imgV?.url.count)! > 0 {
-                if imgV != nil {
-                    
-                    let imageUrl = imgV?.url[(imgV?.url.count)!-1]
-                    
-                    if imageUrl != nil {
-                        if imageUrl! == url {
-                            if let img = dict["image"] as? UIImage {
-                                self.image = img
-                                imgV?.createZoomView(superView)
-                            } else if let dimg = dict["dimage"] as? String {
-                                self.image = UIImage(named: dimg)
+            if (boolCustomScale) {
+                self.clipsToBounds = true;
+                self.contentMode = .scaleAspectFill
+            }
+            
+            let url:String = dict["url"] as! String
+            
+            let imgV = self as? ImageView
+            
+            if imgV != nil {
+                let superView = dict["superView"] as? UIView
+                
+                if (imgV?.url.count)! > 0 {
+                    if imgV != nil {
+                        
+                        let imageUrl = imgV?.url[(imgV?.url.count)!-1]
+                        
+                        if imageUrl != nil {
+                            if imageUrl! == url {
+                                if let img = dict["image"] as? UIImage {
+                                    self.image = img
+                                    imgV?.createZoomView(superView)
+                                } else if let dimg = dict["dimage"] as? String {
+                                    self.image = UIImage(named: dimg)
+                                }
                             }
                         }
-                    }
-                } else {
-                    if let img = dict["image"] as? UIImage {
-                        self.image = img
-                        imgV?.createZoomView(superView)
-                    } else if let dimg = dict["dimage"] as? String {
-                        self.image = UIImage(named: dimg)
+                    } else {
+                        if let img = dict["image"] as? UIImage {
+                            self.image = img
+                            imgV?.createZoomView(superView)
+                        } else if let dimg = dict["dimage"] as? String {
+                            self.image = UIImage(named: dimg)
+                        }
                     }
                 }
+            } else {
+                if let img = dict["image"] as? UIImage {
+                    self.image = img
+                } else if let dimg = dict["dimage"] as? String {
+                    self.image = UIImage(named: dimg)
+                }
             }
-        } else {
-            if let img = dict["image"] as? UIImage {
-                self.image = img
-            } else if let dimg = dict["dimage"] as? String {
-                self.image = UIImage(named: dimg)
+            
+            if let ai = dict["ai"] as? UIActivityIndicatorView {
+                ai.isHidden = true
+                ai.stopAnimating()
             }
-        }
-        
-        if let ai = dict["ai"] as? UIActivityIndicatorView {
-            ai.isHidden = true
-            ai.stopAnimating()
         }
     }
     
