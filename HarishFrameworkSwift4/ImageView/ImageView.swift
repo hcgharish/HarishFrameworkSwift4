@@ -246,10 +246,6 @@ open class ImageView: UIImageView {
     }
     
     func makeInCenter (_ boolCenter:Bool) {
-        //print("1scZoom?.contentSize-\(scZoom?.contentSize)-")
-        //print("1scZoom?.contentSize-\(imgZoom?.frame)-")
-        //print("1scZoom?.contentSize-\(scZoom?.contentOffset)-")
-        
         var width = viewZoomContainer?.frame.size.width
         var height = viewZoomContainer?.frame.size.height
         
@@ -262,33 +258,10 @@ open class ImageView: UIImageView {
             height = imgZoom?.frame.size.height
         }
         
-        //let lastSize = scZoom?.contentSize
-        //let lastOffset = scZoom?.contentOffset
         
         scZoom?.contentSize = CGSize(width:width!, height:height!)
         imgZoom?.center = CGPoint(x: (scZoom?.contentSize.width)! / 2, y: (scZoom?.contentSize.height)! / 2)
         scZoom?.contentOffset = CGPoint(x: (imgZoom?.center.x)! - (scZoom?.frame.size.width)! / 2, y: (imgZoom?.center.y)! - (scZoom?.frame.size.height)! / 2)
-        
-        //print("2scZoom?.contentSize-\(scZoom?.contentSize)-")
-        //print("2scZoom?.contentSize-\(imgZoom?.frame)-")
-        //print("2scZoom?.contentSize-\(scZoom?.contentOffset)-")
-        
-        //print("==========================================================")
-        /*if boolCenter {
-            imgZoom?.center = CGPoint(x: (scZoom?.contentSize.width)! / 2, y: (scZoom?.contentSize.height)! / 2)
-        } else {
-            var frame = imgZoom?.frame
-            frame?.origin.x = 0.0
-            frame?.origin.y = 0.0
-            imgZoom?.frame = frame!
-        }*/
-        
-        //let newSize = scZoom?.contentSize
-        
-        //let w_diff = (newSize?.width)! - (lastSize?.width)!
-        //let h_diff = (newSize?.height)! - (lastSize?.height)!
-        
-        //scZoom?.contentOffset = CGPoint(x: (lastOffset?.x)! + w_diff / 2, y: (lastOffset?.y)! + h_diff / 2)
     }
 }
 

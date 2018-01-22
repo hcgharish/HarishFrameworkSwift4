@@ -65,12 +65,50 @@ open class Label: UILabel {
         } else if isBorder {
             border1(borderColor, CGFloat(radious), CGFloat(border))
         }
+        
+        if isMandatory {
+            mandatory ()
+        }
     }
+    
+    @IBInspectable open var isMandatory: Bool = false
     
     public func border1 (_ color:UIColor?, _ cornerRadius:CGFloat, _ borderWidth:CGFloat) {
         self.layer.masksToBounds = true
         if (color != nil) { self.layer.borderColor = color?.cgColor }
         self.layer.cornerRadius = cornerRadius
         self.layer.borderWidth = borderWidth
+    }
+    
+    public func mandatory () {
+        let placeH = self.text
+        //self.placeholder = placeH! + "*"
+        let lbl = UILabel()
+        lbl.text = placeH
+        lbl.font = self.font
+        lbl.numberOfLines = 0
+        lbl.sizeToFit()
+        
+        let size = lbl.frame.size
+        
+        let lblMand = UILabel()
+        var frame = lblMand.frame
+        
+        if self.textAlignment == .left {
+            frame.origin.x = self.frame.origin.x + size.width + 10
+        } else if self.textAlignment == .right {
+            frame.origin.x = self.frame.origin.x + self.frame.size.width + 5
+        } else if self.textAlignment == .center {
+            frame.origin.x = self.frame.origin.x + (self.frame.size.width / 2) + (size.width / 2) + 10
+        }
+        
+        frame.origin.y = self.frame.origin.y
+        frame.size.width = 15
+        frame.size.height = 15
+        lblMand.frame = frame
+        lblMand.textColor = UIColor.red
+        lblMand.text = "*"
+        
+        self.superview?.addSubview(lblMand)
     }
 }
