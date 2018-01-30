@@ -284,14 +284,12 @@ open class Http: NSObject {
     }
     
     public func startActivityIndicator () {
-        //self.performSelector(inBackground: #selector(Http.startActivityIndicatorThread), with: nil)
         DispatchQueue.global().async {
             ActivityIndicator.sharedInstance.showActivityIndicator()
         }
     }
     
     public func stopActivityIndicator () {
-        //self.performSelector(inBackground: #selector(Http.stopActivityIndicatorThread), with: nil)
         DispatchQueue.global().async {
             ActivityIndicator.sharedInstance.hideActivityIndicator()
         }
