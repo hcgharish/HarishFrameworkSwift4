@@ -195,15 +195,21 @@ open class Http: NSObject {
         var jsonString = ""
         
         if error != nil {
-            if (api != nil) { print("api -\(api!)-") }
-            if (params != nil) { print("params -\(params!)-") }
-            if (error != nil) { print("error-\(error)-") }
+            var prnt = "====================================================================="
+            
+            if (api != nil) { prnt += "\n" + "api -\(api!)-" }
+            if (params != nil) { prnt += "\n" + "params -\(params!)-" }
+            if (error != nil) { prnt += "\n" + "error-\(error)-" }
             if (data != nil) {
-                print("data -\(String(describing: NSString(data: data, encoding: String.Encoding.utf8.rawValue)))-")
+                prnt += "\n" + "data -\(String(describing: NSString(data: data, encoding: String.Encoding.utf8.rawValue)))-"
                 jsonString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
             }
             
-            if (response != nil) { print("response -\(response!)-") }
+            if (response != nil) { prnt += "\n" + "response -\(response!)-" }
+            
+            prnt += "\n" + "====================================================================="
+            
+            print(prnt)
             
             if (popup) {
                 self.alert("", kCouldnotconnect)
@@ -219,9 +225,14 @@ open class Http: NSObject {
                 let parsedData:NSDictionary? = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? NSDictionary
                 
                 if (prnt) {
-                    if (api != nil) { print("api -\(api!)-") }
-                    if (params != nil) { print("params -\(params!)-") }
-                    if (parsedData != nil) { print("json -\(parsedData!)-") }
+                    var prnt = "====================================================================="
+                    if (api != nil) { prnt += "\n" + "api -\(api!)-" }
+                    if (params != nil) { prnt += "\n" + "params -\(params!)-" }
+                    if (parsedData != nil) { prnt += "\n" + "json -\(parsedData!)-" }
+                    
+                    prnt += "\n" + "====================================================================="
+                    
+                    print(prnt)
                 }
                 
                 if (data != nil) {
@@ -232,11 +243,16 @@ open class Http: NSObject {
                     completionHandler(parsedData, params, jsonString)
                 }
             } catch _ as NSError {
-                if (api != nil) { print("api -\(api!)-") }
-                if (params != nil) { print("params -\(params!)-") }
-                if (error != nil) { print(error) }
-                if (data != nil) { print("data -\(String(describing: NSString(data: data, encoding: String.Encoding.utf8.rawValue)))-") }
-                if (response != nil) { print("response -\(response!)-") }
+                var prnt = "====================================================================="
+                if (api != nil) { prnt += "\n" + "api -\(api!)-" }
+                if (params != nil) { prnt += "\n" + "params -\(params!)-" }
+                if (error != nil) { prnt += "\n\(error)" }
+                if (data != nil) { prnt += "\n" + "data -\(String(describing: NSString(data: data, encoding: String.Encoding.utf8.rawValue)))-" }
+                if (response != nil) { prnt += "\n" + "response -\(response!)-" }
+                
+                prnt += "\n" + "====================================================================="
+                
+                print(prnt)
                 
                 if (popup) {
                     self.alert("", kCouldnotconnect)
