@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 #1.
 s.name               = "HarishFrameworkSwift4"
 #2.
-s.version            = "1.0.17"
+s.version            = "1.1.1"
 #3.
 s.summary            = "Sort description of 'HarishFrameworkSwift4' framework"
 #4.
@@ -14,7 +14,7 @@ s.author             = "harish"
 #7.
 s.platform           = :ios, "10.0"
 #8.
-s.source             = { :git => "https://github.com/hcgharish/HarishFrameworkSwift4.git", :tag => "1.0.17" }
+s.source             = { :git => "https://github.com/hcgharish/HarishFrameworkSwift4.git", :tag => "1.1.1" }
 #9.
 s.source_files       = "HarishFrameworkSwift4", "HarishFrameworkSwift4/**/*.{h,m,swift}"
 end
