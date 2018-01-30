@@ -9,27 +9,27 @@
 import UIKit
 
 open class View: UIView {
-    //    @IBInspectable open var isBorder: Bool = false
-    //
-    //    @IBInspectable open var border: Int = 0
-    //
-    //    @IBInspectable open var radious: Int = 0
-    //
-    //    @IBInspectable open var borderColor: UIColor? = nil
-    //
-    //    @IBInspectable open var isShadow: Bool = false
-    //
-    //    @IBInspectable open var shadow_Color: UIColor? = UIColor.darkGray
-    //
-    //    @IBInspectable open var ls_Opacity:CGFloat = 0.5
-    //    @IBInspectable open var ls_Radius:Int = 0
-    //
-    //    @IBInspectable open var lsOff_Width:CGFloat = 2.0
-    //    @IBInspectable open var lsOff_Height:CGFloat = 2.0
-    //
-    //    @IBInspectable open var isStrokeColor: Bool = false
+        @IBInspectable open var isBorder: Bool = false
     
-    open var isBorder: Bool = false
+        @IBInspectable open var border: Int = 0
+    
+        @IBInspectable open var radious: Int = 0
+    
+        @IBInspectable open var borderColor: UIColor? = nil
+    
+        @IBInspectable open var isShadow: Bool = false
+    
+        @IBInspectable open var shadow_Color: UIColor? = UIColor.darkGray
+    
+        @IBInspectable open var ls_Opacity:CGFloat = 0.5
+        @IBInspectable open var ls_Radius:Int = 0
+    
+        @IBInspectable open var lsOff_Width:CGFloat = 2.0
+        @IBInspectable open var lsOff_Height:CGFloat = 2.0
+    
+        @IBInspectable open var isStrokeColor: Bool = false
+    
+    /*open var isBorder: Bool = false
     
     open var border: Int = 0
     
@@ -47,7 +47,7 @@ open class View: UIView {
     open var lsOff_Width:CGFloat = 2.0
     open var lsOff_Height:CGFloat = 2.0
     
-    open var isStrokeColor: Bool = false
+    open var isStrokeColor: Bool = false*/
     
     override open func draw(_ rect: CGRect) {
         if isStrokeColor {
