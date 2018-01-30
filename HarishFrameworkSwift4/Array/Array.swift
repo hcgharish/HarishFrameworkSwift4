@@ -13,7 +13,7 @@ class Array1: NSArray {
 }
 
 public extension NSArray {
-    public func convertToString () -> String {
+    public func string () -> String {
         do {
             let jsonData: NSData = try JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted) as NSData
             
@@ -55,7 +55,7 @@ public extension NSArray {
         return ma
     }
     
-    public func convertToString (_ caller:Bool = true)  -> String {
+    public func toString (_ caller:Bool = true)  -> String {
         var str = "["
         
         for i in 0..<self.count {
@@ -67,9 +67,9 @@ public extension NSArray {
                 } else if let val = self[i] as? Int {
                     str = "\(str)\("\(val)".colon ())"
                 } else if let val = self[i] as? NSArray {
-                    str = "\(str)\(val.convertToString(false))"
+                    str = "\(str)\(val.toString(false))"
                 } else if let val = self[i] as? NSDictionary {
-                    str = "\(str)\(val.convertToString(false))"
+                    str = "\(str)\(val.toString(false))"
                 } else if let val = self[i] as? Float {
                     str = "\(str)\("\(val)".colon ())"
                 } else if let val = self[i] as? Bool {
@@ -85,9 +85,9 @@ public extension NSArray {
                 } else if let val = self[i] as? Int {
                     str = "\(str),\("\(val)".colon ())"
                 } else if let val = self[i] as? NSArray {
-                    str = "\(str),\(val.convertToString(false))"
+                    str = "\(str),\(val.toString(false))"
                 } else if let val = self[i] as? NSDictionary {
-                    str = "\(str),\(val.convertToString(false))"
+                    str = "\(str),\(val.toString(false))"
                 } else if let val = self[i] as? Float {
                     str = "\(str),\("\(val)".colon ())"
                 } else if let val = self[i] as? Bool {

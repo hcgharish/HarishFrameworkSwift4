@@ -13,7 +13,7 @@ class Dictionary1: NSDictionary {
 }
 
 public extension NSDictionary {
-    public func convertToString () -> String {
+    public func string () -> String {
         do {
             let jsonData: NSData = try JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted) as NSData
             
@@ -57,7 +57,7 @@ public extension NSDictionary {
         return md
     }
     
-    public func convertToString (_ caller:Bool = true) -> String {
+    public func toString (_ caller:Bool = true) -> String {
         var str = "{"
         
         for (key, value) in self {
@@ -70,9 +70,9 @@ public extension NSDictionary {
                 } else if value is Int {
                     str = "\(str)\(key.colon ()):\("\(value)".colon ())"
                 } else if let val = value as? NSArray {
-                    str = "\(str)\(key.colon ()):\(val.convertToString(false))"
+                    str = "\(str)\(key.colon ()):\(val.toString(false))"
                 } else if value is NSDictionary {
-                    str = "\(str)\(key.colon ()):\(convertToString(false))"
+                    str = "\(str)\(key.colon ()):\(toString(false))"
                 } else if value is Float {
                     str = "\(str)\(key.colon ()):\("\(value)".colon ())"
                 } else if value is Bool {
@@ -88,9 +88,9 @@ public extension NSDictionary {
                 } else if value is Int {
                     str = "\(str), \(key.colon ()):\("\(value)".colon ())"
                 } else if let val = value as? NSArray {
-                    str = "\(str),\(key.colon ()):\(val.convertToString(false))"
+                    str = "\(str),\(key.colon ()):\(val.toString(false))"
                 } else if value is NSDictionary {
-                    str = "\(str),\(key.colon ()):\(convertToString(false))"
+                    str = "\(str),\(key.colon ()):\(toString(false))"
                 } else if value is Float {
                     str = "\(str), \(key.colon ()):\("\(value)".colon ())"
                 } else if value is Bool {
