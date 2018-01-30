@@ -10,7 +10,7 @@ import UIKit
 
 public class Test: NSObject {
     public func test () {
-        print("Print test")
+        print("Print test----------------")
     }
 }
 
