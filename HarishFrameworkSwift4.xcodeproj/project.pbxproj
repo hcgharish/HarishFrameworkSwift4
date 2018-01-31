@@ -35,6 +35,7 @@
 		685A1AE1200DD61D00E764B0 /* CreditCardValidationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1AC6200DD61D00E764B0 /* CreditCardValidationType.swift */; };
 		685A1AE2200DD61D00E764B0 /* CreditCardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1AC7200DD61D00E764B0 /* CreditCardValidator.swift */; };
 		685A1AE3200DD61D00E764B0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1AC9200DD61D00E764B0 /* String.swift */; };
+		6891A2A620219DB000BA7C9D /* DotLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6891A2A520219DB000BA7C9D /* DotLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		685A1AC6200DD61D00E764B0 /* CreditCardValidationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardValidationType.swift; sourceTree = "<group>"; };
 		685A1AC7200DD61D00E764B0 /* CreditCardValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardValidator.swift; sourceTree = "<group>"; };
 		685A1AC9200DD61D00E764B0 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		6891A2A520219DB000BA7C9D /* DotLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				683AA50F200E0C42009212BB /* Test.swift */,
+				6891A2A420219DA000BA7C9D /* DotLoader */,
 				685A1ABD200DD61D00E764B0 /* ActivityIndicator */,
 				685A1AB4200DD61C00E764B0 /* Array */,
 				685A1A9A200DD61B00E764B0 /* Button */,
@@ -309,6 +312,14 @@
 			path = String;
 			sourceTree = "<group>";
 		};
+		6891A2A420219DA000BA7C9D /* DotLoader */ = {
+			isa = PBXGroup;
+			children = (
+				6891A2A520219DB000BA7C9D /* DotLoader.swift */,
+			);
+			path = DotLoader;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -394,6 +405,7 @@
 				685A1AD5200DD61D00E764B0 /* Device.swift in Sources */,
 				685A1ACC200DD61D00E764B0 /* TextView.swift in Sources */,
 				685A1AD7200DD61D00E764B0 /* Comman.swift in Sources */,
+				6891A2A620219DB000BA7C9D /* DotLoader.swift in Sources */,
 				685A1AD1200DD61D00E764B0 /* Dictionary.swift in Sources */,
 				685A1ACE200DD61D00E764B0 /* Date.swift in Sources */,
 				685A1AE3200DD61D00E764B0 /* String.swift in Sources */,

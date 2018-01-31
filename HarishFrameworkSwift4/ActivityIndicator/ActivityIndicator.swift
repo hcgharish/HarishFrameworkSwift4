@@ -8,7 +8,7 @@ public class ActivityIndicator {
     var loadingView: UIView? = nil
     var activityIndicator: UIActivityIndicatorView? = nil
     
-    static let sharedInstance: ActivityIndicator = { ActivityIndicator() }()
+    static let sharedInstance: ActivityIndicator = { ActivityIndicator () } ()
     
     var appDelegate:UIApplicationDelegate? = nil
     
