@@ -16,7 +16,7 @@ open class Http: NSObject {
         return Http()
     }
     
-    public func json (_ api:String?,_ params:NSMutableDictionary?, _ method:String?, ai:Bool, popup:Bool, prnt:Bool, _ header:NSDictionary? = nil , _ images:NSMutableArray? = nil, sync:Bool = false, completionHandler: @escaping (NSDictionary?, NSMutableDictionary?, String) -> Swift.Void) {
+    public func json (_ api:String?,_ params:NSMutableDictionary?, _ method:String?, ai:Bool, popup:Bool, prnt:Bool, _ header:NSDictionary? = nil , _ images:NSMutableArray? = nil, sync:Bool = false, completionHandler: @escaping (Any?, NSMutableDictionary?, String) -> Swift.Void) {
         
         let reach = Reachability.init(hostname: "google.com")
         
@@ -174,7 +174,7 @@ open class Http: NSObject {
     }
     
     @objc public func jsonThread(_ md:NSMutableDictionary) {
-        let completionHandler = md["completionHandler"] as! ((NSDictionary?, NSMutableDictionary?, String) -> Swift.Void)
+        let completionHandler = md["completionHandler"] as! ((Any?, NSMutableDictionary?, String) -> Swift.Void)
         
         var data:Data! = nil
         var response:URLResponse! = nil
@@ -222,13 +222,23 @@ open class Http: NSObject {
             completionHandler(nil, params, jsonString)
         } else {
             do {
-                let parsedData:NSDictionary? = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? NSDictionary
+                var parsedData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
+                
+                if let output = parsedData as? NSDictionary  {
+                    parsedData = output.getMutable(nil) ?? (Any).self
+                } else if let output = parsedData as? NSArray {
+                    parsedData = output.getMutable(nil) ?? (Any).self
+                } else if let output = parsedData as? NSMutableDictionary {
+                    parsedData = output.getMutable(nil) ?? (Any).self
+                } else if let output =  parsedData as? NSMutableArray {
+                    parsedData = output.getMutable(nil) ?? (Any).self
+                }
                 
                 if (prnt) {
                     var prnt = "====================================================================="
                     if (api != nil) { prnt += "\n" + "api -\(api!)-" }
                     if (params != nil) { prnt += "\n" + "params -\(params!)-" }
-                    if (parsedData != nil) { prnt += "\n" + "json -\(parsedData!)-" }
+                    if (parsedData != nil) { prnt += "\n" + "json -\(parsedData)-" }
                     
                     prnt += "\n" + "====================================================================="
                     
@@ -352,7 +362,7 @@ open class Http: NSObject {
                     }
                     
                     alertController = UIAlertController(title: ttl, message: msg, preferredStyle: .alert)
-                    alertController.alert.title.preferredStyle.
+                    //alertController.alert.title.preferredStyle.
                     if btns.count >= 2 {
                         alertController.addAction(self.alertAction(btns, 0))
                     }
