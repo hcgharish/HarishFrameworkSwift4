@@ -352,7 +352,7 @@ open class Http: NSObject {
                     }
                     
                     alertController = UIAlertController(title: ttl, message: msg, preferredStyle: .alert)
-                    
+                    alertController.alert.title.preferredStyle.
                     if btns.count >= 2 {
                         alertController.addAction(self.alertAction(btns, 0))
                     }
