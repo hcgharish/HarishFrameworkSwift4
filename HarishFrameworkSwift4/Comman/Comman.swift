@@ -124,13 +124,13 @@ public func nullToNil(value : AnyObject?) -> AnyObject? {
     }
 }
 
-public func null(value : AnyObject?) -> Bool {
+public func isNull(value : AnyObject?) -> Bool {
     if value == nil {
-        return false
-    } else if value is NSNull {
-        return false
-    } else {
         return true
+    } else if value is NSNull {
+        return true
+    } else {
+        return false
     }
 }
 
