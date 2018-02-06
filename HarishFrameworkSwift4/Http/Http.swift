@@ -226,21 +226,20 @@ open class Http: NSObject {
                 
                 if let output = parsedData as? NSDictionary  {
                     let dt = NSDictionary(dictionary: output)
-                    parsedData = dt.getMutable(nil)
+                    parsedData = dt.getMutable(nil) ?? (Any).self
                 } else if let output = parsedData as? NSArray {
-                    parsedData = output.getMutable(nil)
+                    parsedData = output.getMutable(nil) ?? (Any).self
                 } else if let output = parsedData as? NSMutableDictionary {
-                    parsedData = output.getMutable(nil)
+                    parsedData = output.getMutable(nil) ?? (Any).self
                 } else if let output =  parsedData as? NSMutableArray {
-                    parsedData = output.getMutable(nil)
+                    parsedData = output.getMutable(nil) ?? (Any).self
                 }
                 
                 if (prnt) {
                     var prnt = "====================================================================="
                     if (api != nil) { prnt += "\n" + "api -\(api!)-" }
                     if (params != nil) { prnt += "\n" + "params -\(params!)-" }
-                    if (parsedData != nil) { prnt += "\n" + "json -\(parsedData)-" }
-                    
+                    prnt += "\n" + "json -\(parsedData)-"
                     prnt += "\n" + "====================================================================="
                     
                     print(prnt)
