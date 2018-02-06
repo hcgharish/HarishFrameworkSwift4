@@ -24,50 +24,91 @@ public class DotLoader: NSObject {
             self.container?.frame = (self.appDelegate?.window??.frame)!
             self.container?.center = (self.appDelegate?.window??.center)!
             
-            self.container?.backgroundColor = UIColor.red//self.UIColorFromHex(rgbValue: 0xffffff, alpha: 0.3)
+            self.container?.backgroundColor = UIColor.red
             
             self.appDelegate?.window??.addSubview(self.container!)
             
-            print("self.appDelegate-\(self.appDelegate)-")
-            print("self.container-\(self.container)-")
+            let size:CGFloat = 20.0
+            let gap:CGFloat = 5.0
             
-            let vieee = UIView()
-            var frame = (self.appDelegate?.window??.frame)!
-            frame.size.width = 20
-            frame.size.height = 20
-            vieee.frame = frame
-            vieee.backgroundColor = UIColor.green
-            vieee.center = (self.appDelegate?.window??.center)!
-            self.appDelegate?.window??.addSubview(vieee)
+            let vieee1 = UIView()
+            var frame1 = (self.appDelegate?.window??.frame)!
+            frame1.size.width = size
+            frame1.size.height = size
+            vieee1.frame = frame1
+            vieee1.backgroundColor = UIColor.green
+            vieee1.center = (self.appDelegate?.window??.center)!
+            self.appDelegate?.window??.addSubview(vieee1)
             
-            self.animate (vieee)
+            let vieee2 = UIView()
+            var frame2 = (self.appDelegate?.window??.frame)!
+            frame2.size.width = size
+            frame2.size.height = size
+            vieee2.frame = frame2
+            vieee2.backgroundColor = UIColor.green
+            vieee2.center = (self.appDelegate?.window??.center)!
+            
+            self.appDelegate?.window??.addSubview(vieee2)
+            
+            let vieee3 = UIView()
+            var frame3 = (self.appDelegate?.window??.frame)!
+            frame3.size.width = size
+            frame3.size.height = size
+            vieee3.frame = frame3
+            vieee3.backgroundColor = UIColor.green
+            vieee3.center = (self.appDelegate?.window??.center)!
+            self.appDelegate?.window??.addSubview(vieee3)
+            
+            vieee1.frame.origin.x = vieee1.frame.origin.x + CGFloat(0.0 * size + 0.0 * gap)
+            vieee2.frame.origin.x = vieee2.frame.origin.x + CGFloat(1.0 * size + 1.0 * gap)
+            vieee3.frame.origin.x = vieee3.frame.origin.x + CGFloat(2.0 * size + 2.0 * gap)
+            
+            let diff = vieee2.center.x - (vieee2.superview?.center.x)!
+            
+            vieee1.frame.origin.x = vieee1.frame.origin.x - diff
+            vieee2.frame.origin.x = vieee2.frame.origin.x - diff
+            vieee3.frame.origin.x = vieee3.frame.origin.x - diff
+            
+            let c1 = vieee1.center
+            let c2 = vieee2.center
+            let c3 = vieee3.center
+            
+            let sllep:UInt32 = 330000
+            
+            DispatchQueue.global().async {
+                self.animate (vieee1, c1)
+                usleep(sllep)
+                self.animate (vieee2, c2)
+                usleep(sllep)
+                self.animate (vieee3, c3)
+            }
         }
     }
     
-    func animate (_ view:UIView) {
-        var frame = view.frame
-        
-        if frame.size.width == 20 && frame.size.height == 20 {
-            frame.size.width = 0
-            frame.size.height = 0
-        } else {
-            frame.size.width = 20
-            frame.size.height = 20
+    func animate (_ view:UIView, _ center:CGPoint) {
+        DispatchQueue.main.async {
+            var frame = view.frame
+            
+            if frame.size.width == 20 && frame.size.height == 20 {
+                frame.size.width = 0
+                frame.size.height = 0
+            } else {
+                frame.size.width = 20
+                frame.size.height = 20
+            }
+            
+            UIView.animate(withDuration: 1.0, animations: {
+                view.frame = frame
+                view.center = center
+                
+                view.layer.masksToBounds = true
+                view.layer.borderColor = UIColor.clear.cgColor
+                view.layer.cornerRadius = frame.size.height / 2 
+                view.layer.borderWidth = 0
+            }) { (bool) in
+                self.animate (view, center)
+            }
         }
-        
-        UIView.animate(withDuration: 2.0, animations: {
-            view.frame = frame
-        }) { (bool) in
-            self.animate (view)
-        }
-    }
-    
-    func UIColorFromHex(rgbValue:UInt32, alpha:Double=1.0) -> UIColor {
-        let red = CGFloat((rgbValue & 0xFF0000) >> 16)/256.0
-        let green = CGFloat((rgbValue & 0xFF00) >> 8)/256.0
-        let blue = CGFloat(rgbValue & 0xFF)/256.0
-        
-        return UIColor(red:red, green:green, blue:blue, alpha:CGFloat(alpha))
     }
 }
 
