@@ -48,7 +48,7 @@ public extension NSDictionary {
             } else if let val = dict[arr[i]] as? NSArray {
                 md?[arr[i]] = val.getMutable(nil)
             } else if let val = dict[arr[i]] as? NSDictionary {
-                md?[arr[i]] = val.getMutable(md)
+                md?[arr[i]] = val.getMutable(nil)
             } else if let val = dict[arr[i]] as? Float {
                 md?[arr[i]] = val
             }

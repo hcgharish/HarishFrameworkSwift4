@@ -44,7 +44,7 @@ public extension NSArray {
             } else if let val = array[i] as? Int {
                 ma?.add(val)
             } else if let val = array[i] as? NSArray {
-                ma?.add(NSMutableArray(array: val.getMutable(ma)!))
+                ma?.add(NSMutableArray(array: val.getMutable(nil)!))
             } else if let val = array[i] as? NSDictionary {
                 ma?.add(NSMutableDictionary(dictionary: val.getMutable(nil)!))
             } else if let val = array[i] as? Float {
