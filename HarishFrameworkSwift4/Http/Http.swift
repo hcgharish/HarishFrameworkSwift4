@@ -223,17 +223,17 @@ open class Http: NSObject {
         } else {
             do {
                 var parsedData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
-                
+                /*print("parsedData-\(parsedData)-")
                 if let output = parsedData as? NSDictionary  {
-                    parsedData = output.getMutable(nil) ?? (Any).self
+                    parsedData = output.getMutable(nil) as? NSDictionary
                 } else if let output = parsedData as? NSArray {
-                    parsedData = output.getMutable(nil) ?? (Any).self
+                    parsedData = output.getMutable(nil) as? NSArray
                 } else if let output = parsedData as? NSMutableDictionary {
-                    parsedData = output.getMutable(nil) ?? (Any).self
+                    parsedData = output.getMutable(nil) as? NSMutableDictionary
                 } else if let output =  parsedData as? NSMutableArray {
-                    parsedData = output.getMutable(nil) ?? (Any).self
+                    parsedData = output.getMutable(nil) as? NSMutableArray
                 }
-                
+                print("2parsedData-\(parsedData)-")*/
                 if (prnt) {
                     var prnt = "====================================================================="
                     if (api != nil) { prnt += "\n" + "api -\(api!)-" }
