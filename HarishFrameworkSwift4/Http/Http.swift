@@ -286,32 +286,56 @@ open class Http: NSObject {
     }
     
     open class func startActivityIndicator () {
-        ActivityIndicator.sharedInstance.showActivityIndicator()
+        if DotLoader.shared.animateDotLoader {
+            DotLoader.shared.showLoader()
+        } else {
+            ActivityIndicator.shared.showLoader()
+        }
     }
     
     open class func stopActivityIndicator () {
-        ActivityIndicator.sharedInstance.hideActivityIndicator()
+        if DotLoader.shared.animateDotLoader {
+            DotLoader.shared.stopLoader()
+        } else {
+            ActivityIndicator.shared.stopLoader()
+        }
     }
     
     public func startActivityIndicator () {
         DispatchQueue.global().async {
-            ActivityIndicator.sharedInstance.showActivityIndicator()
+            if DotLoader.shared.animateDotLoader {
+                DotLoader.shared.showLoader()
+            } else {
+                ActivityIndicator.shared.showLoader()
+            }
         }
     }
     
     public func stopActivityIndicator () {
         DispatchQueue.global().async {
-            ActivityIndicator.sharedInstance.hideActivityIndicator()
+            if DotLoader.shared.animateDotLoader {
+                DotLoader.shared.stopLoader()
+            } else {
+                ActivityIndicator.shared.stopLoader()
+            }
         }
     }
     
     @objc open class func startActivityIndicatorThread () {
-        ActivityIndicator.sharedInstance.showActivityIndicator()
+        if DotLoader.shared.animateDotLoader {
+            DotLoader.shared.showLoader()
+        } else {
+            ActivityIndicator.shared.showLoader()
+        }
     }
     
     @objc open class func stopActivityIndicatorThread () {
         DispatchQueue.main.async {
-            ActivityIndicator.sharedInstance.hideActivityIndicator()
+            if DotLoader.shared.animateDotLoader {
+                DotLoader.shared.stopLoader()
+            } else {
+                ActivityIndicator.shared.stopLoader()
+            }
         }
     }
     

@@ -8,14 +8,14 @@ public class ActivityIndicator {
     var loadingView: UIView? = nil
     var activityIndicator: UIActivityIndicatorView? = nil
     
-    static let sharedInstance: ActivityIndicator = { ActivityIndicator () } ()
+    static let shared: ActivityIndicator = { ActivityIndicator () } ()
     
     var appDelegate:UIApplicationDelegate? = nil
     
     let lockQueue = DispatchQueue.init(label: "com.kavya.LockQueue.ActivityIndicator")
     var noofrequest = 0
     
-    func showActivityIndicator() {
+    func showLoader() {
         DispatchQueue.main.async {
             self.lockQueue.sync {
                 if self.noofrequest == 0 {
@@ -39,11 +39,11 @@ public class ActivityIndicator {
                     self.container?.frame = (self.appDelegate?.window??.frame)!
                     self.container?.center = (self.appDelegate?.window??.center)!
                     
-                    self.container?.backgroundColor = self.UIColorFromHex(rgbValue: 0xffffff, alpha: 0.3)
+                    self.container?.backgroundColor = UIColor.hexColor(0xffffff, alpha: 0.3)
                     
                     self.loadingView?.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
                     self.loadingView?.center = (self.appDelegate?.window??.center)!
-                    self.loadingView?.backgroundColor = self.UIColorFromHex(rgbValue: 0x444444, alpha: 0.7)
+                    self.loadingView?.backgroundColor = UIColor.hexColor(0x444444, alpha: 0.7)
                     self.loadingView?.clipsToBounds = true
                     self.loadingView?.layer.cornerRadius = 10
                     
@@ -62,7 +62,7 @@ public class ActivityIndicator {
         }
     }
     
-    func hideActivityIndicator() {
+    func stopLoader() {
         DispatchQueue.global().async {
             while self.noofrequest == 0 {
                 sleep(1)
@@ -82,14 +82,6 @@ public class ActivityIndicator {
                 }
             }
         }
-    }
-    
-    func UIColorFromHex(rgbValue:UInt32, alpha:Double=1.0) -> UIColor {
-        let red = CGFloat((rgbValue & 0xFF0000) >> 16)/256.0
-        let green = CGFloat((rgbValue & 0xFF00) >> 8)/256.0
-        let blue = CGFloat(rgbValue & 0xFF)/256.0
-        
-        return UIColor(red:red, green:green, blue:blue, alpha:CGFloat(alpha))
     }
 }
 
