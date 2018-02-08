@@ -36,6 +36,8 @@
 		685A1AE2200DD61D00E764B0 /* CreditCardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1AC7200DD61D00E764B0 /* CreditCardValidator.swift */; };
 		685A1AE3200DD61D00E764B0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1AC9200DD61D00E764B0 /* String.swift */; };
 		6891A2A620219DB000BA7C9D /* DotLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6891A2A520219DB000BA7C9D /* DotLoader.swift */; };
+		68BD8F3F202C31690047E838 /* GifLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BD8F3E202C31690047E838 /* GifLoader.swift */; };
+		68BD8FBA202C48780047E838 /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BD8FB9202C48780047E838 /* iOSDevCenters+GIF.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +72,8 @@
 		685A1AC7200DD61D00E764B0 /* CreditCardValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardValidator.swift; sourceTree = "<group>"; };
 		685A1AC9200DD61D00E764B0 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		6891A2A520219DB000BA7C9D /* DotLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotLoader.swift; sourceTree = "<group>"; };
+		68BD8F3E202C31690047E838 /* GifLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifLoader.swift; sourceTree = "<group>"; };
+		68BD8FB9202C48780047E838 /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,8 +106,9 @@
 		685A1A91200DD60400E764B0 /* HarishFrameworkSwift4 */ = {
 			isa = PBXGroup;
 			children = (
+				685A1A92200DD60400E764B0 /* HarishFrameworkSwift4.h */,
+				685A1A93200DD60400E764B0 /* Info.plist */,
 				683AA50F200E0C42009212BB /* Test.swift */,
-				6891A2A420219DA000BA7C9D /* DotLoader */,
 				685A1ABD200DD61D00E764B0 /* ActivityIndicator */,
 				685A1AB4200DD61C00E764B0 /* Array */,
 				685A1A9A200DD61B00E764B0 /* Button */,
@@ -113,7 +118,9 @@
 				685A1AA2200DD61C00E764B0 /* Date */,
 				685A1AAE200DD61C00E764B0 /* Device */,
 				685A1AA7200DD61C00E764B0 /* Dictionary */,
+				6891A2A420219DA000BA7C9D /* DotLoader */,
 				685A1AAC200DD61C00E764B0 /* FloatRatingView */,
+				68BD8F3D202C31690047E838 /* GifLoader */,
 				685A1AB0200DD61C00E764B0 /* Http */,
 				685A1AC3200DD61D00E764B0 /* Image */,
 				685A1AA9200DD61C00E764B0 /* ImageView */,
@@ -126,8 +133,6 @@
 				685A1AB6200DD61C00E764B0 /* Toast */,
 				685A1ABF200DD61D00E764B0 /* UserInfo */,
 				685A1AC1200DD61D00E764B0 /* View */,
-				685A1A92200DD60400E764B0 /* HarishFrameworkSwift4.h */,
-				685A1A93200DD60400E764B0 /* Info.plist */,
 			);
 			path = HarishFrameworkSwift4;
 			sourceTree = "<group>";
@@ -320,6 +325,15 @@
 			path = DotLoader;
 			sourceTree = "<group>";
 		};
+		68BD8F3D202C31690047E838 /* GifLoader */ = {
+			isa = PBXGroup;
+			children = (
+				68BD8FB9202C48780047E838 /* iOSDevCenters+GIF.swift */,
+				68BD8F3E202C31690047E838 /* GifLoader.swift */,
+			);
+			path = GifLoader;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -407,6 +421,7 @@
 				685A1AD7200DD61D00E764B0 /* Comman.swift in Sources */,
 				6891A2A620219DB000BA7C9D /* DotLoader.swift in Sources */,
 				685A1AD1200DD61D00E764B0 /* Dictionary.swift in Sources */,
+				68BD8F3F202C31690047E838 /* GifLoader.swift in Sources */,
 				685A1ACE200DD61D00E764B0 /* Date.swift in Sources */,
 				685A1AE3200DD61D00E764B0 /* String.swift in Sources */,
 				685A1ADA200DD61D00E764B0 /* Color.swift in Sources */,
@@ -417,6 +432,7 @@
 				685A1AD9200DD61D00E764B0 /* Toast.swift in Sources */,
 				685A1AE2200DD61D00E764B0 /* CreditCardValidator.swift in Sources */,
 				685A1ACA200DD61D00E764B0 /* Button.swift in Sources */,
+				68BD8FBA202C48780047E838 /* iOSDevCenters+GIF.swift in Sources */,
 				685A1ADF200DD61D00E764B0 /* View.swift in Sources */,
 				685A1ACD200DD61D00E764B0 /* TextField.swift in Sources */,
 				685A1AE1200DD61D00E764B0 /* CreditCardValidationType.swift in Sources */,

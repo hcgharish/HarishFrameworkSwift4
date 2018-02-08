@@ -286,7 +286,9 @@ open class Http: NSObject {
     }
     
     open class func startActivityIndicator () {
-        if DotLoader.shared.animateDotLoader {
+        if GifLoader.shared.animateGifLoader {
+            GifLoader.shared.showLoader()
+        } else if DotLoader.shared.animateDotLoader {
             DotLoader.shared.showLoader()
         } else {
             ActivityIndicator.shared.showLoader()
@@ -294,7 +296,9 @@ open class Http: NSObject {
     }
     
     open class func stopActivityIndicator () {
-        if DotLoader.shared.animateDotLoader {
+        if GifLoader.shared.animateGifLoader {
+            GifLoader.shared.stopLoader()
+        } else if DotLoader.shared.animateDotLoader {
             DotLoader.shared.stopLoader()
         } else {
             ActivityIndicator.shared.stopLoader()
@@ -303,7 +307,9 @@ open class Http: NSObject {
     
     public func startActivityIndicator () {
         DispatchQueue.global().async {
-            if DotLoader.shared.animateDotLoader {
+            if GifLoader.shared.animateGifLoader {
+                GifLoader.shared.showLoader()
+            } else if DotLoader.shared.animateDotLoader {
                 DotLoader.shared.showLoader()
             } else {
                 ActivityIndicator.shared.showLoader()
@@ -313,7 +319,9 @@ open class Http: NSObject {
     
     public func stopActivityIndicator () {
         DispatchQueue.global().async {
-            if DotLoader.shared.animateDotLoader {
+            if GifLoader.shared.animateGifLoader {
+                GifLoader.shared.stopLoader()
+            } else if DotLoader.shared.animateDotLoader {
                 DotLoader.shared.stopLoader()
             } else {
                 ActivityIndicator.shared.stopLoader()
@@ -322,7 +330,9 @@ open class Http: NSObject {
     }
     
     @objc open class func startActivityIndicatorThread () {
-        if DotLoader.shared.animateDotLoader {
+        if GifLoader.shared.animateGifLoader {
+            GifLoader.shared.showLoader()
+        } else if DotLoader.shared.animateDotLoader {
             DotLoader.shared.showLoader()
         } else {
             ActivityIndicator.shared.showLoader()
@@ -331,7 +341,9 @@ open class Http: NSObject {
     
     @objc open class func stopActivityIndicatorThread () {
         DispatchQueue.main.async {
-            if DotLoader.shared.animateDotLoader {
+            if GifLoader.shared.animateGifLoader {
+                GifLoader.shared.stopLoader()
+            } else if DotLoader.shared.animateDotLoader {
                 DotLoader.shared.stopLoader()
             } else {
                 ActivityIndicator.shared.stopLoader()
