@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-protocol AlertDelegate {
+public protocol AlertDelegate {
     func alertZero ()
     func alertOne ()
 }
