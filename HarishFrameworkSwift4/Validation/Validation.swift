@@ -64,6 +64,7 @@ public class Validation: NSObject {
         if testStr.count < 8 {
             return false
         }
+        
         return true
     }
     
@@ -80,6 +81,7 @@ public class Validation: NSObject {
         return true
     }
 }
+
 
 
 

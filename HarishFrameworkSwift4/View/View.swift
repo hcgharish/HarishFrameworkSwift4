@@ -8,53 +8,36 @@
 
 import UIKit
 
-open class View: UIView {
-        @IBInspectable open var isBorder: Bool = false
+open class View: UIView, LayoutParameters {
+    func mandatory() {}
     
-        @IBInspectable open var border: Int = 0
+    var isMandatory: Bool = false
     
-        @IBInspectable open var radious: Int = 0
+    var classPara: ClassPara = ClassPara()
     
-        @IBInspectable open var borderColor: UIColor? = nil
+    @IBInspectable open var isBorder: Bool = false
     
-        @IBInspectable open var isShadow: Bool = false
+    @IBInspectable open var border: Int = 0
     
-        @IBInspectable open var shadow_Color: UIColor? = UIColor.darkGray
+    @IBInspectable open var radious: Int = 0
     
-        @IBInspectable open var ls_Opacity:CGFloat = 0.5
-        @IBInspectable open var ls_Radius:Int = 0
+    @IBInspectable open var borderColor: UIColor? = nil
     
-        @IBInspectable open var lsOff_Width:CGFloat = 2.0
-        @IBInspectable open var lsOff_Height:CGFloat = 2.0
+    @IBInspectable open var isShadow: Bool = false
     
-        @IBInspectable open var isStrokeColor: Bool = false
+    @IBInspectable open var shadow_Color: UIColor? = UIColor.darkGray
     
-    /*open var isBorder: Bool = false
+    @IBInspectable open var ls_Opacity:CGFloat = 0.5
+    @IBInspectable open var ls_Radius:Int = 0
     
-    open var border: Int = 0
+    @IBInspectable open var lsOff_Width:CGFloat = 2.0
+    @IBInspectable open var lsOff_Height:CGFloat = 2.0
     
-    open var radious: Int = 0
-    
-    open var borderColor: UIColor? = nil
-    
-    open var isShadow: Bool = false
-    
-    open var shadow_Color: UIColor? = UIColor.darkGray
-    
-    open var ls_Opacity:CGFloat = 0.5
-    open var ls_Radius:Int = 0
-    
-    open var lsOff_Width:CGFloat = 2.0
-    open var lsOff_Height:CGFloat = 2.0
-    
-    open var isStrokeColor: Bool = false*/
+    @IBInspectable open var isStrokeColor: Bool = false
     
     override open func draw(_ rect: CGRect) {
         if isStrokeColor {
-            let c = UIGraphicsGetCurrentContext()
-            c!.addRect(CGRect(x: 10.0, y: 10.0, width: 80.0, height: 80.0))
-            c!.setStrokeColor(UIColor.red.cgColor)
-            c!.strokePath()
+            strokeColor()
         }
     }
     
@@ -63,54 +46,15 @@ open class View: UIView {
     override open func layoutSubviews() {
         super.layoutSubviews()
         
-        if isShadow {
-            if shadowLayer == nil {
-                let color = self.backgroundColor
-                self.backgroundColor = UIColor.clear
-                
-                shadowLayer = CAShapeLayer()
-                shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: CGFloat(radious)).cgPath
-                shadowLayer.fillColor = color?.cgColor
-                
-                shadowLayer.shadowColor = shadow_Color?.cgColor
-                shadowLayer.shadowPath = shadowLayer.path
-                shadowLayer.shadowOffset = CGSize(width: lsOff_Width, height: lsOff_Height)
-                shadowLayer.shadowOpacity = Float(ls_Opacity)
-                shadowLayer.shadowRadius = CGFloat(ls_Radius)
-                
-                layer.insertSublayer(shadowLayer, at: 0)
-            }
-        } else if isBorder {
-            border1(borderColor, CGFloat(radious), CGFloat(border))
-        }
-    }
-    
-    public func layoutSubviews11() {
-        super.layoutSubviews()
+        let ob = ClassPara ()
         
-        if shadowLayer == nil {
-            let color = self.backgroundColor
-            self.backgroundColor = UIColor.clear
-            
-            shadowLayer = CAShapeLayer()
-            shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: CGFloat(self.tag)).cgPath
-            shadowLayer.fillColor = color?.cgColor
-            
-            shadowLayer.shadowColor = UIColor.darkGray.cgColor
-            shadowLayer.shadowPath = shadowLayer.path
-            shadowLayer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-            shadowLayer.shadowOpacity = 0.5
-            shadowLayer.shadowRadius = 2
-            
-            layer.insertSublayer(shadowLayer, at: 0)
-        }
-    }
-    
-    public func border1 (_ color:UIColor?, _ cornerRadius:CGFloat, _ borderWidth:CGFloat) {
-        self.layer.masksToBounds = true
-        if (color != nil) { self.layer.borderColor = color?.cgColor }
-        self.layer.cornerRadius = cornerRadius
-        self.layer.borderWidth = borderWidth
+        ob.shadowLayer = shadowLayer
+        ob.backgroundColor = backgroundColor
+        ob.layer = layer
+        
+        classPara = ob
+        
+        layoutSubviews (self)
     }
 }
 

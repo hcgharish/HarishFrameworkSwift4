@@ -8,7 +8,9 @@
 
 import UIKit
 
-open class TextField: UITextField {
+open class TextField: UITextField, LayoutParameters {    
+    var classPara: ClassPara = ClassPara()
+    
     @IBInspectable open var isBorder: Bool = false
     
     @IBInspectable open var border: Int = 0
@@ -35,10 +37,7 @@ open class TextField: UITextField {
     
     override open func draw(_ rect: CGRect) {
         if isStrokeColor {
-            let c = UIGraphicsGetCurrentContext()
-            c!.addRect(CGRect(x: 10.0, y: 10.0, width: 80.0, height: 80.0))
-            c!.setStrokeColor(UIColor.red.cgColor)
-            c!.strokePath()
+            strokeColor()
         }
     }
     
@@ -47,33 +46,18 @@ open class TextField: UITextField {
     override open func layoutSubviews() {
         super.layoutSubviews()
         
-        if isShadow {
-            if shadowLayer == nil {
-                let color = self.backgroundColor
-                self.backgroundColor = UIColor.clear
-                
-                shadowLayer = CAShapeLayer()
-                shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: CGFloat(radious)).cgPath
-                shadowLayer.fillColor = color?.cgColor
-                
-                shadowLayer.shadowColor = shadow_Color?.cgColor
-                shadowLayer.shadowPath = shadowLayer.path
-                shadowLayer.shadowOffset = CGSize(width: lsOff_Width, height: lsOff_Height)
-                shadowLayer.shadowOpacity = Float(ls_Opacity)
-                shadowLayer.shadowRadius = CGFloat(ls_Radius)
-                
-                layer.insertSublayer(shadowLayer, at: 0)
-            }
-        } else if isBorder {
-            border1(borderColor, CGFloat(radious), CGFloat(border))
-        }
+        let ob = ClassPara ()
+        
+        ob.shadowLayer = shadowLayer
+        ob.backgroundColor = backgroundColor
+        ob.layer = layer
+        
+        classPara = ob
+        
+        layoutSubviews (self)
         
         if padding > 0 {
             padding (padding)
-        }
-        
-        if isMandatory {
-            mandatory ()
         }
     }
     
@@ -81,13 +65,6 @@ open class TextField: UITextField {
         let paddingView = UIView(frame:CGRect(x: 0, y: 0, width: pad, height: Int(self.frame.size.height)))
         self.leftView = paddingView;
         self.leftViewMode = UITextFieldViewMode.always
-    }
-    
-    public func border1 (_ color:UIColor?, _ cornerRadius:CGFloat, _ borderWidth:CGFloat) {
-        self.layer.masksToBounds = true
-        if (color != nil) { self.layer.borderColor = color?.cgColor }
-        self.layer.cornerRadius = cornerRadius
-        self.layer.borderWidth = borderWidth
     }
     
     var toolBarDelegate:ToolBarDelegate? = nil

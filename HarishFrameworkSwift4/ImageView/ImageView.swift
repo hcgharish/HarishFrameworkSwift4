@@ -8,7 +8,13 @@
 
 import UIKit
 
-open class ImageView: UIImageView {
+open class ImageView: UIImageView, LayoutParameters {
+    func mandatory() {}
+    
+    var isMandatory: Bool = false
+    
+    var classPara: ClassPara = ClassPara()
+    
     @IBInspectable open var isBorder: Bool = false
     
     @IBInspectable open var border: Int = 0
@@ -34,33 +40,15 @@ open class ImageView: UIImageView {
     override open func layoutSubviews() {
         super.layoutSubviews()
         
-        if isShadow {
-            if shadowLayer == nil {
-                let color = self.backgroundColor
-                self.backgroundColor = UIColor.clear
-                
-                shadowLayer = CAShapeLayer()
-                shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: CGFloat(radious)).cgPath
-                shadowLayer.fillColor = color?.cgColor
-                
-                shadowLayer.shadowColor = shadow_Color?.cgColor
-                shadowLayer.shadowPath = shadowLayer.path
-                shadowLayer.shadowOffset = CGSize(width: lsOff_Width, height: lsOff_Height)
-                shadowLayer.shadowOpacity = Float(ls_Opacity)
-                shadowLayer.shadowRadius = CGFloat(ls_Radius)
-                
-                layer.insertSublayer(shadowLayer, at: 0)
-            }
-        } else if isBorder {
-            border1(borderColor, CGFloat(radious), CGFloat(border))
-        }
-    }
-    
-    public func border1 (_ color:UIColor?, _ cornerRadius:CGFloat, _ borderWidth:CGFloat) {
-        self.layer.masksToBounds = true
-        if (color != nil) { self.layer.borderColor = color?.cgColor }
-        self.layer.cornerRadius = cornerRadius
-        self.layer.borderWidth = borderWidth
+        let ob = ClassPara ()
+        
+        ob.shadowLayer = shadowLayer
+        ob.backgroundColor = backgroundColor
+        ob.layer = layer
+        
+        classPara = ob
+        
+        layoutSubviews (self)
     }
     
     var url:[String] = []
@@ -76,10 +64,7 @@ open class ImageView: UIImageView {
         }
         
         if isStrokeColor {
-            let c = UIGraphicsGetCurrentContext()
-            c!.addRect(CGRect(x: 10.0, y: 10.0, width: 80.0, height: 80.0))
-            c!.setStrokeColor(UIColor.red.cgColor)
-            c!.strokePath()
+            strokeColor()
         }
     }
     
