@@ -460,6 +460,14 @@ public extension UIImageView {
     
     public func uiimage (_ url:String?, _ dImage:String?, _ boolScal:Bool, _ ai:UIActivityIndicatorView?, _ superView:UIView? = nil) {
         if url != nil {
+            var dImage = dImage
+            
+            if (dImage == nil) {
+                dImage = "noimage.jpg";
+            } else if (dImage?.count == 0) {
+                dImage = "noimage.jpg";
+            }
+            
             if ((url?.count)! > 0 && url != "") {
                 savedUIImageForUrl(url!, block: { (image) in
                     if image != nil {
@@ -483,14 +491,6 @@ public extension UIImageView {
                         if ai != nil {
                             ai?.isHidden = false
                             ai?.startAnimating()
-                        }
-                        
-                        var dImage = dImage
-                        
-                        if (dImage == nil) {
-                            dImage = "noimage.jpg";
-                        } else if (dImage?.count == 0) {
-                            dImage = "noimage.jpg";
                         }
                         
                         let url = url?.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)!

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		68193F74202DA26E00DFFCED /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68193F73202DA26E00DFFCED /* Validation.swift */; };
 		683AA510200E0C43009212BB /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AA50F200E0C42009212BB /* Test.swift */; };
 		685A1A94200DD60400E764B0 /* HarishFrameworkSwift4.h in Headers */ = {isa = PBXBuildFile; fileRef = 685A1A92200DD60400E764B0 /* HarishFrameworkSwift4.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		685A1ACA200DD61D00E764B0 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1A9B200DD61B00E764B0 /* Button.swift */; };
@@ -36,13 +35,13 @@
 		685A1AE1200DD61D00E764B0 /* CreditCardValidationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1AC6200DD61D00E764B0 /* CreditCardValidationType.swift */; };
 		685A1AE2200DD61D00E764B0 /* CreditCardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1AC7200DD61D00E764B0 /* CreditCardValidator.swift */; };
 		685A1AE3200DD61D00E764B0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1AC9200DD61D00E764B0 /* String.swift */; };
+		688462B92036A8A8004A9160 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688462B82036A8A8004A9160 /* Validation.swift */; };
 		6891A2A620219DB000BA7C9D /* DotLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6891A2A520219DB000BA7C9D /* DotLoader.swift */; };
 		68BD8F3F202C31690047E838 /* GifLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BD8F3E202C31690047E838 /* GifLoader.swift */; };
 		68BD8FBA202C48780047E838 /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BD8FB9202C48780047E838 /* iOSDevCenters+GIF.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		68193F73202DA26E00DFFCED /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		683AA50F200E0C42009212BB /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		685A1A8F200DD60400E764B0 /* HarishFrameworkSwift4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HarishFrameworkSwift4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		685A1A92200DD60400E764B0 /* HarishFrameworkSwift4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HarishFrameworkSwift4.h; sourceTree = "<group>"; };
@@ -73,6 +72,7 @@
 		685A1AC6200DD61D00E764B0 /* CreditCardValidationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardValidationType.swift; sourceTree = "<group>"; };
 		685A1AC7200DD61D00E764B0 /* CreditCardValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardValidator.swift; sourceTree = "<group>"; };
 		685A1AC9200DD61D00E764B0 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		688462B82036A8A8004A9160 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		6891A2A520219DB000BA7C9D /* DotLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotLoader.swift; sourceTree = "<group>"; };
 		68BD8F3E202C31690047E838 /* GifLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifLoader.swift; sourceTree = "<group>"; };
 		68BD8FB9202C48780047E838 /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
@@ -89,14 +89,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		68193F72202DA25F00DFFCED /* Validation */ = {
-			isa = PBXGroup;
-			children = (
-				68193F73202DA26E00DFFCED /* Validation.swift */,
-			);
-			path = Validation;
-			sourceTree = "<group>";
-		};
 		685A1A85200DD60400E764B0 = {
 			isa = PBXGroup;
 			children = (
@@ -142,7 +134,7 @@
 				685A1A9E200DD61C00E764B0 /* TextView */,
 				685A1AB6200DD61C00E764B0 /* Toast */,
 				685A1ABF200DD61D00E764B0 /* UserInfo */,
-				68193F72202DA25F00DFFCED /* Validation */,
+				688462B72036A8A8004A9160 /* Validation */,
 				685A1AC1200DD61D00E764B0 /* View */,
 			);
 			path = HarishFrameworkSwift4;
@@ -328,6 +320,14 @@
 			path = String;
 			sourceTree = "<group>";
 		};
+		688462B72036A8A8004A9160 /* Validation */ = {
+			isa = PBXGroup;
+			children = (
+				688462B82036A8A8004A9160 /* Validation.swift */,
+			);
+			path = Validation;
+			sourceTree = "<group>";
+		};
 		6891A2A420219DA000BA7C9D /* DotLoader */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,7 +440,7 @@
 				685A1ADC200DD61D00E764B0 /* Reachability.swift in Sources */,
 				685A1ACB200DD61D00E764B0 /* Label.swift in Sources */,
 				685A1AD6200DD61D00E764B0 /* Http.swift in Sources */,
-				68193F74202DA26E00DFFCED /* Validation.swift in Sources */,
+				688462B92036A8A8004A9160 /* Validation.swift in Sources */,
 				685A1AD9200DD61D00E764B0 /* Toast.swift in Sources */,
 				685A1AE2200DD61D00E764B0 /* CreditCardValidator.swift in Sources */,
 				685A1ACA200DD61D00E764B0 /* Button.swift in Sources */,
