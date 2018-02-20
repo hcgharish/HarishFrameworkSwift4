@@ -131,8 +131,7 @@ open class FloatRatingView: UIView {
     Ratings change by floating point values.
     */
     @IBInspectable open var floatRatings: Bool = false
-    
-    
+
     // MARK: Initializations
     
     required override public init(frame: CGRect) {

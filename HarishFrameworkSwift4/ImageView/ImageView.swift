@@ -243,7 +243,6 @@ open class ImageView: UIImageView, LayoutParameters {
             height = imgZoom?.frame.size.height
         }
         
-        
         scZoom?.contentSize = CGSize(width:width!, height:height!)
         imgZoom?.center = CGPoint(x: (scZoom?.contentSize.width)! / 2, y: (scZoom?.contentSize.height)! / 2)
         scZoom?.contentOffset = CGPoint(x: (imgZoom?.center.x)! - (scZoom?.frame.size.width)! / 2, y: (imgZoom?.center.y)! - (scZoom?.frame.size.height)! / 2)
