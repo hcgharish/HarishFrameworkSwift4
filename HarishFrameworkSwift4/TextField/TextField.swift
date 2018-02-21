@@ -107,6 +107,8 @@ open class TextField: UITextField, LayoutParameters {
     }
     
     public func mandatory () {
+        if isMandatory {
+            
         let placeH = self.placeholder
         //self.placeholder = placeH! + "*"
         let lbl = UILabel()
@@ -128,6 +130,7 @@ open class TextField: UITextField, LayoutParameters {
         lblMand.text = "*"
         
         self.superview?.addSubview(lblMand)
+        }
     }
 }
 

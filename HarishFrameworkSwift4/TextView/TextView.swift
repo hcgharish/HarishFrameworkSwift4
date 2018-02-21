@@ -11,7 +11,7 @@ import UIKit
 open class TextView: UITextView, LayoutParameters {
     func mandatory() {}
     
-    var isMandatory: Bool = true
+    var isMandatory: Bool = false
     
     var classPara: ClassPara = ClassPara()
     
