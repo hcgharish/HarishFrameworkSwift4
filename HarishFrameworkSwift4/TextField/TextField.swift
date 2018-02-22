@@ -62,9 +62,11 @@ open class TextField: UITextField, LayoutParameters {
     }
     
     public func padding (_ pad:Int) {
-        let paddingView = UIView(frame:CGRect(x: 0, y: 0, width: pad, height: Int(self.frame.size.height)))
-        self.leftView = paddingView;
-        self.leftViewMode = UITextFieldViewMode.always
+        DispatchQueue.main.async {
+            let paddingView = UIView(frame:CGRect(x: 0, y: 0, width: pad, height: Int(self.frame.size.height)))
+            self.leftView = paddingView;
+            self.leftViewMode = UITextFieldViewMode.always
+        }
     }
     
     var toolBarDelegate:ToolBarDelegate? = nil
