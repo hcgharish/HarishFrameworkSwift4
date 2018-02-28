@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class TextField: UITextField, LayoutParameters {    
+open class TextField: UITextField, LayoutParameters {
     var classPara: ClassPara = ClassPara()
     
     @IBInspectable open var isBorder: Bool = false
@@ -30,9 +30,7 @@ open class TextField: UITextField, LayoutParameters {
     @IBInspectable open var lsOff_Height:CGFloat = 2.0
     
     @IBInspectable open var isStrokeColor: Bool = false
-    
-    @IBInspectable open var isMandatory: Bool = false
-    
+        
     @IBInspectable open var padding: Int = 0
     
     override open func draw(_ rect: CGRect) {
@@ -106,33 +104,6 @@ open class TextField: UITextField, LayoutParameters {
     
     @objc func toolTabLeft() {
         toolBarDelegate?.toolTabLeft(self)
-    }
-    
-    public func mandatory () {
-        if isMandatory {
-            
-        let placeH = self.placeholder
-        //self.placeholder = placeH! + "*"
-        let lbl = UILabel()
-        lbl.text = placeH
-        lbl.font = self.font
-        lbl.numberOfLines = 0
-        lbl.sizeToFit()
-        
-        let size = lbl.frame.size
-        
-        let lblMand = UILabel()
-        var frame = lblMand.frame
-        frame.origin.x = self.frame.origin.x + size.width + 10
-        frame.origin.y = self.frame.origin.y
-        frame.size.width = 15
-        frame.size.height = 15
-        lblMand.frame = frame
-        lblMand.textColor = UIColor.red
-        lblMand.text = "*"
-        
-        self.superview?.addSubview(lblMand)
-        }
     }
 }
 

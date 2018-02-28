@@ -9,10 +9,7 @@
 import UIKit
 
 open class View: UIView, LayoutParameters {
-    func mandatory() {}
-    
-    var isMandatory: Bool = false
-    
+        
     var classPara: ClassPara = ClassPara()
     
     @IBInspectable open var isBorder: Bool = false

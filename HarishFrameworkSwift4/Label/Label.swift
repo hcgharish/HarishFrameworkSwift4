@@ -9,8 +9,6 @@
 import UIKit
 
 protocol LayoutParameters {
-    func mandatory ()
-    
     var isBorder: Bool {get set}
     var border: Int {get set}
     var radious: Int {get set}
@@ -26,7 +24,6 @@ protocol LayoutParameters {
     var classPara:ClassPara {get set}
     
     var bounds:CGRect {get set}
-    var isMandatory:Bool {get set}
 }
 
 class ClassPara {
@@ -65,8 +62,6 @@ extension NSObject {
         } else if ob.isBorder {
             doBorder(ob)
         }
-        
-        ob.mandatory ()
     }
     
     func doBorder (_ ob:LayoutParameters) {
@@ -100,8 +95,6 @@ open class Label: UILabel, LayoutParameters {
     
     @IBInspectable open var isStrokeColor: Bool = false
     
-    @IBInspectable open var isMandatory: Bool = false
-    
     override open func draw(_ rect: CGRect) {
         super.draw(rect)
         
@@ -124,39 +117,5 @@ open class Label: UILabel, LayoutParameters {
         classPara = ob
 
         layoutSubviews (self)
-    }
-    
-    func mandatory () {
-        if isMandatory {
-            let placeH = self.text
-            
-            let lbl = UILabel()
-            lbl.text = placeH
-            lbl.font = self.font
-            lbl.numberOfLines = 0
-            lbl.sizeToFit()
-            
-            let size = lbl.frame.size
-            
-            let lblMand = UILabel()
-            var frame = lblMand.frame
-            
-            if self.textAlignment == .left {
-                frame.origin.x = self.frame.origin.x + size.width + 10
-            } else if self.textAlignment == .right {
-                frame.origin.x = self.frame.origin.x + self.frame.size.width + 5
-            } else if self.textAlignment == .center {
-                frame.origin.x = self.frame.origin.x + (self.frame.size.width / 2) + (size.width / 2) + 10
-            }
-            
-            frame.origin.y = self.frame.origin.y
-            frame.size.width = 15
-            frame.size.height = 15
-            lblMand.frame = frame
-            lblMand.textColor = UIColor.red
-            lblMand.text = "*"
-            
-            self.superview?.addSubview(lblMand)
-        }
     }
 }

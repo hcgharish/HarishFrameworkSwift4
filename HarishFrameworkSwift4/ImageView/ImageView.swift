@@ -9,9 +9,6 @@
 import UIKit
 
 open class ImageView: UIImageView, LayoutParameters {
-    func mandatory() {}
-    
-    var isMandatory: Bool = false
     
     var classPara: ClassPara = ClassPara()
     
