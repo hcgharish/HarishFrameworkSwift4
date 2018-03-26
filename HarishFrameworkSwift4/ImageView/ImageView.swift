@@ -51,7 +51,7 @@ open class ImageView: UIImageView, LayoutParameters {
     var url:[String] = []
     
     @IBInspectable open var willZoom: Bool = false
-    @IBInspectable open var background_color: UIColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
+    @IBInspectable open var background_color: UIColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
     
     override open func draw(_ rect: CGRect) {
         setUIImage ()
