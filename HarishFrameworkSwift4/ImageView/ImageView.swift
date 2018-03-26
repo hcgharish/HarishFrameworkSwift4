@@ -218,11 +218,38 @@ open class ImageView: UIImageView, LayoutParameters {
         imgZoom?.addGestureRecognizer(twoFingerPinch!)
     }
     
+    var max_zoom:CGFloat? = nil
+    var max_zoom_level:CGFloat = 10
+    let min_zoom:CGFloat = 100.0
+    
     @objc public func twoFingerPinch (_ recognizer:UIPinchGestureRecognizer) {
+        
+        if max_zoom == nil {
+            if (imgZoom?.frame.size.width)! > (imgZoom?.frame.size.height)! {
+                max_zoom = (imgZoom?.frame.size.height)! * max_zoom_level
+            } else {
+                max_zoom = (imgZoom?.frame.size.width)! * max_zoom_level
+            }
+        }
+        
         let scale: CGFloat = recognizer.scale;
         
-        imgZoom?.transform = (imgZoom?.transform.scaledBy(x: scale, y: scale))!;
-        recognizer.scale = 1.0;
+        if (imgZoom?.frame.size.width)! < min_zoom || (imgZoom?.frame.size.height)! < min_zoom {
+            if scale > 1.0 {
+                imgZoom?.transform = (imgZoom?.transform.scaledBy(x: scale, y: scale))!;
+                recognizer.scale = 1.0;
+            }
+        }
+        else if (imgZoom?.frame.size.width)! > max_zoom! || (imgZoom?.frame.size.height)! > max_zoom! {
+            if scale < 1.0 {
+                imgZoom?.transform = (imgZoom?.transform.scaledBy(x: scale, y: scale))!;
+                recognizer.scale = 1.0;
+            }
+        }
+        else {
+            imgZoom?.transform = (imgZoom?.transform.scaledBy(x: scale, y: scale))!;
+            recognizer.scale = 1.0;
+        }
         
         makeInCenter (false)
     }
