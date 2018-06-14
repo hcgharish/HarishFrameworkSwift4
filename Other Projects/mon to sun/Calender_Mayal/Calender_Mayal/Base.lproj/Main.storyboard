@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" id="Y0r-9o-e9C" customClass="CalenderView" customModule="Calender_Mayal" customModuleProvider="target">
-                                <rect key="frame" x="8" y="66" width="359" height="359"/>
+                                <rect key="frame" x="8" y="66" width="359" height="279"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.08235294118" green="0.76862745099999996" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
