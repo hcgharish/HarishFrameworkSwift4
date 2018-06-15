@@ -414,7 +414,7 @@ open class Http: NSObject {
     }
     
     open class func alertFailed (title:NSString?, _ json:NSDictionary?, _ key:String) {
-        let message = json?[key] as! String!
+        let message = json?[key] as! String?
         
         var title = title
         
@@ -423,7 +423,7 @@ open class Http: NSObject {
         }
         
         if !(message == "failed." || message == "Validation failed") {
-            Http.alert(title as String?, json?[key] as! String!)
+            Http.alert(title as String?, json?[key] as! String?)
         } else {
             if let result = json?["result"] as? NSDictionary {
                 var msg = ""

@@ -213,7 +213,7 @@ public extension String {
     public func getDateFromUTC (_ formate:String) -> String {
         let dateUTC = self.getDate(formate)
         
-        let timeZoneLocal = NSTimeZone.local as TimeZone!
+        let timeZoneLocal = NSTimeZone.local as TimeZone?
         
         let newDate = Date(timeInterval: TimeInterval((timeZoneLocal?.secondsFromGMT(for: dateUTC))!), since: dateUTC)
         
