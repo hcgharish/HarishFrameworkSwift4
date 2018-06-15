@@ -66,7 +66,6 @@ class CalenderView: UIView {
     var delegate:CalenderViewDelegate!
     
     func monthForDate (_ startDate:Date) {
-        //let weeekDay = calendar.component(.weekday, from: startDate)
         var day = calendar.component(.day, from: startDate)
         let month = calendar.component(.month, from: startDate)
         let year = calendar.component(.year, from: startDate)
@@ -271,7 +270,6 @@ class CalenderView: UIView {
                     x = x + (sizeButton.width - width) / 2 + gap / 2
                     y = y + gap / 2
                     
-                    //let btn = CalenderButton(frame: CGRect(x: x, y: y, width: sizeButton.width, height: sizeButton.height))
                     let btn = CalenderButton(frame: CGRect(x: x, y: y, width: width, height: height))
                     btn.view = self
                     self.addSubview(btn)
@@ -311,6 +309,16 @@ class CalenderView: UIView {
                         
                         btn.date = date
                         
+                        if selectedDate != nil {
+                            let comp = date.all(from: (selectedDate?.date)!)
+                            
+                            if (comp.year == 0 && comp.month == 0 && comp.day == 0) {
+                                if (comp.hour! <= 0 && comp.minute! <= 0 && comp.second! <= 0) {
+                                    calenderButtonClicked(btn)
+                                }
+                            }
+                        }
+                        
                         let monthNow = calendar.component(.month, from: date)
                         
                         if month == monthNow {
@@ -332,8 +340,10 @@ class CalenderView: UIView {
     var nextMonth:Date!
     var previousMonth:Date!
     
+    var selectedDate:CalenderButton? = nil
+    
     @objc func calenderButtonClicked (_ btn:CalenderButton) {
-        
+        selectedDate = btn
         delegate.calenderDateClicked(btn)
         changeClickedButtonBackground (btn)
     }

@@ -66,7 +66,6 @@ class CalenderView: UIView {
     var delegate:CalenderViewDelegate!
     
     func monthForDate (_ startDate:Date) {
-        //let weeekDay = calendar.component(.weekday, from: startDate)
         var day = calendar.component(.day, from: startDate)
         let month = calendar.component(.month, from: startDate)
         let year = calendar.component(.year, from: startDate)
@@ -81,32 +80,26 @@ class CalenderView: UIView {
         
         let maMonthDays = NSMutableArray()
         
-        print("0date-\(startDate)-")
-        
         while day >= 1 {
             
             let date1 = calendar.date(byAdding: .day, value: decrease, to: startDate)
-            print("1date-\(date1)-")
             maMonthDays.insert(convertDate(date1!), at: 0)
             
             if day == 1 {
                 var weeekDayPrevious = calendar.component(.weekday, from: date1!)
                 
-                print("weeekDayPrevious-\(weeekDayPrevious)-")
-                
                 if weeekDayPrevious == 1 {
                     weeekDayPrevious = 8
-                } /*else {*/
-                    while weeekDayPrevious > 2 {
-                        decrease -= 1
-                        
-                        let date2 = calendar.date(byAdding: .day, value: decrease, to: startDate)
-                        print("2date-\(date2)-")
-                        maMonthDays.insert(convertDate(date2!), at: 0)
-                        
-                        weeekDayPrevious -= 1
-                    }
-                //}
+                }
+                
+                while weeekDayPrevious > 2 {
+                    decrease -= 1
+                    
+                    let date2 = calendar.date(byAdding: .day, value: decrease, to: startDate)
+                    maMonthDays.insert(convertDate(date2!), at: 0)
+                    
+                    weeekDayPrevious -= 1
+                }
                 
                 break
             }
@@ -133,7 +126,6 @@ class CalenderView: UIView {
             let monthNext = calendar.component(.month, from: dateNext!)
             
             if monthNext > month {
-                print("3date-\(dateNext)-")
                 maMonthDays.add(convertDate(dateNext!))
                 
                 var weeekDayNext = calendar.component(.weekday, from: dateNext!)
@@ -142,13 +134,11 @@ class CalenderView: UIView {
                     increase += 1
                     dateNext = calendar.date(byAdding: .day, value: increase, to: startDate)
                     lastDate = dateNext
-                    print("4date-\(dateNext)-")
                     maMonthDays.add(convertDate(dateNext!))
                     
                     weeekDayNext += 1
                 }
             } else {
-                print("5date-\(dateNext)-")
                 maMonthDays.add(convertDate(dateNext!))
             }
             
@@ -159,7 +149,6 @@ class CalenderView: UIView {
             increase = 1
             while maMonthDays.count < 42 {
                 let date = calendar.date(byAdding: .day, value: increase, to: lastDate)
-                print("6date-\(date)-")
                 maMonthDays.add(convertDate(date!))
                 increase += 1
             }
@@ -284,7 +273,6 @@ class CalenderView: UIView {
                     x = x + (sizeButton.width - width) / 2 + gap / 2
                     y = y + gap / 2
                     
-                    //let btn = CalenderButton(frame: CGRect(x: x, y: y, width: sizeButton.width, height: sizeButton.height))
                     let btn = CalenderButton(frame: CGRect(x: x, y: y, width: width, height: height))
                     btn.view = self
                     self.addSubview(btn)
@@ -324,6 +312,16 @@ class CalenderView: UIView {
                         
                         btn.date = date
                         
+                        if selectedDate != nil {
+                            let comp = date.all(from: (selectedDate?.date)!)
+                            
+                            if (comp.year == 0 && comp.month == 0 && comp.day == 0) {
+                                if (comp.hour! <= 0 && comp.minute! <= 0 && comp.second! <= 0) {
+                                    calenderButtonClicked(btn)
+                                }
+                            }
+                        }
+                        
                         let monthNow = calendar.component(.month, from: date)
                         
                         if month == monthNow {
@@ -342,11 +340,13 @@ class CalenderView: UIView {
         }
     }
     
+    var selectedDate:CalenderButton? = nil
+    
     var nextMonth:Date!
     var previousMonth:Date!
     
     @objc func calenderButtonClicked (_ btn:CalenderButton) {
-        
+        selectedDate = btn
         delegate.calenderDateClicked(btn)
         changeClickedButtonBackground (btn)
     }
