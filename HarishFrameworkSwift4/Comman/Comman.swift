@@ -140,7 +140,12 @@ public func callNumber(_ phoneNumber:String) {
         
         if (application.canOpenURL(phoneCallURL as URL)) {
             //application.openURL(phoneCallURL as URL);
-            application.open(phoneCallURL as URL, options: [:], completionHandler: nil)
+            if #available(iOS 10.0, *) {
+                application.open(phoneCallURL as URL, options: [:], completionHandler: nil)
+            } else {
+                // Fallback on earlier versions
+                application.openURL(phoneCallURL as URL)
+            }
         } else {
             Http.alert("", "Phone call not available.")
         }
