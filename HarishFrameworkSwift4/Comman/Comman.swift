@@ -15,7 +15,6 @@ public protocol AlertDelegate {
 }
 
 open class MyRouteObject: NSObject {
-    //var coords:[CLLocationCoordinate2D] = [CLLocationCoordinate2D]();
     var coords:NSMutableArray!
     var count1:Int = 0;
     
@@ -178,7 +177,19 @@ open class Comman: NSObject {
     public func polyline (_ l1:CLLocation, _ l2:CLLocation, _ key:String?, ai:Bool, popup:Bool, prnt:Bool, completion: @escaping (MKPolyline?) -> Swift.Void) {
         /*
          
-         HOW TO USE CODE FOR ROUTE IN MAP
+         *************************************************************
+         *************************************************************
+         *************************************************************
+         *************************************************************
+         
+                        HOW TO USE CODE FOR ROUTE IN MAP
+         
+                                DO NOT DELETE IT
+         
+         *************************************************************
+         *************************************************************
+         *************************************************************
+         *************************************************************
          
         func routeBetweenTwoLocation () {
             Comman().polyline(l1, l2, googleApiKey, ai: true, popup: true, prnt: false) { (line) in
@@ -215,6 +226,7 @@ open class Comman: NSObject {
             return MKPolylineRenderer()
         }
         */
+        
         var withKey = ""
         
         if key != nil {
