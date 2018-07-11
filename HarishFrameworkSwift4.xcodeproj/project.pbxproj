@@ -22,7 +22,6 @@
 		685A1AD4200DD61D00E764B0 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1AAD200DD61C00E764B0 /* FloatRatingView.swift */; };
 		685A1AD5200DD61D00E764B0 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1AAF200DD61C00E764B0 /* Device.swift */; };
 		685A1AD6200DD61D00E764B0 /* Http.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1AB1200DD61C00E764B0 /* Http.swift */; };
-		685A1AD7200DD61D00E764B0 /* Comman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1AB3200DD61C00E764B0 /* Comman.swift */; };
 		685A1AD8200DD61D00E764B0 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1AB5200DD61C00E764B0 /* Array.swift */; };
 		685A1AD9200DD61D00E764B0 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1AB7200DD61C00E764B0 /* Toast.swift */; };
 		685A1ADA200DD61D00E764B0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1AB9200DD61D00E764B0 /* Color.swift */; };
@@ -36,6 +35,8 @@
 		685A1AE2200DD61D00E764B0 /* CreditCardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1AC7200DD61D00E764B0 /* CreditCardValidator.swift */; };
 		685A1AE3200DD61D00E764B0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1AC9200DD61D00E764B0 /* String.swift */; };
 		688462B92036A8A8004A9160 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688462B82036A8A8004A9160 /* Validation.swift */; };
+		6889637D20F63DD400D00E99 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889637C20F63DD400D00E99 /* Functions.swift */; };
+		6889637F20F63DE100D00E99 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889637E20F63DE100D00E99 /* Map.swift */; };
 		6891A2A620219DB000BA7C9D /* DotLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6891A2A520219DB000BA7C9D /* DotLoader.swift */; };
 		68BD8F3F202C31690047E838 /* GifLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BD8F3E202C31690047E838 /* GifLoader.swift */; };
 		68BD8FBA202C48780047E838 /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BD8FB9202C48780047E838 /* iOSDevCenters+GIF.swift */; };
@@ -59,7 +60,6 @@
 		685A1AAD200DD61C00E764B0 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		685A1AAF200DD61C00E764B0 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		685A1AB1200DD61C00E764B0 /* Http.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Http.swift; sourceTree = "<group>"; };
-		685A1AB3200DD61C00E764B0 /* Comman.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comman.swift; sourceTree = "<group>"; };
 		685A1AB5200DD61C00E764B0 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		685A1AB7200DD61C00E764B0 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		685A1AB9200DD61D00E764B0 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -73,6 +73,8 @@
 		685A1AC7200DD61D00E764B0 /* CreditCardValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardValidator.swift; sourceTree = "<group>"; };
 		685A1AC9200DD61D00E764B0 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		688462B82036A8A8004A9160 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		6889637C20F63DD400D00E99 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		6889637E20F63DE100D00E99 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		6891A2A520219DB000BA7C9D /* DotLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotLoader.swift; sourceTree = "<group>"; };
 		68BD8F3E202C31690047E838 /* GifLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifLoader.swift; sourceTree = "<group>"; };
 		68BD8FB9202C48780047E838 /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
@@ -108,6 +110,8 @@
 		685A1A91200DD60400E764B0 /* HarishFrameworkSwift4 */ = {
 			isa = PBXGroup;
 			children = (
+				6889637B20F63DA600D00E99 /* Functions */,
+				6889637A20F63DA500D00E99 /* Map */,
 				685A1A92200DD60400E764B0 /* HarishFrameworkSwift4.h */,
 				685A1A93200DD60400E764B0 /* Info.plist */,
 				683AA50F200E0C42009212BB /* Test.swift */,
@@ -115,7 +119,6 @@
 				685A1AB4200DD61C00E764B0 /* Array */,
 				685A1A9A200DD61B00E764B0 /* Button */,
 				685A1AB8200DD61D00E764B0 /* Color */,
-				685A1AB2200DD61C00E764B0 /* Comman */,
 				685A1AC5200DD61D00E764B0 /* CreditCardValidator */,
 				685A1AA2200DD61C00E764B0 /* Date */,
 				685A1AAE200DD61C00E764B0 /* Device */,
@@ -230,14 +233,6 @@
 			path = Http;
 			sourceTree = "<group>";
 		};
-		685A1AB2200DD61C00E764B0 /* Comman */ = {
-			isa = PBXGroup;
-			children = (
-				685A1AB3200DD61C00E764B0 /* Comman.swift */,
-			);
-			path = Comman;
-			sourceTree = "<group>";
-		};
 		685A1AB4200DD61C00E764B0 /* Array */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,6 +321,22 @@
 				688462B82036A8A8004A9160 /* Validation.swift */,
 			);
 			path = Validation;
+			sourceTree = "<group>";
+		};
+		6889637A20F63DA500D00E99 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				6889637E20F63DE100D00E99 /* Map.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		6889637B20F63DA600D00E99 /* Functions */ = {
+			isa = PBXGroup;
+			children = (
+				6889637C20F63DD400D00E99 /* Functions.swift */,
+			);
+			path = Functions;
 			sourceTree = "<group>";
 		};
 		6891A2A420219DA000BA7C9D /* DotLoader */ = {
@@ -429,7 +440,6 @@
 				685A1ADE200DD61D00E764B0 /* UserInfo.swift in Sources */,
 				685A1AD5200DD61D00E764B0 /* Device.swift in Sources */,
 				685A1ACC200DD61D00E764B0 /* TextView.swift in Sources */,
-				685A1AD7200DD61D00E764B0 /* Comman.swift in Sources */,
 				6891A2A620219DB000BA7C9D /* DotLoader.swift in Sources */,
 				685A1AD1200DD61D00E764B0 /* Dictionary.swift in Sources */,
 				68BD8F3F202C31690047E838 /* GifLoader.swift in Sources */,
@@ -448,7 +458,9 @@
 				685A1ADF200DD61D00E764B0 /* View.swift in Sources */,
 				685A1ACD200DD61D00E764B0 /* TextField.swift in Sources */,
 				685A1AE1200DD61D00E764B0 /* CreditCardValidationType.swift in Sources */,
+				6889637F20F63DE100D00E99 /* Map.swift in Sources */,
 				685A1AD8200DD61D00E764B0 /* Array.swift in Sources */,
+				6889637D20F63DD400D00E99 /* Functions.swift in Sources */,
 				685A1AD2200DD61D00E764B0 /* ImageView.swift in Sources */,
 				685A1AD0200DD61D00E764B0 /* StoreToDevice.swift in Sources */,
 				685A1AD4200DD61D00E764B0 /* FloatRatingView.swift in Sources */,
