@@ -108,6 +108,7 @@ open class Comman: NSObject {
             repeat {
                 byte = bytes[idx].hashValue - 63;
                 res |= (byte & 0x1F) << shift;
+                print("res-\(res)-\(byte)-")
                 shift += 5;
                 
                 idx += 1
@@ -116,6 +117,7 @@ open class Comman: NSObject {
             let deltaLat = Double(((res % 2) == 1) ? ~(res >> 1) : res >> 1);
             
             latitude += deltaLat;
+            print("deltaLat-[\(latitude)]-[\(deltaLat)]-")
             
             shift = 0;
             res = 0;
@@ -155,19 +157,26 @@ open class Comman: NSObject {
 
         var count1 = 0;
         
+        var bool = true
+        
         for i in 0..<ma.count {
             let ob = ma[i] as? MyRouteObject
             
             for j in 0..<Int((ob?.count1)!) {
                 if let obb = ob?.coords[j] as? CLLocationCoordinate2D {
+                    if bool {
+                        coords[count1] = obb
+                        count1 += 1
+                    }
                     
-                    coords[count1] = obb
-                    count1 += 1
+                    if count > 10000 {
+                        bool = !bool
+                    }
                 }
             }
         }
         
-        let line = MKPolyline.init(coordinates: coords, count: count)
+        let line = MKPolyline.init(coordinates: coords, count: count1)
         
         free(coords);
         
