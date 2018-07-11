@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-open class MyRouteObject: NSObject {
+open class Poly: NSObject {
     var coords:NSMutableArray!
     var count1:Int = 0;
     
@@ -84,7 +84,7 @@ open class Map: NSObject {
         return poly;
     }
     
-    func polylinePointsString(_ encodedString:String) -> MyRouteObject? {
+    func polylinePointsString(_ encodedString:String) -> Poly? {
         let bytes = encodedString.utf8CString
         let length = encodedString.lengthOfBytes(using: .utf8)
         
@@ -141,7 +141,7 @@ open class Map: NSObject {
             }
         }
         
-        let ob = MyRouteObject()
+        let ob = Poly()
         ob.count1 = coordIdx;
         ob.coords = coords;
         
@@ -157,7 +157,7 @@ open class Map: NSObject {
         var bool = true
         
         for i in 0..<ma.count {
-            let ob = ma[i] as? MyRouteObject
+            let ob = ma[i] as? Poly
             
             for j in 0..<Int((ob?.count1)!) {
                 if let obb = ob?.coords[j] as? CLLocationCoordinate2D {
@@ -198,38 +198,38 @@ open class Map: NSObject {
          *************************************************************
          
          func routeBetweenTwoLocation () {
-         Comman().polyline(l1, l2, googleApiKey, ai: true, popup: true, prnt: false) { (line) in
+            Map.instance().polyline(l1, l2, googleApiKey, ai: true, popup: true, prnt: false) { (line) in
          
-         if line != nil {
-         self.myPolyLinePath = line
+                if line != nil {
+                    self.myPolyLinePath = line
          
-         let overlays = self.map.overlays
-         self.map.removeOverlays(overlays)
-         self.map.add(self.myPolyLinePath)
-         }
-         }
+                    let overlays = self.map.overlays
+                    self.map.removeOverlays(overlays)
+                    self.map.add(self.myPolyLinePath)
+                }
+            }
          }
          
-         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-         let ann = MKPinAnnotationView.init(annotation: annotation, reuseIdentifier: "currentloc")
-         ann.canShowCallout = true;
-         ann.animatesDrop = true;
-         return ann;
+        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            let ann = MKPinAnnotationView.init(annotation: annotation, reuseIdentifier: "currentloc")
+            ann.canShowCallout = true;
+            ann.animatesDrop = true;
+            return ann;
          }
          
          var myPolyLinePath: MKPolyline!
          
          func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
          
-         if overlay is MKPolyline {
-         let polyLineRender = MKPolylineRenderer(overlay: myPolyLinePath)
-         polyLineRender.strokeColor = UIColor.red
-         polyLineRender.lineWidth = 2.0
+            if overlay is MKPolyline {
+                let polyLineRender = MKPolylineRenderer(overlay: myPolyLinePath)
+                polyLineRender.strokeColor = UIColor.red
+                polyLineRender.lineWidth = 2.0
          
-         return polyLineRender
-         }
+                return polyLineRender
+            }
          
-         return MKPolylineRenderer()
+            return MKPolylineRenderer()
          }
          */
         
@@ -266,7 +266,7 @@ open class Map: NSObject {
                                                         if let points = overviewPolyline["points"] as? String {
                                                             
                                                             let ob = self.polylinePointsString(points)
-                                                            ma.add(ob);
+                                                            ma.add(ob!);
                                                             
                                                             totalcount += Int((ob?.count1)!);
                                                             
@@ -278,7 +278,6 @@ open class Map: NSObject {
                                                         }
                                                     }
                                                 }
-                                                
                                             }
                                         }
                                     }
@@ -295,3 +294,10 @@ open class Map: NSObject {
         }
     }
 }
+
+
+
+
+
+
+
