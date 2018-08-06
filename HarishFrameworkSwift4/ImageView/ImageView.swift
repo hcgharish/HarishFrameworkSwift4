@@ -140,9 +140,12 @@ open class ImageView: UIImageView, LayoutParameters {
             
             if imgZoom == nil {
                 imgZoom = UIImageView()
+                viewImgZoomShade = UIView()
+                viewImgZoomShade?.backgroundColor = UIColor.red
                 imgZoom?.isUserInteractionEnabled = true
                 
                 if scZoom != nil {
+                    scZoom?.addSubview(viewImgZoomShade!)
                     scZoom?.addSubview(imgZoom!)
                     addPichZoom ()
                 }
@@ -174,6 +177,7 @@ open class ImageView: UIImageView, LayoutParameters {
                     frame?.origin.y = (self.viewZoomContainer?.frame.size.height)! / 2 - size.height / 2
                     frame?.size.width = size.width
                     frame?.size.height = size.height
+                    
                     self.imgZoom?.frame = frame!
                     self.frameImage = frame
                 }
@@ -203,6 +207,7 @@ open class ImageView: UIImageView, LayoutParameters {
     @IBOutlet var scZoom: UIScrollView? = nil
     var viewZoomContainer: UIView? = nil
     var imgZoom: UIImageView? = nil
+    var viewImgZoomShade: UIView? = nil
     var twoFingerPinch:UIPinchGestureRecognizer? = nil
     
     var superClass:Any? = nil
@@ -222,7 +227,26 @@ open class ImageView: UIImageView, LayoutParameters {
     var max_zoom_level:CGFloat = 10
     let min_zoom:CGFloat = 100.0
     
+    var pointZoomImg:CGPoint? = nil
+    var pointZoomSc:CGPoint? = nil
+    var frameImgchanged:CGRect? = nil
+    var offset:CGPoint? = nil
+    
     @objc public func twoFingerPinch (_ recognizer:UIPinchGestureRecognizer) {
+
+        if recognizer.state == .ended {
+            pointZoomImg = nil
+            pointZoomSc = nil
+            offset = nil
+            frameImgchanged = nil
+        } else if recognizer.state == .began {
+            frameImgchanged = imgZoom?.frame
+            pointZoomImg = recognizer.location(in: imgZoom)
+            pointZoomSc = recognizer.location(in: scZoom)
+            offset = scZoom?.contentOffset
+        }
+        
+        offset = scZoom?.contentOffset
         
         if max_zoom == nil {
             if (imgZoom?.frame.size.width)! > (imgZoom?.frame.size.height)! {
@@ -239,14 +263,12 @@ open class ImageView: UIImageView, LayoutParameters {
                 imgZoom?.transform = (imgZoom?.transform.scaledBy(x: scale, y: scale))!;
                 recognizer.scale = 1.0;
             }
-        }
-        else if (imgZoom?.frame.size.width)! > max_zoom! || (imgZoom?.frame.size.height)! > max_zoom! {
+        } else if (imgZoom?.frame.size.width)! > max_zoom! || (imgZoom?.frame.size.height)! > max_zoom! {
             if scale < 1.0 {
                 imgZoom?.transform = (imgZoom?.transform.scaledBy(x: scale, y: scale))!;
                 recognizer.scale = 1.0;
             }
-        }
-        else {
+        } else {
             imgZoom?.transform = (imgZoom?.transform.scaledBy(x: scale, y: scale))!;
             recognizer.scale = 1.0;
         }
@@ -267,9 +289,71 @@ open class ImageView: UIImageView, LayoutParameters {
             height = imgZoom?.frame.size.height
         }
         
-        scZoom?.contentSize = CGSize(width:width!, height:height!)
+        let cSize = CGSize(width:width!, height:height!)
+        viewImgZoomShade?.frame = CGRect(x: 0, y: 0, width: width!*2, height: height!*2)
+        scZoom?.contentSize = cSize
+        
         imgZoom?.center = CGPoint(x: (scZoom?.contentSize.width)! / 2, y: (scZoom?.contentSize.height)! / 2)
         scZoom?.contentOffset = CGPoint(x: (imgZoom?.center.x)! - (scZoom?.frame.size.width)! / 2, y: (imgZoom?.center.y)! - (scZoom?.frame.size.height)! / 2)
+    }
+    
+    var lastOffset = CGPoint(x: 0, y: 0)
+    
+    func makeInCenter11 (_ boolCenter:Bool) {
+        var width = viewZoomContainer?.frame.size.width
+        var height = viewZoomContainer?.frame.size.height
+        
+        if (imgZoom?.frame.size.width)! > (viewZoomContainer?.frame.size.width)! && (imgZoom?.frame.size.height)! > (viewZoomContainer?.frame.size.height)! {
+            width = imgZoom?.frame.size.width
+            height = imgZoom?.frame.size.height
+        } else if (imgZoom?.frame.size.width)! > (viewZoomContainer?.frame.size.width)! {
+            width = imgZoom?.frame.size.width
+        } else if (imgZoom?.frame.size.height)! > (viewZoomContainer?.frame.size.height)! {
+            height = imgZoom?.frame.size.height
+        }
+        
+        let cSize = CGSize(width:width!, height:height!)
+        viewImgZoomShade?.frame = CGRect(x: 0, y: 0, width: width!*2, height: height!*2)
+        scZoom?.contentSize = cSize
+        
+        //imgZoom?.center = CGPoint(x: (scZoom?.contentSize.width)! / 2, y: (scZoom?.contentSize.height)! / 2)
+        //scZoom?.contentOffset = CGPoint(x: (imgZoom?.center.x)! - (scZoom?.frame.size.width)! / 2, y: (imgZoom?.center.y)! - (scZoom?.frame.size.height)! / 2)
+        
+        print("offset-\(offset)-")
+        print("frameImgchanged-\(frameImgchanged)-")
+        print("imgZoom?.frame.origin-\(imgZoom?.frame.origin)-")
+        print("scZoom?.contentOffset-\(scZoom?.contentOffset)-")
+        print("pointZoomImg-\(pointZoomImg)-")
+        print("pointZoomSc-\(pointZoomSc)-")
+        
+        
+        if pointZoomImg != nil && frameImgchanged != nil {
+            let rto = (frameImgchanged?.size.width)!/(imgZoom?.frame.size.width)!
+            
+            let new_px = (pointZoomImg?.x)! * rto
+            let new_py = (pointZoomImg?.y)! * rto
+            
+            let px_dif = (pointZoomImg?.x)! - new_px
+            let py_dif = (pointZoomImg?.y)! - new_py
+            
+            let width_dif = (frameImgchanged?.size.width)! - (imgZoom?.frame.size.width)!
+            let height_dif = (frameImgchanged?.size.height)! - (imgZoom?.frame.size.height)!
+            
+            print("hh-\((frameImgchanged?.origin.x)!)-\(width_dif)")
+            print("hh-\((frameImgchanged?.origin.y)!)-\(height_dif)")
+            
+            let x = (frameImgchanged?.origin.x)!+(width_dif-width_dif*rto)
+            let y = (frameImgchanged?.origin.y)!+(height_dif-height_dif*rto)
+            
+            let rect = CGRect(x: x, y: y, width: (imgZoom?.frame.size.width)!, height: (imgZoom?.frame.size.height)!)
+            
+            print("hh-\(imgZoom?.frame)-")
+            print("hh-\(rect)-")
+            
+            imgZoom?.frame = rect
+        }
+        
+        print("-----------------------------------------------------")
     }
 }
 
