@@ -140,12 +140,12 @@ open class ImageView: UIImageView, LayoutParameters {
             
             if imgZoom == nil {
                 imgZoom = UIImageView()
-                viewImgZoomShade = UIView()
-                viewImgZoomShade?.backgroundColor = UIColor.red
+                //viewImgZoomShade = UIView()
+                //viewImgZoomShade?.backgroundColor = UIColor.red
                 imgZoom?.isUserInteractionEnabled = true
                 
                 if scZoom != nil {
-                    scZoom?.addSubview(viewImgZoomShade!)
+                    //scZoom?.addSubview(viewImgZoomShade!)
                     scZoom?.addSubview(imgZoom!)
                     addPichZoom ()
                 }
@@ -290,7 +290,7 @@ open class ImageView: UIImageView, LayoutParameters {
         }
         
         let cSize = CGSize(width:width!, height:height!)
-        viewImgZoomShade?.frame = CGRect(x: 0, y: 0, width: width!*2, height: height!*2)
+        //viewImgZoomShade?.frame = CGRect(x: 0, y: 0, width: width!*2, height: height!*2)
         scZoom?.contentSize = cSize
         
         imgZoom?.center = CGPoint(x: (scZoom?.contentSize.width)! / 2, y: (scZoom?.contentSize.height)! / 2)
@@ -313,7 +313,7 @@ open class ImageView: UIImageView, LayoutParameters {
         }
         
         let cSize = CGSize(width:width!, height:height!)
-        viewImgZoomShade?.frame = CGRect(x: 0, y: 0, width: width!*2, height: height!*2)
+        //viewImgZoomShade?.frame = CGRect(x: 0, y: 0, width: width!*2, height: height!*2)
         scZoom?.contentSize = cSize
         
         //imgZoom?.center = CGPoint(x: (scZoom?.contentSize.width)! / 2, y: (scZoom?.contentSize.height)! / 2)
