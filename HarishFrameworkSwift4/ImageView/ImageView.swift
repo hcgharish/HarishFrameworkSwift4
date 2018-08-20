@@ -557,12 +557,10 @@ public extension UIImageView {
                     }
                 }
             } else {
-                if let img = dict["image"] as? UIImage {
-                    if boolSVG {
-                        self.setSVG(url)
-                    } else {
-                        self.image = img
-                    }
+                if boolSVG {
+                    self.setSVG(url)
+                } else if let img = dict["image"] as? UIImage {
+                    self.image = img
                 } else if let dimg = dict["dimage"] as? String {
                     self.image = UIImage(named: dimg)
                 }
@@ -578,7 +576,7 @@ public extension UIImageView {
     func setSVG (_ url:String) {
         var filename = url.imageName()
         
-        print("222221filename-\(filename)-")
+        //print("222221filename-\(filename)-")
         
         filename = filename.replacingOccurrences(of: ".jpg", with: ".svg")
         
@@ -589,6 +587,10 @@ public extension UIImageView {
         
         let rect = self.frame
         
+        /*for vv in (self.superview?.subviews)! {
+            print("vv-\(vv)-")
+        }*/
+        
         let webVW = UIWebView(frame: rect)
         
         webVW.loadRequest(request1)
@@ -597,7 +599,20 @@ public extension UIImageView {
         webVW.scrollView.bounces = false
         
         self.isHidden = true
-        self.superview?.addSubview(webVW)
+        
+        //print("vv-vv-vv-vv-vv-vv-vv-vv-vv-vv-vv-vv-vv-vv-vv-vv-")
+        
+        for vv in (self.superview?.subviews)! {
+            if self == vv {
+                self.superview?.addSubview(webVW)
+            } else {
+                self.superview?.addSubview(vv)
+            }
+        }
+        
+        /*for vv in (self.superview?.subviews)! {
+            print("vv-\(vv)-")
+        }*/
     }
     
     public func downloadUIImage (_ url:String?, block: @escaping (UIImage?, Bool) -> Swift.Void) {
