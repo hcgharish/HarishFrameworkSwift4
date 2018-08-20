@@ -420,14 +420,24 @@ public extension UIImageView {
         }
     }
     
-    public func savedUIImageForUrl (_ url:String, block: @escaping (UIImage?) -> Swift.Void) {
+    public func savedUIImageForUrl (_ url:String, block: @escaping (UIImage?, Bool) -> Swift.Void) {
         let fileManager = FileManager.default
         let imagePAth = (self.getDirectoryPath() as NSString).appendingPathComponent(url.imageName())
         
         if fileManager.fileExists(atPath: imagePAth) {
-            block(UIImage(contentsOfFile: imagePAth))
+            block(UIImage(contentsOfFile: imagePAth), false)
         } else {
-            block(nil)
+            var filename = url.imageName()
+            
+            filename = filename.replacingOccurrences(of: ".jpg", with: ".svg")
+            
+            let imagePAth = (self.getDirectoryPath() as NSString).appendingPathComponent(filename)
+            
+            if fileManager.fileExists(atPath: imagePAth) {
+                block(nil, true)
+            } else {
+                block(nil, false)
+            }
         }
     }
     
@@ -460,6 +470,21 @@ public extension UIImageView {
         }
     }
     
+    public func saveUIImageForUrlSVG (_ url:String?, _ data:Data?) {
+        if (url != nil) {
+            var filename = url?.imageName()
+            
+            filename = filename?.replacingOccurrences(of: ".jpg", with: ".svg")
+            
+            if (data != nil) {
+                let fileManager = FileManager.default
+                let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(filename!)
+                
+                fileManager.createFile(atPath: paths as String, contents: data, attributes: nil)
+            }
+        }
+    }
+    
     public func saveUIImageForUrl (_ url:String?, _ img:UIImage?) {
         if (url != nil && img != nil) {
             let data:Data? = UIImagePNGRepresentation(img!)!
@@ -484,6 +509,8 @@ public extension UIImageView {
             
             let url:String = dict["url"] as! String
             
+            let boolSVG = url.subInSensetive(".svg")
+            
             let imgV = self as? ImageView
             
             if imgV != nil {
@@ -497,25 +524,45 @@ public extension UIImageView {
                         if imageUrl != nil {
                             if imageUrl! == url {
                                 if let img = dict["image"] as? UIImage {
-                                    self.image = img
-                                    imgV?.createZoomView(superView)
+                                    if boolSVG {
+                                        self.setSVG(url)
+                                    } else {
+                                        self.image = img
+                                        imgV?.createZoomView(superView)
+                                    }
                                 } else if let dimg = dict["dimage"] as? String {
-                                    self.image = UIImage(named: dimg)
+                                    if boolSVG {
+                                        self.setSVG(url)
+                                    } else {
+                                        self.image = UIImage(named: dimg)
+                                    }
                                 }
                             }
                         }
                     } else {
                         if let img = dict["image"] as? UIImage {
-                            self.image = img
-                            imgV?.createZoomView(superView)
+                            if boolSVG {
+                                self.setSVG(url)
+                            } else {
+                                self.image = img
+                                imgV?.createZoomView(superView)
+                            }
                         } else if let dimg = dict["dimage"] as? String {
-                            self.image = UIImage(named: dimg)
+                            if boolSVG {
+                                self.setSVG(url)
+                            } else {
+                                self.image = UIImage(named: dimg)
+                            }
                         }
                     }
                 }
             } else {
                 if let img = dict["image"] as? UIImage {
-                    self.image = img
+                    if boolSVG {
+                        self.setSVG(url)
+                    } else {
+                        self.image = img
+                    }
                 } else if let dimg = dict["dimage"] as? String {
                     self.image = UIImage(named: dimg)
                 }
@@ -528,7 +575,32 @@ public extension UIImageView {
         }
     }
     
-    public func downloadUIImage (_ url:String?, block: @escaping (UIImage?) -> Swift.Void) {
+    func setSVG (_ url:String) {
+        var filename = url.imageName()
+        
+        print("222221filename-\(filename)-")
+        
+        filename = filename.replacingOccurrences(of: ".jpg", with: ".svg")
+        
+        let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(filename)
+        
+        let url1: NSURL = NSURL.fileURL(withPath: paths) as NSURL
+        let request1: URLRequest = URLRequest(url: url1 as URL)
+        
+        let rect = self.frame
+        
+        let webVW = UIWebView(frame: rect)
+        
+        webVW.loadRequest(request1)
+        webVW.backgroundColor = UIColor.clear
+        webVW.isOpaque = false
+        webVW.scrollView.bounces = false
+        
+        self.isHidden = true
+        self.superview?.addSubview(webVW)
+    }
+    
+    public func downloadUIImage (_ url:String?, block: @escaping (UIImage?, Bool) -> Swift.Void) {
         let md = NSMutableDictionary()
         md["url"] = url
         md["block"] = block
@@ -538,11 +610,13 @@ public extension UIImageView {
     
     @objc public func downloadUIImageThread (_ md:NSMutableDictionary) {
         let url:String? = md["url"] as? String
-        let block = md["block"] as! (UIImage?) -> Swift.Void
+        let block = md["block"] as! (UIImage?, Bool) -> Swift.Void
         
-        self.savedUIImageForUrl(url!, block: { (img) in
+        self.savedUIImageForUrl(url!, block: { (img, boolSVG) in
             if (img != nil) {
-                block(img)
+                block(img, false)
+            } else if boolSVG {
+                block(nil, true)
             } else {
                 let urlL = URL(string: (url?.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)!)!)!
                 
@@ -550,17 +624,28 @@ public extension UIImageView {
                 
                 var image:UIImage? = nil;
                 
+                var boolSVG1 = false
+                
                 if (data != nil) {
                     image = UIImage(data: data! as Data)
                     
                     if (image != nil) {
                         self.saveUIImageForUrl(url, image)
+                    } else {
+                        if (url?.subInSensetive(".svg"))! {
+                            boolSVG1 = true
+                            self.saveUIImageForUrlSVG(url, data)
+                        }
                     }
                 } else {
                     self.deleteFileForUrl(url)
                 }
                 
-                block(image)
+                if boolSVG1 {
+                    block(nil, true)
+                } else {
+                    block(image, false)
+                }
             }
         })
     }
@@ -576,7 +661,7 @@ public extension UIImageView {
             }
             
             if ((url?.count)! > 0 && url != "") {
-                savedUIImageForUrl(url!, block: { (image) in
+                savedUIImageForUrl(url!, block: { (image, boolSVG) in
                     if image != nil {
                         self.image = image
                         
@@ -587,6 +672,8 @@ public extension UIImageView {
                                 imgV?.createZoomView(superView)
                             }
                         }
+                    } else if boolSVG {
+                        self.setSVG (url!)
                     } else {
                         self.image = UIImage()
                         
@@ -642,7 +729,7 @@ public extension UIImageView {
     @objc public func getNSetUIImagee (_ dict:NSDictionary) {
         let url:String = dict["url"] as! String
         
-        self.downloadUIImage(url) { (image) in
+        self.downloadUIImage(url) { (image, boolSVG) in
             let dt = NSMutableDictionary()
             
             for (key, value) in dict {
