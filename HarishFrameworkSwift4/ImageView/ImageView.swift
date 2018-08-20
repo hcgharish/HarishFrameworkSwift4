@@ -599,7 +599,6 @@ public extension UIImageView {
                         imgV?.webView?.isOpaque = false
                         imgV?.webView?.scrollView.bounces = false
                         imgV?.webView?.scrollView.isScrollEnabled = false
-                        imgV?.webView?.scalesPageToFit = true
                         
                         self.addSubview((imgV?.webView)!)
                     }
