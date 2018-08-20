@@ -12,6 +12,8 @@ open class ImageView: UIImageView, LayoutParameters {
     
     var classPara: ClassPara = ClassPara()
     
+    var webView:UIWebView? = nil
+    
     @IBInspectable open var isBorder: Bool = false
     
     @IBInspectable open var border: Int = 0
@@ -574,45 +576,38 @@ public extension UIImageView {
     }
     
     func setSVG (_ url:String) {
-        var filename = url.imageName()
+        let imgV = self as? ImageView
         
-        //print("222221filename-\(filename)-")
-        
-        filename = filename.replacingOccurrences(of: ".jpg", with: ".svg")
-        
-        let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(filename)
-        
-        let url1: NSURL = NSURL.fileURL(withPath: paths) as NSURL
-        let request1: URLRequest = URLRequest(url: url1 as URL)
-        
-        let rect = self.frame
-        
-        /*for vv in (self.superview?.subviews)! {
-            print("vv-\(vv)-")
-        }*/
-        
-        let webVW = UIWebView(frame: rect)
-        
-        webVW.loadRequest(request1)
-        webVW.backgroundColor = UIColor.clear
-        webVW.isOpaque = false
-        webVW.scrollView.bounces = false
-        
-        self.isHidden = true
-        
-        //print("vv-vv-vv-vv-vv-vv-vv-vv-vv-vv-vv-vv-vv-vv-vv-vv-")
-        
-        for vv in (self.superview?.subviews)! {
-            if self == vv {
-                self.superview?.addSubview(webVW)
-            } else {
-                self.superview?.addSubview(vv)
+        if imgV != nil {
+            let imageUrl = imgV?.url[(imgV?.url.count)!-1]
+            
+            if imageUrl != nil {
+                if imageUrl! == url {
+                    var filename = url.imageName()
+                    
+                    filename = filename.replacingOccurrences(of: ".jpg", with: ".svg")
+                    
+                    let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(filename)
+                    
+                    let url1: NSURL = NSURL.fileURL(withPath: paths) as NSURL
+                    let request1: URLRequest = URLRequest(url: url1 as URL)
+                    
+                    if imgV?.webView == nil {
+                        imgV?.webView = UIWebView(frame: CGRect(x:0, y:0, width:self.frame.size.width, height:self.frame.size.height))
+                        
+                        imgV?.webView?.backgroundColor = UIColor.clear
+                        imgV?.webView?.isOpaque = false
+                        imgV?.webView?.scrollView.bounces = false
+                        imgV?.webView?.scrollView.isScrollEnabled = false
+                        imgV?.webView?.scalesPageToFit = true
+                        
+                        self.addSubview((imgV?.webView)!)
+                    }
+                    
+                    imgV?.webView?.loadRequest(request1)
+                }
             }
         }
-        
-        /*for vv in (self.superview?.subviews)! {
-            print("vv-\(vv)-")
-        }*/
     }
     
     public func downloadUIImage (_ url:String?, block: @escaping (UIImage?, Bool) -> Swift.Void) {
@@ -688,6 +683,11 @@ public extension UIImageView {
                             }
                         }
                     } else if boolSVG {
+                        if self is ImageView {
+                            let iiii = self as? ImageView
+                            iiii?.url.append(url!)
+                        }
+                        
                         self.setSVG (url!)
                     } else {
                         self.image = UIImage()
