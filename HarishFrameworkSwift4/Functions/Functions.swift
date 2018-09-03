@@ -51,7 +51,7 @@ public func filterByPrice (_ ma:NSMutableArray,_ high:Bool) -> NSMutableArray {
     return NSMutableArray(array: swiftArray)
 }
 
-public func array (_ dict:NSDictionary, _ key:String) -> Array<Any>? {
+public func array (_ dict:NSDictionary, _ key: String) -> Array<Any>? {
     if let title = dict[key] as? Array<Any> {
         return title
     } else {
@@ -59,7 +59,7 @@ public func array (_ dict:NSDictionary, _ key:String) -> Array<Any>? {
     }
 }
 
-public func dictionary (_ dict:NSDictionary, _ key:String) -> Dictionary<String, Any>? {
+public func dictionary (_ dict:NSDictionary, _ key: String) -> Dictionary<String, Any>? {
     if let title = dict[key] as? Dictionary<String, Any> {
         return title
     } else {
@@ -67,7 +67,7 @@ public func dictionary (_ dict:NSDictionary, _ key:String) -> Dictionary<String,
     }
 }
 
-public func string (_ dict:NSDictionary, _ key:String) -> String {
+public func string (_ dict:NSDictionary, _ key: String) -> String {
     if let title = dict[key] as? String {
         return "\(title)"
     } else if let title = dict[key] as? NSNumber {
@@ -77,7 +77,7 @@ public func string (_ dict:NSDictionary, _ key:String) -> String {
     }
 }
 
-public func number (_ dict:NSDictionary, _ key:String) -> NSNumber {
+public func number (_ dict:NSDictionary, _ key: String) -> NSNumber {
     if let title = dict[key] as? NSNumber {
         return title
     } else if let title = dict[key] as? String {
@@ -98,7 +98,7 @@ public func number (_ dict:NSDictionary, _ key:String) -> NSNumber {
     }
 }
 
-public func bool (_ dict:NSDictionary, _ key:String) -> Bool {
+public func bool (_ dict:NSDictionary, _ key: String) -> Bool {
     if let title = dict[key] as? Bool {
         return title
     } else {
@@ -106,7 +106,7 @@ public func bool (_ dict:NSDictionary, _ key:String) -> Bool {
     }
 }
 
-public func niil (_ dict:NSDictionary, _ key:String) -> String? {
+public func niil (_ dict:NSDictionary, _ key: String) -> String? {
     if let title = dict[key] as? String {
         return title
     } else {
@@ -132,7 +132,7 @@ public func isNull(value : AnyObject?) -> Bool {
     }
 }
 
-public func callNumber(_ phoneNumber:String) {
+public func callNumber(_ phoneNumber: String) {
     if let phoneCallURL:NSURL = NSURL(string: "tel://\(phoneNumber)") {
         let application:UIApplication = UIApplication.shared
         

@@ -13,25 +13,16 @@ open class ImageView: UIImageView, LayoutParameters {
     var classPara: ClassPara = ClassPara()
     
     var webView:UIWebView? = nil
-    
     @IBInspectable open var isBorder: Bool = false
-    
     @IBInspectable open var border: Int = 0
-    
     @IBInspectable open var radious: Int = 0
-    
     @IBInspectable open var borderColor: UIColor? = nil
-    
     @IBInspectable open var isShadow: Bool = false
-    
     @IBInspectable open var shadow_Color: UIColor? = UIColor.darkGray
-    
-    @IBInspectable open var ls_Opacity:CGFloat = 0.5
-    @IBInspectable open var ls_Radius:Int = 0
-    
-    @IBInspectable open var lsOff_Width:CGFloat = 2.0
-    @IBInspectable open var lsOff_Height:CGFloat = 2.0
-    
+    @IBInspectable open var lsOpacity: CGFloat = 0.5
+    @IBInspectable open var lsRadius: Int = 0
+    @IBInspectable open var lsOffWidth: CGFloat = 2.0
+    @IBInspectable open var lsOff_Height: CGFloat = 2.0
     @IBInspectable open var isStrokeColor: Bool = false
     
     var shadowLayer: CAShapeLayer!
@@ -51,7 +42,6 @@ open class ImageView: UIImageView, LayoutParameters {
     }
     
     var url:[String] = []
-    
     @IBInspectable open var willZoom: Bool = false
     @IBInspectable open var background_color: UIColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
     
@@ -226,8 +216,8 @@ open class ImageView: UIImageView, LayoutParameters {
     }
     
     var max_zoom:CGFloat? = nil
-    var max_zoom_level:CGFloat = 10
-    let min_zoom:CGFloat = 100.0
+    var max_zoom_level: CGFloat = 10
+    let min_zoom: CGFloat = 100.0
     
     var pointZoomImg:CGPoint? = nil
     var pointZoomSc:CGPoint? = nil
@@ -509,7 +499,7 @@ public extension UIImageView {
                 self.contentMode = .scaleAspectFill
             }
             
-            let url:String = dict["url"] as! String
+            let url: String = dict["url"] as! String
             
             let boolSVG = url.subInSensetive(".svg")
             
@@ -575,7 +565,7 @@ public extension UIImageView {
         }
     }
     
-    func setSVG (_ url:String) {
+    func setSVG (_ url: String) {
         let imgV = self as? ImageView
         
         if imgV != nil {
@@ -741,7 +731,7 @@ public extension UIImageView {
     }
     
     @objc public func getNSetUIImagee (_ dict:NSDictionary) {
-        let url:String = dict["url"] as! String
+        let url: String = dict["url"] as! String
         
         self.downloadUIImage(url) { (image, boolSVG) in
             let dt = NSMutableDictionary()

@@ -11,7 +11,7 @@
 import UIKit
 
 let lock_Queue = DispatchQueue.init(label: "com.kavya.lock_Queue.dotloader")
-let dotSize:CGFloat = 20
+let dotSize: CGFloat = 20
 var stopped = false
 
 let one_second = 1000000
@@ -63,7 +63,7 @@ public class DotLoader: NSObject {
                     self.containerSuper?.addSubview(self.container!)
                     self.appDelegate?.window??.addSubview(self.containerSuper!)
                     
-                    let gap:CGFloat = 5.0
+                    let gap: CGFloat = 5.0
                     
                     let vieee1 = UIView()
                     var frame1 = CGRect(x:0.0, y:0.0, width:0.0, height:0.0)
@@ -151,7 +151,7 @@ public class DotLoader: NSObject {
 extension UIView {
     func animate (_ center:CGPoint) {
         DispatchQueue.global().async {
-            var incdec:CGFloat = 1
+            var incdec: CGFloat = 1
             let time = UInt32(CGFloat(one_second)  / dotSize)
             
             while stopped == false {

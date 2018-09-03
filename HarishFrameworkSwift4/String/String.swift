@@ -96,7 +96,7 @@ public extension String {
         self = self.capFirstLetter()
     }
     
-    public func converDate(_ from:String, _ to:String) -> String {
+    public func converDate(_ from:String, _ to: String) -> String {
         if self.count == 0 {
             return ""
         }
@@ -114,7 +114,7 @@ public extension String {
         }
     }
     
-    public func getDate(_ formate:String) -> Date {
+    public func getDate(_ formate: String) -> Date {
         if self.count == 0 {
             return Date()
         }
@@ -131,7 +131,7 @@ public extension String {
         }
     }
     
-    public func isDate(_ formate:String) -> Date? {
+    public func isDate(_ formate: String) -> Date? {
         if self.count == 0 {
             return Date()
         }
@@ -155,7 +155,7 @@ public extension String {
         let arr = name.components(separatedBy: "_")
         
         if arr.count > 0 {
-            let divide:Int = Int(arr.count / 2);
+            let divide: Int = Int(arr.count / 2);
             
             if (divide <= 0) {
                 return name
@@ -173,7 +173,7 @@ public extension String {
         return ""
     }
     
-    public func subString (_ str:String) -> Bool {
+    public func subString (_ str: String) -> Bool {
         if self.range(of: str) != nil {
             return true
         }
@@ -181,7 +181,7 @@ public extension String {
         return false
     }
     
-    public func subInSensetive (_ str:String) -> Bool {
+    public func subInSensetive (_ str: String) -> Bool {
         if (self.range(of: str, options: String.CompareOptions.caseInsensitive, range: nil, locale: nil) != nil) {
             return true
         }
@@ -210,7 +210,7 @@ public extension String {
         return  phoneNumber == filtered
     }
     
-    public func getDateFromUTC (_ formate:String) -> String {
+    public func getDateFromUTC (_ formate: String) -> String {
         let dateUTC = self.getDate(formate)
         
         let timeZoneLocal = NSTimeZone.local as TimeZone?

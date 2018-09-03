@@ -62,7 +62,7 @@ public extension Date {
         return ""
     }
     
-    public func getStringDate(_ formate:String) -> String {
+    public func getStringDate(_ formate: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = formate
         return dateFormatter.string(from: self)

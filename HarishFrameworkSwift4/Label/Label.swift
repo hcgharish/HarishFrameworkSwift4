@@ -15,10 +15,10 @@ protocol LayoutParameters {
     var borderColor: UIColor? {get set}
     var isShadow: Bool {get set}
     var shadow_Color: UIColor? {get set}
-    var ls_Opacity:CGFloat {get set}
-    var ls_Radius:Int {get set}
-    var lsOff_Width:CGFloat {get set}
-    var lsOff_Height:CGFloat {get set}
+    var lsOpacity: CGFloat {get set}
+    var lsRadius:Int {get set}
+    var lsOffWidth: CGFloat {get set}
+    var lsOff_Height: CGFloat {get set}
     var isStrokeColor: Bool {get set}
     
     var classPara:ClassPara {get set}
@@ -53,9 +53,9 @@ extension NSObject {
                 
                 ob.classPara.shadowLayer.shadowColor = ob.shadow_Color?.cgColor
                 ob.classPara.shadowLayer.shadowPath = ob.classPara.shadowLayer.path
-                ob.classPara.shadowLayer.shadowOffset = CGSize(width: ob.lsOff_Width, height: ob.lsOff_Height)
-                ob.classPara.shadowLayer.shadowOpacity = Float(ob.ls_Opacity)
-                ob.classPara.shadowLayer.shadowRadius = CGFloat(ob.ls_Radius)
+                ob.classPara.shadowLayer.shadowOffset = CGSize(width: ob.lsOffWidth, height: ob.lsOff_Height)
+                ob.classPara.shadowLayer.shadowOpacity = Float(ob.lsOpacity)
+                ob.classPara.shadowLayer.shadowRadius = CGFloat(ob.lsRadius)
                 
                 ob.classPara.layer.insertSublayer(ob.classPara.shadowLayer, at: 0)
             }
@@ -74,25 +74,16 @@ extension NSObject {
 
 open class Label: UILabel, LayoutParameters {
     var classPara: ClassPara = ClassPara()
-    
     @IBInspectable open var isBorder: Bool = false
-    
     @IBInspectable open var border: Int = 0
-    
     @IBInspectable open var radious: Int = 0
-    
     @IBInspectable open var borderColor: UIColor? = nil
-    
     @IBInspectable open var isShadow: Bool = false
-    
     @IBInspectable open var shadow_Color: UIColor? = UIColor.darkGray
-    
-    @IBInspectable open var ls_Opacity:CGFloat = 0.5
-    @IBInspectable open var ls_Radius:Int = 0
-    
-    @IBInspectable open var lsOff_Width:CGFloat = 2.0
-    @IBInspectable open var lsOff_Height:CGFloat = 2.0
-    
+    @IBInspectable open var lsOpacity: CGFloat = 0.5
+    @IBInspectable open var lsRadius: Int = 0
+    @IBInspectable open var lsOffWidth: CGFloat = 2.0
+    @IBInspectable open var lsOff_Height: CGFloat = 2.0
     @IBInspectable open var isStrokeColor: Bool = false
     
     override open func draw(_ rect: CGRect) {

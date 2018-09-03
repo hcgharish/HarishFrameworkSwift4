@@ -12,7 +12,7 @@ public class Validation: NSObject {
     
     let NameAcceptableCharacter = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
     
-    public class func email(_ testStr:String) -> Bool {
+    public class func email(_ testStr: String) -> Bool {
         let arr = testStr.components(separatedBy: "@")
         
         if arr.count != 2 {
@@ -28,7 +28,7 @@ public class Validation: NSObject {
         }
     }
     
-    public class func passwordValid(_ testStr:String) -> Bool {
+    public class func passwordValid(_ testStr: String) -> Bool {
         do {
             let regex = try NSRegularExpression(pattern: "[A-Z0-9a-z._%+-]", options: .caseInsensitive)
             return regex.firstMatch(in: testStr, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, testStr.count)) != nil
@@ -38,7 +38,7 @@ public class Validation: NSObject {
         }
     }
     
-    public class func url (_ testStr:String) -> Bool {
+    public class func url (_ testStr: String) -> Bool {
         
         do {
             let regex = try NSRegularExpression(pattern: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}", options: .caseInsensitive)

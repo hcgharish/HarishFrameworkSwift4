@@ -11,7 +11,7 @@ import MapKit
 
 open class Poly: NSObject {
     var coords:NSMutableArray!
-    var count1:Int = 0;
+    var count1: Int = 0;
     
     override init() {
         super.init()
@@ -23,7 +23,7 @@ open class Map: NSObject {
         return Map()
     }
     
-    public func polylineWithEncodedString(_ encodedString:String) -> MKPolyline {
+    public func polylineWithEncodedString(_ encodedString: String) -> MKPolyline {
         let bytes = encodedString.utf8CString
         let length = encodedString.lengthOfBytes(using: .utf8)
         
@@ -40,8 +40,8 @@ open class Map: NSObject {
         
         while (idx < length) {
             var byte:Int
-            var res:Int = 0
-            var shift:Int = 0
+            var res: Int = 0
+            var shift: Int = 0
             
             repeat {
                 byte = bytes[idx].hashValue - 63;
@@ -84,7 +84,7 @@ open class Map: NSObject {
         return poly;
     }
     
-    func polylinePointsString(_ encodedString:String) -> Poly? {
+    func polylinePointsString(_ encodedString: String) -> Poly? {
         let bytes = encodedString.utf8CString
         let length = encodedString.lengthOfBytes(using: .utf8)
         
@@ -101,8 +101,8 @@ open class Map: NSObject {
         
         while (idx < length) {
             var byte:Int
-            var res:Int = 0
-            var shift:Int = 0
+            var res: Int = 0
+            var shift: Int = 0
             
             repeat {
                 byte = bytes[idx].hashValue - 63;
@@ -148,7 +148,7 @@ open class Map: NSObject {
         return ob;
     }
     
-    func polylinePointsMA(_ ma:NSMutableArray, _ count:Int) -> MKPolyline {
+    func polylinePointsMA(_ ma:NSMutableArray, _ count: Int) -> MKPolyline {
         
         let coords = UnsafeMutablePointer<CLLocationCoordinate2D>.allocate(capacity: count)
         
@@ -257,7 +257,7 @@ open class Map: NSObject {
                                     if let route1 = arr[j] as? NSDictionary {
                                         if let steps = route1["steps"] as? NSArray {
                                             
-                                            var totalcount:Int = 0
+                                            var totalcount: Int = 0
                                             
                                             for k in 0..<steps.count {
                                                 if let route2 = steps[k] as? NSDictionary {

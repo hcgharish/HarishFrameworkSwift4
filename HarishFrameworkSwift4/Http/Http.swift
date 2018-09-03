@@ -413,7 +413,7 @@ open class Http: NSObject {
         }
     }
     
-    open class func alertFailed (title:NSString?, _ json:NSDictionary?, _ key:String) {
+    open class func alertFailed (title:NSString?, _ json:NSDictionary?, _ key: String) {
         let message = json?[key] as! String?
         
         var title = title
@@ -444,7 +444,7 @@ open class Http: NSObject {
         }
     }
     
-    open class func alertAction (_ btns:[Any], _ index:Int) -> UIAlertAction {
+    open class func alertAction (_ btns:[Any], _ index: Int) -> UIAlertAction {
         let action = UIAlertAction(title: (btns[index + 1] as? String)!, style: .default, handler: { (_ action:UIAlertAction) in
             
             let vc = btns[0] as? AlertDelegate

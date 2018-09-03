@@ -9,7 +9,7 @@
 import UIKit
 
 public class Toast: UIView {
-    public func show (_ msg:String) {
+    public func show (_ msg: String) {
         DispatchQueue.main.async {
             let app = UIApplication.shared.delegate
             
@@ -71,7 +71,7 @@ public class Toast: UIView {
     static let toasts = NSMutableArray()
     static var watcher_working = false
     
-    public class func toast (_ msg:String) {
+    public class func toast (_ msg: String) {
         lockQueue.sync {
             toasts.insert(msg, at: 0)
         }
