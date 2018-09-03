@@ -321,22 +321,22 @@ open class ImageView: UIImageView, LayoutParameters {
         //imgZoom?.center = CGPoint(x: (scZoom?.contentSize.width)! / 2, y: (scZoom?.contentSize.height)! / 2)
         //scZoom?.contentOffset = CGPoint(x: (imgZoom?.center.x)! - (scZoom?.frame.size.width)! / 2, y: (imgZoom?.center.y)! - (scZoom?.frame.size.height)! / 2)
         
-        print("offset-\(offset)-")
-        print("frameImgchanged-\(frameImgchanged)-")
-        print("imgZoom?.frame.origin-\(imgZoom?.frame.origin)-")
-        print("scZoom?.contentOffset-\(scZoom?.contentOffset)-")
-        print("pointZoomImg-\(pointZoomImg)-")
-        print("pointZoomSc-\(pointZoomSc)-")
+        print("offset-\(String(describing: offset))-")
+        print("frameImgchanged-\(String(describing: frameImgchanged))-")
+        print("imgZoom?.frame.origin-\(String(describing: imgZoom?.frame.origin))-")
+        print("scZoom?.contentOffset-\(String(describing: scZoom?.contentOffset))-")
+        print("pointZoomImg-\(String(describing: pointZoomImg))-")
+        print("pointZoomSc-\(String(describing: pointZoomSc))-")
         
         
         if pointZoomImg != nil && frameImgchanged != nil {
             let rto = (frameImgchanged?.size.width)!/(imgZoom?.frame.size.width)!
             
-            let new_px = (pointZoomImg?.x)! * rto
-            let new_py = (pointZoomImg?.y)! * rto
+            //let new_px = (pointZoomImg?.x)! * rto
+            //let new_py = (pointZoomImg?.y)! * rto
             
-            let px_dif = (pointZoomImg?.x)! - new_px
-            let py_dif = (pointZoomImg?.y)! - new_py
+            //let px_dif = (pointZoomImg?.x)! - new_px
+            //let py_dif = (pointZoomImg?.y)! - new_py
             
             let width_dif = (frameImgchanged?.size.width)! - (imgZoom?.frame.size.width)!
             let height_dif = (frameImgchanged?.size.height)! - (imgZoom?.frame.size.height)!
@@ -349,7 +349,7 @@ open class ImageView: UIImageView, LayoutParameters {
             
             let rect = CGRect(x: x, y: y, width: (imgZoom?.frame.size.width)!, height: (imgZoom?.frame.size.height)!)
             
-            print("hh-\(imgZoom?.frame)-")
+            print("hh-\(String(describing: imgZoom?.frame))-")
             print("hh-\(rect)-")
             
             imgZoom?.frame = rect
