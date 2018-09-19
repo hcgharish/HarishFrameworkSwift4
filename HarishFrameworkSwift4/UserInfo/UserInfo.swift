@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class UserInfo: NSObject, NSCoding {
+open class UserInfo: NSObject,NSCoding {
     var date = ""
     var email = ""
     var first_name = ""
@@ -31,10 +31,8 @@ open class UserInfo: NSObject, NSCoding {
     var referral_code = ""
 
     override public init() {
-        
-    }
-    
-    public init(_ date:String, _ email:String, _ first_name:String, _ id:String, _ image:String, _ last_name:String, _ password:String, _ status:String, _ time:String, _ allowed_time:String, _ amout:String, _ category_id:String, _ category_name:String, _ event_date:String, _ event_duration:String, _ event_status:String, _ name:String, _ start_time:String, _ paypal_id:String, referral_code: String) {
+        }
+    public init(_ date:String,_ email:String,_ first_name:String,_ id:String,_ image:String,_ last_name:String,_ password:String,_ status:String,_ time:String,_ allowed_time:String,_ amout:String,_ category_id:String,_ category_name:String,_ event_date:String,_ event_duration:String,_ event_status:String,_ name:String,_ start_time:String,_ paypal_id:String,referral_code: String) {
         self.date = date
         self.email = email
         self.first_name = first_name
@@ -56,31 +54,29 @@ open class UserInfo: NSObject, NSCoding {
         self.paypal_id = paypal_id
         self.referral_code = referral_code
     }
-    
     open func encode(with aCoder: NSCoder) {
-        /*aCoder.encode(date, forKey: "date")
-        aCoder.encode(email, forKey: "email")
-        aCoder.encode(first_name, forKey: "first_name")
-        aCoder.encode(id, forKey: "id")
-        aCoder.encode(image, forKey: "image")
-        aCoder.encode(last_name, forKey: "last_name")
-        aCoder.encode(password, forKey: "password")
-        aCoder.encode(status, forKey: "status")
-        aCoder.encode(time, forKey: "time")
-        aCoder.encode(allowed_time, forKey: "allowed_time")
-        aCoder.encode(amout, forKey: "amout")
-        aCoder.encode(category_name, forKey: "category_name")
-        aCoder.encode(event_date, forKey: "event_date")
-        aCoder.encode(event_duration, forKey: "event_duration")
-        aCoder.encode(event_status, forKey: "event_status")
-        aCoder.encode(name, forKey: "name")
-        aCoder.encode(start_time, forKey: "start_time")
+        /*aCoder.encode(date,forKey: "date")
+        aCoder.encode(email,forKey: "email")
+        aCoder.encode(first_name,forKey: "first_name")
+        aCoder.encode(id,forKey: "id")
+        aCoder.encode(image,forKey: "image")
+        aCoder.encode(last_name,forKey: "last_name")
+        aCoder.encode(password,forKey: "password")
+        aCoder.encode(status,forKey: "status")
+        aCoder.encode(time,forKey: "time")
+        aCoder.encode(allowed_time,forKey: "allowed_time")
+        aCoder.encode(amout,forKey: "amout")
+        aCoder.encode(category_name,forKey: "category_name")
+        aCoder.encode(event_date,forKey: "event_date")
+        aCoder.encode(event_duration,forKey: "event_duration")
+        aCoder.encode(event_status,forKey: "event_status")
+        aCoder.encode(name,forKey: "name")
+        aCoder.encode(start_time,forKey: "start_time")
 
-        aCoder.encode(paypal_id, forKey: "paypal_id")
-        aCoder.encode(referral_code, forKey: "referral_code")
+        aCoder.encode(paypal_id,forKey: "paypal_id")
+        aCoder.encode(referral_code,forKey: "referral_code")
         */
     }
-    
     public required init?(coder aDecoder: NSCoder) {
         /*date = aDecoder.decodeObject(forKey: "date") as! String!
         email = aDecoder.decodeObject(forKey: "email") as! String!
@@ -104,26 +100,21 @@ open class UserInfo: NSObject, NSCoding {
         referral_code = aDecoder.decodeObject(forKey: "referral_code") as! String!
         */
     }
-    
     class public func archivePeople(_ people:UserInfo) -> NSData {
         let archivedObject = NSKeyedArchiver.archivedData(withRootObject: people)
         return archivedObject as NSData
     }
-    
     class public func retrievePeople(_ data:NSData) -> UserInfo {
         return (NSKeyedUnarchiver.unarchiveObject(with: data as Data) as? UserInfo)!
     }
-    
     class public func save (_ ob:UserInfo) {
         let defaults = UserDefaults.standard
-        defaults.set(archivePeople(ob), forKey: "LoginInfo")
+        defaults.set(archivePeople(ob),forKey: "LoginInfo")
         defaults.synchronize()
     }
-    
     public func save () {
         UserInfo.save(self)
     }
-    
     public class func logout () {
         let defaults = UserDefaults.standard
         defaults.removeObject(forKey: "LoginInfo")
@@ -132,15 +123,13 @@ open class UserInfo: NSObject, NSCoding {
 
     open class func user1() -> Any? {
         let defaults = UserDefaults.standard
-        
-        if (defaults.object(forKey: "LoginInfo") != nil) {
+            if (defaults.object(forKey: "LoginInfo") != nil) {
             let data = defaults.object(forKey: "LoginInfo") as! NSData
             return retrievePeople(data)
         } else {
             return nil
         }
     }
-    
     open func user() ->  Any? {
         return UserInfo.user1()
     }

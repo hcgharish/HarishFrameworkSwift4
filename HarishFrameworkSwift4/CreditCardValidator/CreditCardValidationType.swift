@@ -7,14 +7,12 @@
 
 import Foundation
 
-public func == (lhs: CreditCardValidationType, rhs: CreditCardValidationType) -> Bool {
+public func == (lhs: CreditCardValidationType,rhs: CreditCardValidationType) -> Bool {
     return lhs.name == rhs.name
 }
 
 public struct CreditCardValidationType: Equatable {
-    
     public var name: String
-    
     public var regex: String
 
     public init(dict: [String: Any]) {
@@ -23,13 +21,11 @@ public struct CreditCardValidationType: Equatable {
         } else {
             self.name = ""
         }
-        
-        if let regex = dict["regex"] as? String {
+            if let regex = dict["regex"] as? String {
             self.regex = regex
         } else {
             self.regex = ""
         }
     }
-    
 }
 

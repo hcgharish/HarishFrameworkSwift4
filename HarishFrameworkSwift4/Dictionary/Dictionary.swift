@@ -15,30 +15,21 @@ class Dictionary1: NSDictionary {
 public extension NSDictionary {
     public func string () -> String {
         do {
-            let jsonData: NSData = try JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted) as NSData
-            
-            let str = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
-            
-            return str.replacingOccurrences(of: "\n", with: "")
+            let jsonData: NSData = try JSONSerialization.data(withJSONObject: self,options: JSONSerialization.WritingOptions.prettyPrinted) as NSData
+                    let str = NSString(data: jsonData as Data,encoding: String.Encoding.utf8.rawValue)! as String
+                    return str.replacingOccurrences(of: "\n",with: "")
         } catch {
-            
-        }
-        
-        return "[]"
+                }
+            return "[]"
     }
-    
     public func getMutable (_ md:NSMutableDictionary?) -> NSMutableDictionary? {
         let dict = self
-        
-        var md = md
-        
-        if md == nil {
+            var md = md
+            if md == nil {
             md = NSMutableDictionary ()
         }
-        
-        let arr = dict.allKeys
-        
-        for i in 0..<arr.count {
+            let arr = dict.allKeys
+            for i in 0..<arr.count {
             if let val = dict[arr[i]] as? String {
                 md?[arr[i]] = val
             } else if let val = dict[arr[i]] as? Double {
@@ -53,14 +44,11 @@ public extension NSDictionary {
                 md?[arr[i]] = val
             }
         }
-        
-        return md
+            return md
     }
-    
     public func toString (_ caller:Bool = true) -> String {
         var str = "{"
-        
-        for (key, value) in self {
+            for (key,value) in self {
             let key = key as! String
             if (str.count == 1) {
                 if value is String {
@@ -82,26 +70,25 @@ public extension NSDictionary {
                 }
             } else {
                 if value is String {
-                    str = "\(str), \(key.colon ()):\("\(value)".colon ())"
+                    str = "\(str),\(key.colon ()):\("\(value)".colon ())"
                 } else if value is Double {
-                    str = "\(str), \(key.colon ()):\("\(value)".colon ())"
+                    str = "\(str),\(key.colon ()):\("\(value)".colon ())"
                 } else if value is Int {
-                    str = "\(str), \(key.colon ()):\("\(value)".colon ())"
+                    str = "\(str),\(key.colon ()):\("\(value)".colon ())"
                 } else if let val = value as? NSArray {
                     str = "\(str),\(key.colon ()):\(val.toString(false))"
                 } else if value is NSDictionary {
                     str = "\(str),\(key.colon ()):\(toString(false))"
                 } else if value is Float {
-                    str = "\(str), \(key.colon ()):\("\(value)".colon ())"
+                    str = "\(str),\(key.colon ()):\("\(value)".colon ())"
                 } else if value is Bool {
-                    str = "\(str), \(key.colon ()):\("\(value)".colon ())"
+                    str = "\(str),\(key.colon ()):\("\(value)".colon ())"
                 } else if value is Double {
-                    str = "\(str), \(key.colon ()):\("\(value)".colon ())"
+                    str = "\(str),\(key.colon ()):\("\(value)".colon ())"
                 }
             }
         }
-        
-        if caller {
+            if caller {
             return "\(str)}".colon ()
         } else {
             return "\(str)}"

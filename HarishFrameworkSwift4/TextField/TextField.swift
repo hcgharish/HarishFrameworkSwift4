@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class TextField: UITextField, LayoutParameters {
+open class TextField: UITextField,LayoutParameters {
     var classPara: ClassPara = ClassPara()
     @IBInspectable open var isBorder: Bool = false
     @IBInspectable open var border: Int = 0
@@ -22,76 +22,57 @@ open class TextField: UITextField, LayoutParameters {
     @IBInspectable open var lsOff_Height: CGFloat = 2.0
     @IBInspectable open var isStrokeColor: Bool = false
         @IBInspectable open var padding: Int = 0
-    
     override open func draw(_ rect: CGRect) {
         if isStrokeColor {
             strokeColor()
         }
     }
-    
     var shadowLayer: CAShapeLayer!
-    
     override open func layoutSubviews() {
         super.layoutSubviews()
-        
-        let ob = ClassPara ()
-        
-        ob.shadowLayer = shadowLayer
+            let ob = ClassPara ()
+            ob.shadowLayer = shadowLayer
         ob.backgroundColor = backgroundColor
         ob.layer = layer
-        
-        classPara = ob
-        
-        layoutSubviews (self)
-        
-        if padding > 0 {
+            classPara = ob
+            layoutSubviews (self)
+            if padding > 0 {
             padding (padding)
         }
     }
-    
     public func padding (_ pad: Int) {
         DispatchQueue.main.async {
-            let paddingView = UIView(frame:CGRect(x: 0, y: 0, width: pad, height: Int(self.frame.size.height)))
+            let paddingView = UIView(frame:CGRect(x: 0,y: 0,width: pad,height: Int(self.frame.size.height)))
             self.leftView = paddingView;
             self.leftViewMode = UITextFieldViewMode.always
         }
     }
-    
     var toolBarDelegate:ToolBarDelegate? = nil
-    
-    public func toolbar(_ toolBarDelegate:ToolBarDelegate?, _ leftTitle:String?, _ rightTitle:String?, _ backColor:UIColor? = UIColor.darkGray, _ tintColor:UIColor? = UIColor.black, _ btnColor:UIColor? = UIColor.white) {
+    public func toolbar(_ toolBarDelegate:ToolBarDelegate?,_ leftTitle:String?,_ rightTitle:String?,_ backColor:UIColor? = UIColor.darkGray,_ tintColor:UIColor? = UIColor.black,_ btnColor:UIColor? = UIColor.white) {
         self.toolBarDelegate = toolBarDelegate
-        
-        var items:[UIBarButtonItem] = []
-        
-        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 50))
+            var items:[UIBarButtonItem] = []
+            let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0,y: 0,width: UIScreen.main.bounds.size.width,height: 50))
         doneToolbar.barTintColor = tintColor
         doneToolbar.backgroundColor = backColor
-        
-        if leftTitle != nil {
-            let left: UIBarButtonItem = UIBarButtonItem(title: leftTitle, style: UIBarButtonItemStyle.done, target: self, action: #selector(self.toolTabLeft))
+            if leftTitle != nil {
+            let left: UIBarButtonItem = UIBarButtonItem(title: leftTitle,style: UIBarButtonItemStyle.done,target: self,action: #selector(self.toolTabLeft))
             left.tintColor = btnColor
             items.append(left)
         }
-        
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+            let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace,target: nil,action: nil)
         items.append(flexSpace)
-        
-        if rightTitle != nil {
-            let right: UIBarButtonItem = UIBarButtonItem(title: rightTitle, style: UIBarButtonItemStyle.done, target: self, action: #selector(self.toolTabRight))
+            if rightTitle != nil {
+            let right: UIBarButtonItem = UIBarButtonItem(title: rightTitle,style: UIBarButtonItemStyle.done,target: self,action: #selector(self.toolTabRight))
             right.tintColor = btnColor
             items.append(right)
         }
-        
-        doneToolbar.items = items
+            doneToolbar.items = items
         doneToolbar.sizeToFit()
         self.inputAccessoryView = doneToolbar
     }
-    
     @objc func toolTabRight() {
         toolBarDelegate?.toolTabRight(self)
     }
-    
     @objc func toolTabLeft() {
         toolBarDelegate?.toolTabLeft(self)
     }
@@ -107,9 +88,8 @@ public extension UITextField {
         get {
             return self.placeHolderColor
         }
-        
-        set {
-            self.attributedPlaceholder = NSAttributedString(string:self.placeholder != nil ? self.placeholder! : "", attributes:[NSAttributedStringKey.foregroundColor: newValue!])
+            set {
+            self.attributedPlaceholder = NSAttributedString(string:self.placeholder != nil ? self.placeholder! : "",attributes:[NSAttributedStringKey.foregroundColor: newValue!])
         }
     }
 }

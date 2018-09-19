@@ -20,9 +20,7 @@ protocol LayoutParameters {
     var lsOffWidth: CGFloat {get set}
     var lsOff_Height: CGFloat {get set}
     var isStrokeColor: Bool {get set}
-    
     var classPara:ClassPara {get set}
-    
     var bounds:CGRect {get set}
 }
 
@@ -35,35 +33,29 @@ class ClassPara {
 extension NSObject {
     func strokeColor() {
         let c = UIGraphicsGetCurrentContext()
-        c!.addRect(CGRect(x: 10.0, y: 10.0, width: 80.0, height: 80.0))
+        c!.addRect(CGRect(x: 10.0,y: 10.0,width: 80.0,height: 80.0))
         c!.setStrokeColor(UIColor.red.cgColor)
         c!.strokePath()
     }
-    
     func layoutSubviews(_ ob:LayoutParameters) {
-        
-        if ob.isShadow {
+            if ob.isShadow {
             if ob.classPara.shadowLayer == nil {
                 let color = ob.classPara.backgroundColor
                 ob.classPara.backgroundColor = UIColor.clear
-                
-                ob.classPara.shadowLayer = CAShapeLayer()
-                ob.classPara.shadowLayer.path = UIBezierPath(roundedRect: ob.bounds, cornerRadius: CGFloat(ob.radious)).cgPath
+                            ob.classPara.shadowLayer = CAShapeLayer()
+                ob.classPara.shadowLayer.path = UIBezierPath(roundedRect: ob.bounds,cornerRadius: CGFloat(ob.radious)).cgPath
                 ob.classPara.shadowLayer.fillColor = color?.cgColor
-                
-                ob.classPara.shadowLayer.shadowColor = ob.shadow_Color?.cgColor
+                            ob.classPara.shadowLayer.shadowColor = ob.shadow_Color?.cgColor
                 ob.classPara.shadowLayer.shadowPath = ob.classPara.shadowLayer.path
-                ob.classPara.shadowLayer.shadowOffset = CGSize(width: ob.lsOffWidth, height: ob.lsOff_Height)
+                ob.classPara.shadowLayer.shadowOffset = CGSize(width: ob.lsOffWidth,height: ob.lsOff_Height)
                 ob.classPara.shadowLayer.shadowOpacity = Float(ob.lsOpacity)
                 ob.classPara.shadowLayer.shadowRadius = CGFloat(ob.lsRadius)
-                
-                ob.classPara.layer.insertSublayer(ob.classPara.shadowLayer, at: 0)
+                            ob.classPara.layer.insertSublayer(ob.classPara.shadowLayer,at: 0)
             }
         } else if ob.isBorder {
             doBorder(ob)
         }
     }
-    
     func doBorder (_ ob:LayoutParameters) {
         ob.classPara.layer.masksToBounds = true
         if (ob.borderColor != nil) { ob.classPara.layer.borderColor = ob.borderColor?.cgColor }
@@ -72,7 +64,7 @@ extension NSObject {
     }
 }
 
-open class Label: UILabel, LayoutParameters {
+open class Label: UILabel,LayoutParameters {
     var classPara: ClassPara = ClassPara()
     @IBInspectable open var isBorder: Bool = false
     @IBInspectable open var border: Int = 0
@@ -85,27 +77,20 @@ open class Label: UILabel, LayoutParameters {
     @IBInspectable open var lsOffWidth: CGFloat = 2.0
     @IBInspectable open var lsOff_Height: CGFloat = 2.0
     @IBInspectable open var isStrokeColor: Bool = false
-    
     override open func draw(_ rect: CGRect) {
         super.draw(rect)
-        
-        if isStrokeColor {
+            if isStrokeColor {
             strokeColor()
         }
     }
-    
     var shadowLayer: CAShapeLayer!
-    
     override open func layoutSubviews() {
         super.layoutSubviews()
-        
-        let ob = ClassPara ()
-        
-        ob.shadowLayer = shadowLayer
+            let ob = ClassPara ()
+            ob.shadowLayer = shadowLayer
         ob.backgroundColor = backgroundColor
         ob.layer = layer
-        
-        classPara = ob
+            classPara = ob
 
         layoutSubviews (self)
     }

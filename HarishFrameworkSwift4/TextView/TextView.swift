@@ -8,9 +8,8 @@
 
 import UIKit
 
-open class TextView: UITextView, LayoutParameters {
-        
-    var classPara: ClassPara = ClassPara()
+open class TextView: UITextView,LayoutParameters {
+        var classPara: ClassPara = ClassPara()
     @IBInspectable open var isBorder: Bool = false
     @IBInspectable open var border: Int = 0
     @IBInspectable open var radious: Int = 0
@@ -22,26 +21,19 @@ open class TextView: UITextView, LayoutParameters {
     @IBInspectable open var lsOffWidth: CGFloat = 2.0
     @IBInspectable open var lsOff_Height: CGFloat = 2.0
     @IBInspectable open var isStrokeColor: Bool = false
-    
     override open func draw(_ rect: CGRect) {
         if isStrokeColor {
             strokeColor()
         }
     }
-    
     var shadowLayer: CAShapeLayer!
-    
     override open func layoutSubviews() {
         super.layoutSubviews()
-        
-        let ob = ClassPara ()
-        
-        ob.shadowLayer = shadowLayer
+            let ob = ClassPara ()
+            ob.shadowLayer = shadowLayer
         ob.backgroundColor = backgroundColor
         ob.layer = layer
-        
-        classPara = ob
-        
-        layoutSubviews (self)
+            classPara = ob
+            layoutSubviews (self)
     }
 }
