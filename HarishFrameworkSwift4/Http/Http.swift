@@ -16,18 +16,19 @@ open class Http: NSObject {
         return Http()
     }
     
-    public func json (_ api:String?,_ params:NSMutableDictionary?,_ method:String?,ai:Bool,popup:Bool,prnt:Bool,_ header:NSDictionary? = nil ,_ images:NSMutableArray? = nil,sync:Bool = false,completionHandler: @escaping (Any?,NSMutableDictionary?,String) -> Swift.Void) {
-        self.json(api, params, method, ai: ai, popup: popup, prnt: prnt, header, images, sync: sync) { (json, params, resStr, res) in
+    public func json (_ api:String?,_ params:NSMutableDictionary?,_ method:String?,ai:Bool,popup:Bool,prnt:Bool,_ header:NSDictionary? = nil ,_ images:NSMutableArray? = nil,sync:Bool = false,defaultCalling:Bool=false,completionHandler: @escaping (Any?,NSMutableDictionary?,String) -> Swift.Void) {
+        self.json(api, params, method, ai: ai, popup: popup, prnt: prnt, header, images, sync: sync, defaultCalling:defaultCalling) { (json, params, resStr, res) in
             completionHandler(json, params, resStr)
         }
     }
     
-    public func json (_ api:String?,_ params:NSMutableDictionary?,_ method:String?,ai:Bool,popup:Bool,prnt:Bool,_ header:NSDictionary? = nil ,_ images:NSMutableArray? = nil,sync:Bool = false,completionHandler: @escaping (Any?,NSMutableDictionary?,String, HTTPURLResponse?) -> Swift.Void) {
+    public func json (_ api:String?,_ params:NSMutableDictionary?,_ method:String?,ai:Bool,popup:Bool,prnt:Bool,_ header:NSDictionary? = nil ,_ images:NSMutableArray? = nil,sync:Bool = false,defaultCalling:Bool=false,completionHandler: @escaping (Any?,NSMutableDictionary?,String, HTTPURLResponse?) -> Swift.Void) {
         let reach = Reachability.init(hostname: "google.com")
         if (reach?.isReachable)! {
             if ai {
                 startActivityIndicator()
             }
+
             var request = NSMutableURLRequest(url: NSURL(string: (api!.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)!))! as URL)
             let config = URLSessionConfiguration.default
             config.timeoutIntervalForRequest = 180.0
@@ -41,6 +42,7 @@ open class Http: NSObject {
                 }
                 request = NSMutableURLRequest(url: NSURL(string: (url.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)!))! as URL)
             } else if (method == "POST") {
+                let defaultCalling = false
                 request.httpMethod = method!
                 var data:Data! = Data()
                 do {
@@ -48,38 +50,54 @@ open class Http: NSObject {
                         data = try JSONSerialization.data(withJSONObject:[],options:[])
                         request.httpBody = data
                     } else if (method == "POST") {
-                        let boundary = generateBoundaryString()
-                        request.setValue("multipart/form-data; boundary=\(boundary)",forHTTPHeaderField: "Content-Type")
-                        let newParams = NSMutableDictionary()
-                        newParams.setValue("",forKey: "")
-                        newParams.setValue("",forKey: "")
-                        newParams.setValue("",forKey: "")
-                        for (key,value) in params! {
-                            newParams.setValue(value,forKey: key as! String)
-                        }
-                        for (key,value) in newParams {
-                            data.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: String.Encoding.ascii)!)
-                            data.append("\(value)".data(using: String.Encoding.ascii)!)
-                            data.append("\r\n--\(boundary)\r\n".data(using: String.Encoding.ascii)!)
-                        }
-                        if images != nil {
-                            for i in 0..<(images?.count)! {
-                                let md = images?[i] as! NSMutableDictionary
-                                let param = md["param"] as! String
-                                let image = md["image"] as! UIImage
-                                let image_data = UIImagePNGRepresentation(image)
-                                print("image-\(param)-\(image)-\(String(describing: image_data?.count))-")
-                                let fname = "test\(i).png"
-                                data.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
-                                data.append("Content-Disposition: form-data; name=\"\(param)\"; filename=\"\(fname)\"\r\n".data(using: String.Encoding.utf8)!)
-                                data.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
-                                data.append("Content-Type: application/octet-stream\r\n\r\n".data(using: String.Encoding.utf8)!)
-                                data.append(image_data!)
-                                data.append("\r\n".data(using: String.Encoding.utf8)!)
-                                data.append("--\(boundary)--\r\n".data(using: String.Encoding.utf8)!)
+                        if defaultCalling == false {
+                            let str = params?.string()
+                            
+                            //let data = NSKeyedArchiver.archivedData(withRootObject: str!)
+                            let data = (str?.data(using: String.Encoding.utf8)!)!
+                            request.httpBody = data
+                            request.httpBody = str?.data(using: String.Encoding.ascii)
+                            let count = data.count
+                            
+                            request.addValue("application/json", forHTTPHeaderField: "Accept")
+                            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                            request.addValue("\(count)", forHTTPHeaderField: "Content-Length")
+                            
+                            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                        } else {
+                            let boundary = generateBoundaryString()
+                            request.setValue("multipart/form-data; boundary=\(boundary)",forHTTPHeaderField: "Content-Type")
+                            let newParams = NSMutableDictionary()
+                            newParams.setValue("",forKey: "")
+                            newParams.setValue("",forKey: "")
+                            newParams.setValue("",forKey: "")
+                            for (key,value) in params! {
+                                newParams.setValue(value,forKey: key as! String)
                             }
+                            for (key,value) in newParams {
+                                data.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: String.Encoding.ascii)!)
+                                data.append("\(value)".data(using: String.Encoding.ascii)!)
+                                data.append("\r\n--\(boundary)\r\n".data(using: String.Encoding.ascii)!)
+                            }
+                            if images != nil {
+                                for i in 0..<(images?.count)! {
+                                    let md = images?[i] as! NSMutableDictionary
+                                    let param = md["param"] as! String
+                                    let image = md["image"] as! UIImage
+                                    let image_data = UIImagePNGRepresentation(image)
+                                    print("image-\(param)-\(image)-\(String(describing: image_data?.count))-")
+                                    let fname = "test\(i).png"
+                                    data.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+                                    data.append("Content-Disposition: form-data; name=\"\(param)\"; filename=\"\(fname)\"\r\n".data(using: String.Encoding.utf8)!)
+                                    data.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+                                    data.append("Content-Type: application/octet-stream\r\n\r\n".data(using: String.Encoding.utf8)!)
+                                    data.append(image_data!)
+                                    data.append("\r\n".data(using: String.Encoding.utf8)!)
+                                    data.append("--\(boundary)--\r\n".data(using: String.Encoding.utf8)!)
+                                }
+                            }
+                            request.httpBody = data
                         }
-                        request.httpBody = data
                     }
                 } catch {
                     if ai {
@@ -87,9 +105,12 @@ open class Http: NSObject {
                     }
                     print("JSON serialization failed:  \(error)")
                 }
-                request.addValue("application/x-www-form-urlencoded",forHTTPHeaderField: "Content-Type")
-                request.addValue("application/json",forHTTPHeaderField: "Accept")
-                request.addValue("\(data.count)",forHTTPHeaderField: "Content-Length")
+                
+                if defaultCalling {
+                    request.addValue("application/x-www-form-urlencoded",forHTTPHeaderField: "Content-Type")
+                    request.addValue("application/json",forHTTPHeaderField: "Accept")
+                    request.addValue("\(data.count)",forHTTPHeaderField: "Content-Length")
+                }
             } else if (method == nil || params == nil || method == "GET") {
             }
             if header != nil {
@@ -194,7 +215,8 @@ open class Http: NSObject {
                     var prnt = "====================================================================="
                     if (api != nil) { prnt += "\n" + "api -\(api!)-" }
                     if (params != nil) { prnt += "\n" + "params -\(params!)-" }
-                    prnt += "\n" + "json -\(parsedData)-"
+                    let jsn:NSDictionary? = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? NSDictionary
+                    prnt += "\n" + "json -\(jsn)-"
                     prnt += "\n" + "====================================================================="
                     print(prnt)
                 }
