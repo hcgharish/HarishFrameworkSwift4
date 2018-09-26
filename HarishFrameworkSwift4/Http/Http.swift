@@ -22,7 +22,7 @@ open class Http: NSObject {
         }
     }
     
-    public func json (_ api:String?,_ params:NSMutableDictionary?,_ method:String?,ai:Bool,popup:Bool,prnt:Bool,_ header:NSDictionary? = nil ,_ images:NSMutableArray? = nil,sync:Bool = false,defaultCalling:Bool=false,completionHandler: @escaping (Any?,NSMutableDictionary?,String, HTTPURLResponse?) -> Swift.Void) {
+    public func json (_ api:String?,_ params:NSMutableDictionary?,_ method:String?,ai:Bool,popup:Bool,prnt:Bool,_ header:NSDictionary? = nil ,_ images:NSMutableArray? = nil,sync:Bool = false,defaultCalling:Bool=true,completionHandler: @escaping (Any?,NSMutableDictionary?,String, HTTPURLResponse?) -> Swift.Void) {
         let reach = Reachability.init(hostname: "google.com")
         if (reach?.isReachable)! {
             if ai {
