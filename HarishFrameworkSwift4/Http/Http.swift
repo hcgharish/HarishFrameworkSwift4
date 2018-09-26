@@ -64,9 +64,7 @@ open class Http: NSObject {
                             request.addValue("\(count)", forHTTPHeaderField: "Content-Length")
                             
                             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                            print("Harish 111")
                         } else {
-                            print("Harish 111111")
                             let boundary = generateBoundaryString()
                             request.setValue("multipart/form-data; boundary=\(boundary)",forHTTPHeaderField: "Content-Type")
                             let newParams = NSMutableDictionary()
