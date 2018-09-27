@@ -215,8 +215,9 @@ open class Http: NSObject {
                     var prnt = "====================================================================="
                     if (api != nil) { prnt += "\n" + "api -\(api!)-" }
                     if (params != nil) { prnt += "\n" + "params -\(params!)-" }
-                    let jsn:NSDictionary? = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? NSDictionary
-                    prnt += "\n" + "json -\(jsn)-"
+                    if let jsn = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? NSDictionary {
+                        prnt += "\n" + "json -\(jsn)-"
+                    }
                     prnt += "\n" + "====================================================================="
                     print(prnt)
                 }
