@@ -5,20 +5,19 @@
 //  Created by Glen Yi on 2014-09-05.
 //  Copyright (c) 2014 On The Pursuit. All rights reserved.
 //
-
 import UIKit
-
 @objc public protocol FloatRatingViewDelegate {
     /**
     Returns the rating value when touch events end
     */
-    func floatRatingView(_ ratingView: FloatRatingView,didUpdate rating: Float)
+    func floatRatingView(_ ratingView: FloatRatingView,
+                         didUpdate rating: Float)
     /**
     Returns the rating value as the user pans
     */
-    @objc optional func floatRatingView(_ ratingView: FloatRatingView,isUpdating rating: Float)
+    @objc optional func floatRatingView(_ ratingView: FloatRatingView,
+                                        isUpdating rating: Float)
 }
-
 /**
 A simple rating view that can set whole,half or floating point ratings.
 */
@@ -83,8 +82,7 @@ open class FloatRatingView: UIView {
         didSet {
             if maxRating != oldValue {
                 removeImageViews()
-                initImageViews()
-                            // Relayout and refresh
+                initImageViews() // Relayout and refresh
                 setNeedsLayout()
                 refresh()
             }
@@ -93,7 +91,7 @@ open class FloatRatingView: UIView {
     /**
     Minimum image size.
     */
-    @IBInspectable open var minImageSize: CGSize = CGSize(width: 5.0,height: 5.0)
+    @IBInspectable open var minImageSize: CGSize = CGSize(width: 5.0, height: 5.0)
     /**
     Set the current rating.
     */
@@ -116,7 +114,6 @@ open class FloatRatingView: UIView {
     Ratings change by floating point values.
     */
     @IBInspectable open var floatRatings: Bool = false
-
     // MARK: Initializations
     required override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -127,12 +124,10 @@ open class FloatRatingView: UIView {
             initImageViews()
     }
     // MARK: Helper methods
-
     fileprivate func initImageViews() {
         guard emptyImageViews.isEmpty && fullImageViews.isEmpty else {
             return
         }
-
         // Add new image views
         for _ in 0..<maxRating {
             let emptyImageView = UIImageView()
@@ -140,7 +135,6 @@ open class FloatRatingView: UIView {
             emptyImageView.image = emptyImage
             emptyImageViews.append(emptyImageView)
             addSubview(emptyImageView)
-
             let fullImageView = UIImageView()
             fullImageView.contentMode = imageContentMode
             fullImageView.image = fullImage
@@ -148,135 +142,127 @@ open class FloatRatingView: UIView {
             addSubview(fullImageView)
         }
     }
-
     fileprivate func removeImageViews() {
         // Remove old image views
-        for i in 0..<emptyImageViews.count {
-            var imageView = emptyImageViews[i]
+        for iii in 0..<emptyImageViews.count {
+            var imageView = emptyImageViews[iii]
             imageView.removeFromSuperview()
-            imageView = fullImageViews[i]
+            imageView = fullImageViews[iii]
             imageView.removeFromSuperview()
         }
         emptyImageViews.removeAll(keepingCapacity: false)
         fullImageViews.removeAll(keepingCapacity: false)
     }
-
     func myRefresh() {
         refresh()
     }
     // Refresh hides or shows full images
     fileprivate func refresh() {
-        for i in 0..<fullImageViews.count {
-            let imageView = fullImageViews[i]
-                    if rating >= Float(i+1) {
+        for iii in 0..<fullImageViews.count {
+            let imageView = fullImageViews[iii]
+                    if rating >= Float(iii+1) {
                 imageView.layer.mask = nil
                 imageView.isHidden = false
-            } else if rating > Float(i) && rating < Float(i+1) {
+            } else if rating > Float(iii) && rating < Float(iii+1) {
                 // Set mask layer for full image
                 let maskLayer = CALayer()
-                maskLayer.frame = CGRect(x: 0,y: 0,width: CGFloat(rating-Float(i))*imageView.frame.size.width,height: imageView.frame.size.height)
+                maskLayer.frame = CGRect(x: 0, y: 0,
+                                         width: CGFloat(rating-Float(iii))*imageView.frame.size.width,
+                                         height: imageView.frame.size.height)
                 maskLayer.backgroundColor = UIColor.black.cgColor
                 imageView.layer.mask = maskLayer
                 imageView.isHidden = false
             } else {
-                imageView.layer.mask = nil;
+                imageView.layer.mask = nil
                 imageView.isHidden = true
             }
         }
     }
     // Calculates the ideal ImageView size in a given CGSize
-    fileprivate func sizeForImage(_ image: UIImage,inSize size: CGSize) -> CGSize {
+    fileprivate func sizeForImage(_ image: UIImage, inSize size: CGSize) -> CGSize {
         let imageRatio = image.size.width / image.size.height
         let viewRatio = size.width / size.height
             if imageRatio < viewRatio {
             let scale = size.height / image.size.height
             let width = scale * image.size.width
-                    return CGSize(width: width,height: size.height)
+                    return CGSize(width: width, height: size.height)
         } else {
             let scale = size.width / image.size.width
             let height = scale * image.size.height
-                    return CGSize(width: size.width,height: height)
+                    return CGSize(width: size.width, height: height)
         }
     }
-
     // Calculates new rating based on touch location in view
     fileprivate func updateLocation(_ touch: UITouch) {
         guard editable else {
             return
         }
-
         let touchLocation = touch.location(in: self)
         var newRating: Float = 0
-        for i in stride(from: (maxRating-1),through: 0,by: -1) {
-            let imageView = emptyImageViews[i]
+        for iii in stride(from: (maxRating-1), through: 0, by: -1) {
+            let imageView = emptyImageViews[iii]
             guard touchLocation.x > imageView.frame.origin.x else {
                 continue
             }
-
             // Find touch point in image view
-            let newLocation = imageView.convert(touchLocation,from: self)
-
+            let newLocation = imageView.convert(touchLocation, from: self)
             // Find decimal value for float or half rating
-            if imageView.point(inside: newLocation,with: nil) && (floatRatings || halfRatings) {
+            if imageView.point(inside: newLocation, with: nil) && (floatRatings || halfRatings) {
                 let decimalNum = Float(newLocation.x / imageView.frame.size.width)
-                newRating = Float(i) + decimalNum
+                newRating = Float(iii) + decimalNum
                 if halfRatings {
-                    newRating = Float(i) + (decimalNum > 0.75 ? 1 : (decimalNum > 0.25 ? 0.5 : 0))
+                    newRating = Float(iii) + (decimalNum > 0.75 ? 1 : (decimalNum > 0.25 ? 0.5 : 0))
                 }
             } else {
                 // Whole rating
-                newRating = Float(i) + 1.0
+                newRating = Float(iii) + 1.0
             }
             break
         }
-
         // Check min rating
         rating = newRating < Float(minRating) ? Float(minRating) : newRating
-
         // Update delegate
-        delegate?.floatRatingView?(self,isUpdating: rating)
+        delegate?.floatRatingView?(self, isUpdating: rating)
     }
-
     // MARK: UIView
     // Override to calculate ImageView frames
     override open func layoutSubviews() {
         super.layoutSubviews()
-
         guard let emptyImage = emptyImage else {
             return
         }
-
         let desiredImageWidth = frame.size.width / CGFloat(emptyImageViews.count)
-        let maxImageWidth = max(minImageSize.width,desiredImageWidth)
-        let maxImageHeight = max(minImageSize.height,frame.size.height)
-        let imageViewSize = sizeForImage(emptyImage,inSize: CGSize(width: maxImageWidth,height: maxImageHeight))
+        let maxImageWidth = max(minImageSize.width, desiredImageWidth)
+        let maxImageHeight = max(minImageSize.height, frame.size.height)
+        let imageViewSize = sizeForImage(emptyImage, inSize: CGSize(width: maxImageWidth,
+                                                                    height: maxImageHeight))
         let imageXOffset = (frame.size.width - (imageViewSize.width * CGFloat(emptyImageViews.count))) /
                             CGFloat((emptyImageViews.count - 1))
-            for i in 0..<maxRating {
-            let imageFrame = CGRect(x: i == 0 ? 0 : CGFloat(i)*(imageXOffset+imageViewSize.width),y: 0,width: imageViewSize.width,height: imageViewSize.height)
-                    var imageView = emptyImageViews[i]
+            for iii in 0..<maxRating {
+            let imageFrame = CGRect(x: iii == 0 ? 0 : CGFloat(iii)*(imageXOffset+imageViewSize.width),
+                                    y: 0, width: imageViewSize.width, height: imageViewSize.height)
+                    var imageView = emptyImageViews[iii]
             imageView.frame = imageFrame
-                    imageView = fullImageViews[i]
+                    imageView = fullImageViews[iii]
             imageView.frame = imageFrame
         }
             refresh()
     }
     // MARK: Touch events
-
-    override open func touchesBegan(_ touches: Set<UITouch>,with event: UIEvent?) {
+    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else {
             return
         }
         updateLocation(touch)
     }
-    override open func touchesMoved(_ touches: Set<UITouch>,with event: UIEvent?) {
+    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else {
             return
         }
         updateLocation(touch)
     }
-    override open func touchesEnded(_ touches: Set<UITouch>,with event: UIEvent?) {
+    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         // Update delegate
-        delegate?.floatRatingView(self,didUpdate: rating)
+        delegate?.floatRatingView(self, didUpdate: rating)
     }
 }

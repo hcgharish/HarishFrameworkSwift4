@@ -5,37 +5,36 @@
 //  Created by Harish on 11/01/18.
 //  Copyright © 2018 Harish. All rights reserved.
 //
-
 import UIKit
-
-open class ImageView: UIImageView,LayoutParameters {
+open class ImageView: UIImageView, LayoutParameters {
     var classPara: ClassPara = ClassPara()
-    var webView:UIWebView? = nil
+    var webView: UIWebView?
     @IBInspectable open var isBorder: Bool = false
     @IBInspectable open var border: Int = 0
     @IBInspectable open var radious: Int = 0
-    @IBInspectable open var borderColor: UIColor? = nil
+    @IBInspectable open var borderColor: UIColor?
     @IBInspectable open var isShadow: Bool = false
-    @IBInspectable open var shadow_Color: UIColor? = UIColor.darkGray
+    @IBInspectable open var shadowCColor: UIColor?
     @IBInspectable open var lsOpacity: CGFloat = 0.5
     @IBInspectable open var lsRadius: Int = 0
     @IBInspectable open var lsOffWidth: CGFloat = 2.0
-    @IBInspectable open var lsOff_Height: CGFloat = 2.0
+    @IBInspectable open var lsOffHeight: CGFloat = 2.0
     @IBInspectable open var isStrokeColor: Bool = false
     var shadowLayer: CAShapeLayer!
     override open func layoutSubviews() {
         super.layoutSubviews()
-        let ob = ClassPara ()
-        ob.shadowLayer = shadowLayer
-        ob.backgroundColor = backgroundColor
-        ob.layer = layer
-        classPara = ob
+        let obb = ClassPara ()
+        obb.shadowLayer = shadowLayer
+        obb.backgroundColor = backgroundClr
+        obb.layer = layer
+        classPara = obb
         layoutSubviews (self)
     }
-    var url:[String] = []
+    var url: [String] = []
     @IBInspectable open var willZoom: Bool = false
-    @IBInspectable open var background_color: UIColor = UIColor.init(red: 0.5,green: 0.5,blue: 0.5,alpha: 1.0)
+    @IBInspectable open var backgroundClr: UIColor!
     override open func draw(_ rect: CGRect) {
+        backgroundClr = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
         setUIImage ()
         if willZoom {
             addClickButton (rect)
@@ -44,7 +43,7 @@ open class ImageView: UIImageView,LayoutParameters {
             strokeColor()
         }
     }
-    open func willZoomImage (_ image:UIImage) {
+    open func willZoomImage (_ image: UIImage) {
         willZoom = true
         self.image = image
         self.createZoomView(superView)
@@ -52,21 +51,25 @@ open class ImageView: UIImageView,LayoutParameters {
             addClickButton (self.frame)
         }
     }
-    var urlImage:String? = nil
-    var dImage:String? = nil
-    var boolScal:Bool = false
-    var ai:UIActivityIndicatorView? = nil
-    var superView:UIView? = nil
-    public func setImage(_ superView:UIView?,_ urlImage:String?,_ dImage:String?,_ boolScal:Bool,_ ai:UIActivityIndicatorView?) {
+    var urlImage: String?
+    var dImage: String?
+    var boolScal: Bool = false
+    var aai: UIActivityIndicatorView?
+    var superView: UIView?
+    public func setImage(_ superView: UIView?,
+                         _ urlImage: String?,
+                         _ dImage: String?,
+                         _ boolScal: Bool,
+                         _ aai: UIActivityIndicatorView?) {
         draw (self.frame)
         self.superView = superView
         self.urlImage = urlImage
         self.dImage = dImage
         self.boolScal = boolScal
-        self.ai = ai
+        self.aai = aai
         setUIImage ()
     }
-    public func createZoomView (_ superView:UIView?) {
+    public func createZoomView (_ superView: UIView?) {
         if willZoom {
             DispatchQueue.main.async {
                 self.superView = superView
@@ -76,25 +79,38 @@ open class ImageView: UIImageView,LayoutParameters {
     }
     public func setUIImage () {
         if urlImage != nil {
-            self.uiimage(urlImage,dImage,boolScal,ai)
+            self.uiimage(urlImage, dImage, boolScal, aai)
         }
     }
-    var btnOpen:UIButton? = nil
+    var btnOpen: UIButton?
     public func addClickButton (_ rect: CGRect) {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self,action: #selector(self.imageTapped(_ :)))
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(_ :)))
         self.isUserInteractionEnabled = true
         self.addGestureRecognizer(tapGestureRecognizer)
     }
     @objc public func imageTapped (_ tapGestureRecognizer: UITapGestureRecognizer) {
-        let tappedImage = tapGestureRecognizer.view as! UIImageView
+        let tappedImage = (tapGestureRecognizer.view as? UIImageView)!
         openZoomView(tappedImage)
     }
-    public func openZoomView (_ sender:Any) {
+    func btnReoveZoomWork () {
+        if btnRemoveZoomaContainer == nil {
+            let frame = CGRect(x: 0.0, y: 10.0, width: 50, height: 50)
+            btnRemoveZoomaContainer = UIButton(frame: frame)
+            btnRemoveZoomaContainer?.setTitle("X", for: UIControlState.normal)
+            btnRemoveZoomaContainer?.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+            btnRemoveZoomaContainer?.setTitleColor(UIColor.red, for: UIControlState.normal)
+            btnRemoveZoomaContainer?.addTarget(self,
+                                               action: #selector(actionRemoveZoomContainer (_ :)),
+                                               for: UIControlEvents.touchUpInside)
+            viewZoomContainer?.addSubview(btnRemoveZoomaContainer!)
+        }
+    }
+    public func openZoomView (_ sender: Any) {
         if viewZoomContainer == nil {
             viewZoomContainer = UIView()
             viewZoomContainer?.frame = UIScreen.main.bounds
             viewZoomContainer?.isUserInteractionEnabled = true
-            viewZoomContainer?.backgroundColor = background_color
+            viewZoomContainer?.backgroundColor = backgroundClr
             if scZoom == nil {
                 scZoom = UIScrollView()
                 scZoom?.frame = UIScreen.main.bounds
@@ -103,24 +119,13 @@ open class ImageView: UIImageView,LayoutParameters {
             }
             if imgZoom == nil {
                 imgZoom = UIImageView()
-                //viewImgZoomShade = UIView()
-                //viewImgZoomShade?.backgroundColor = UIColor.red
                 imgZoom?.isUserInteractionEnabled = true
                 if scZoom != nil {
-                    //scZoom?.addSubview(viewImgZoomShade!)
                     scZoom?.addSubview(imgZoom!)
                     addPichZoom ()
                 }
             }
-            if btnRemoveZoomaContainer == nil {
-                let frame = CGRect(x: 0.0,y: 10.0,width: 50,height: 50)
-                btnRemoveZoomaContainer = UIButton(frame: frame)
-                btnRemoveZoomaContainer?.setTitle("X",for: UIControlState.normal)
-                btnRemoveZoomaContainer?.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-                btnRemoveZoomaContainer?.setTitleColor(UIColor.red,for: UIControlState.normal)
-                btnRemoveZoomaContainer?.addTarget(self,action: #selector(actionRemoveZoomContainer (_ :)),for: UIControlEvents.touchUpInside)
-                viewZoomContainer?.addSubview(btnRemoveZoomaContainer!)
-            }
+            btnReoveZoomWork ()
             DispatchQueue.main.async {
                 let image = self.image
                 if image != nil {
@@ -142,7 +147,7 @@ open class ImageView: UIImageView,LayoutParameters {
             }
         }
         var superView = self.superview
-        while (true) {
+        while true {
             if superView is UIWindow {
                 superView?.addSubview(viewZoomContainer!)
                 break
@@ -151,30 +156,30 @@ open class ImageView: UIImageView,LayoutParameters {
             }
         }
     }
-    var frameImage:CGRect? = nil
-    @IBOutlet var scZoom: UIScrollView? = nil
-    var viewZoomContainer: UIView? = nil
-    var imgZoom: UIImageView? = nil
-    var viewImgZoomShade: UIView? = nil
-    var twoFingerPinch:UIPinchGestureRecognizer? = nil
-    var superClass:Any? = nil
-    @IBOutlet var btnRemoveZoomaContainer:UIButton? = nil
+    var frameImage: CGRect?
+    @IBOutlet var scZoom: UIScrollView?
+    var viewZoomContainer: UIView?
+    var imgZoom: UIImageView?
+    var viewImgZoomShade: UIView?
+    var twoFingerPinch: UIPinchGestureRecognizer?
+    var superClass: Any?
+    @IBOutlet var btnRemoveZoomaContainer: UIButton?
     @IBAction public func actionRemoveZoomContainer(_ sender: Any) {
         viewZoomContainer?.removeFromSuperview()
     }
     public func addPichZoom () {
-        twoFingerPinch = UIPinchGestureRecognizer(target: self,action: #selector(self.twoFingerPinch(_ :)))
+        twoFingerPinch = UIPinchGestureRecognizer(target: self,
+                                                  action: #selector(self.twoFingerPinch(_ :)))
         imgZoom?.addGestureRecognizer(twoFingerPinch!)
     }
-    var max_zoom:CGFloat? = nil
-    var max_zoom_level: CGFloat = 10
-    let min_zoom: CGFloat = 100.0
-    var pointZoomImg:CGPoint? = nil
-    var pointZoomSc:CGPoint? = nil
-    var frameImgchanged:CGRect? = nil
-    var offset:CGPoint? = nil
-    @objc public func twoFingerPinch (_ recognizer:UIPinchGestureRecognizer) {
-        
+    var maxZoom: CGFloat?
+    var maxZoomLevel: CGFloat = 10
+    let minZoom: CGFloat = 100.0
+    var pointZoomImg: CGPoint?
+    var pointZoomSc: CGPoint?
+    var frameImgchanged: CGRect?
+    var offset: CGPoint?
+    @objc public func twoFingerPinch (_ recognizer: UIPinchGestureRecognizer) {
         if recognizer.state == .ended {
             pointZoomImg = nil
             pointZoomSc = nil
@@ -187,34 +192,35 @@ open class ImageView: UIImageView,LayoutParameters {
             offset = scZoom?.contentOffset
         }
         offset = scZoom?.contentOffset
-        if max_zoom == nil {
+        if maxZoom == nil {
             if (imgZoom?.frame.size.width)! > (imgZoom?.frame.size.height)! {
-                max_zoom = (imgZoom?.frame.size.height)! * max_zoom_level
+                maxZoom = (imgZoom?.frame.size.height)! * maxZoomLevel
             } else {
-                max_zoom = (imgZoom?.frame.size.width)! * max_zoom_level
+                maxZoom = (imgZoom?.frame.size.width)! * maxZoomLevel
             }
         }
-        let scale: CGFloat = recognizer.scale;
-        if (imgZoom?.frame.size.width)! < min_zoom || (imgZoom?.frame.size.height)! < min_zoom {
+        let scale: CGFloat = recognizer.scale
+        if (imgZoom?.frame.size.width)! < minZoom || (imgZoom?.frame.size.height)! < minZoom {
             if scale > 1.0 {
-                imgZoom?.transform = (imgZoom?.transform.scaledBy(x: scale,y: scale))!;
-                recognizer.scale = 1.0;
+                imgZoom?.transform = (imgZoom?.transform.scaledBy(x: scale, y: scale))!
+                recognizer.scale = 1.0
             }
-        } else if (imgZoom?.frame.size.width)! > max_zoom! || (imgZoom?.frame.size.height)! > max_zoom! {
+        } else if (imgZoom?.frame.size.width)! > maxZoom! || (imgZoom?.frame.size.height)! > maxZoom! {
             if scale < 1.0 {
-                imgZoom?.transform = (imgZoom?.transform.scaledBy(x: scale,y: scale))!;
-                recognizer.scale = 1.0;
+                imgZoom?.transform = (imgZoom?.transform.scaledBy(x: scale, y: scale))!
+                recognizer.scale = 1.0
             }
         } else {
-            imgZoom?.transform = (imgZoom?.transform.scaledBy(x: scale,y: scale))!;
-            recognizer.scale = 1.0;
+            imgZoom?.transform = (imgZoom?.transform.scaledBy(x: scale, y: scale))!
+            recognizer.scale = 1.0
         }
         makeInCenter (false)
     }
-    func makeInCenter (_ boolCenter:Bool) {
+    func makeInCenter (_ boolCenter: Bool) {
         var width = viewZoomContainer?.frame.size.width
         var height = viewZoomContainer?.frame.size.height
-        if (imgZoom?.frame.size.width)! > (viewZoomContainer?.frame.size.width)! && (imgZoom?.frame.size.height)! > (viewZoomContainer?.frame.size.height)! {
+        if (imgZoom?.frame.size.width)! > (viewZoomContainer?.frame.size.width)!
+            && (imgZoom?.frame.size.height)! > (viewZoomContainer?.frame.size.height)! {
             width = imgZoom?.frame.size.width
             height = imgZoom?.frame.size.height
         } else if (imgZoom?.frame.size.width)! > (viewZoomContainer?.frame.size.width)! {
@@ -222,374 +228,11 @@ open class ImageView: UIImageView,LayoutParameters {
         } else if (imgZoom?.frame.size.height)! > (viewZoomContainer?.frame.size.height)! {
             height = imgZoom?.frame.size.height
         }
-        let cSize = CGSize(width:width!,height:height!)
-        //viewImgZoomShade?.frame = CGRect(x: 0,y: 0,width: width!*2,height: height!*2)
+        let cSize = CGSize(width: width!, height: height!)
         scZoom?.contentSize = cSize
-        imgZoom?.center = CGPoint(x: (scZoom?.contentSize.width)! / 2,y: (scZoom?.contentSize.height)! / 2)
-        scZoom?.contentOffset = CGPoint(x: (imgZoom?.center.x)! - (scZoom?.frame.size.width)! / 2,y: (imgZoom?.center.y)! - (scZoom?.frame.size.height)! / 2)
-    }
-    var lastOffset = CGPoint(x: 0,y: 0)
-    func makeInCenter11 (_ boolCenter:Bool) {
-        var width = viewZoomContainer?.frame.size.width
-        var height = viewZoomContainer?.frame.size.height
-        if (imgZoom?.frame.size.width)! > (viewZoomContainer?.frame.size.width)! && (imgZoom?.frame.size.height)! > (viewZoomContainer?.frame.size.height)! {
-            width = imgZoom?.frame.size.width
-            height = imgZoom?.frame.size.height
-        } else if (imgZoom?.frame.size.width)! > (viewZoomContainer?.frame.size.width)! {
-            width = imgZoom?.frame.size.width
-        } else if (imgZoom?.frame.size.height)! > (viewZoomContainer?.frame.size.height)! {
-            height = imgZoom?.frame.size.height
-        }
-        let cSize = CGSize(width:width!,height:height!)
-        //viewImgZoomShade?.frame = CGRect(x: 0,y: 0,width: width!*2,height: height!*2)
-        scZoom?.contentSize = cSize
-        //imgZoom?.center = CGPoint(x: (scZoom?.contentSize.width)! / 2,y: (scZoom?.contentSize.height)! / 2)
-        //scZoom?.contentOffset = CGPoint(x: (imgZoom?.center.x)! - (scZoom?.frame.size.width)! / 2,y: (imgZoom?.center.y)! - (scZoom?.frame.size.height)! / 2)
-        print("offset-\(String(describing: offset))-")
-        print("frameImgchanged-\(String(describing: frameImgchanged))-")
-        print("imgZoom?.frame.origin-\(String(describing: imgZoom?.frame.origin))-")
-        print("scZoom?.contentOffset-\(String(describing: scZoom?.contentOffset))-")
-        print("pointZoomImg-\(String(describing: pointZoomImg))-")
-        print("pointZoomSc-\(String(describing: pointZoomSc))-")
-        if pointZoomImg != nil && frameImgchanged != nil {
-            let rto = (frameImgchanged?.size.width)!/(imgZoom?.frame.size.width)!
-            //let new_px = (pointZoomImg?.x)! * rto
-            //let new_py = (pointZoomImg?.y)! * rto
-            //let px_dif = (pointZoomImg?.x)! - new_px
-            //let py_dif = (pointZoomImg?.y)! - new_py
-            let width_dif = (frameImgchanged?.size.width)! - (imgZoom?.frame.size.width)!
-            let height_dif = (frameImgchanged?.size.height)! - (imgZoom?.frame.size.height)!
-            print("hh-\((frameImgchanged?.origin.x)!)-\(width_dif)")
-            print("hh-\((frameImgchanged?.origin.y)!)-\(height_dif)")
-            let x = (frameImgchanged?.origin.x)!+(width_dif-width_dif*rto)
-            let y = (frameImgchanged?.origin.y)!+(height_dif-height_dif*rto)
-            let rect = CGRect(x: x,y: y,width: (imgZoom?.frame.size.width)!,height: (imgZoom?.frame.size.height)!)
-            print("hh-\(String(describing: imgZoom?.frame))-")
-            print("hh-\(rect)-")
-            imgZoom?.frame = rect
-        }
-        print("-----------------------------------------------------")
+        imgZoom?.center = CGPoint(x: (scZoom?.contentSize.width)! / 2,
+                                  y: (scZoom?.contentSize.height)! / 2)
+        scZoom?.contentOffset = CGPoint(x: (imgZoom?.center.x)! - (scZoom?.frame.size.width)! / 2,
+                                        y: (imgZoom?.center.y)! - (scZoom?.frame.size.height)! / 2)
     }
 }
-
-public extension UIImageView {
-    public func saveImageDocumentDirectory() {
-        let fileManager = FileManager.default
-        let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask,true)[0] as NSString).appendingPathComponent("apple.jpg")
-        let image = UIImage(named: "apple.jpg")
-        print(paths)
-        let imageData = UIImageJPEGRepresentation(image!,0.5)
-        fileManager.createFile(atPath: paths as String,contents: imageData,attributes: nil)
-    }
-    public func getDirectoryPath() -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask,true)
-        let documentsDirectory = paths[0]
-        return documentsDirectory
-    }
-    public func getImage () -> UIImage? {
-        let fileManager = FileManager.default
-        let imagePAth = (self.getDirectoryPath() as NSString).appendingPathComponent("apple.jpg")
-        if fileManager.fileExists(atPath: imagePAth) {
-            return UIImage(contentsOfFile: imagePAth)
-        } else {
-            return nil
-        }
-    }
-    public func createDirectory() {
-        let fileManager = FileManager.default
-        let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask,true)[0] as NSString).appendingPathComponent("customDirectory")
-        if !fileManager.fileExists(atPath: paths) {
-            try! fileManager.createDirectory(atPath: paths,withIntermediateDirectories: true,attributes: nil)
-        } else {
-            print("Already dictionary created.")
-        }
-    }
-    public func deleteDirectory(){
-        let fileManager = FileManager.default
-        let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask,true)[0] as NSString).appendingPathComponent("customDirectory")
-        if !fileManager.fileExists(atPath: paths) {
-            try! fileManager.removeItem(atPath: paths)
-        } else {
-            print("Something wronge.")
-        }
-    }
-    public func deleteFileForUrl (_ url:String?) {
-        let fileManager = FileManager.default
-        let imagePAth = (self.getDirectoryPath() as NSString).appendingPathComponent(url!.imageName())
-        let del:Bool = fileManager.fileExists(atPath: imagePAth)
-        if del {
-            try! fileManager.removeItem(atPath: imagePAth)
-        } else {
-            print("Something wronge.")
-        }
-    }
-    public func savedUIImageForUrl (_ url:String,block: @escaping (UIImage?,Bool) -> Swift.Void) {
-        let fileManager = FileManager.default
-        let imagePAth = (self.getDirectoryPath() as NSString).appendingPathComponent(url.imageName())
-        if fileManager.fileExists(atPath: imagePAth) {
-            block(UIImage(contentsOfFile: imagePAth),false)
-        } else {
-            var filename = url.imageName()
-            filename = filename.replacingOccurrences(of: ".jpg",with: ".svg")
-            let imagePAth = (self.getDirectoryPath() as NSString).appendingPathComponent(filename)
-            if fileManager.fileExists(atPath: imagePAth) {
-                block(nil,true)
-            } else {
-                block(nil,false)
-            }
-        }
-    }
-    public func savedUIImage (_ name:String?,block: @escaping (UIImage?) -> Swift.Void) {
-        if (name == nil) {
-            block(nil)
-        } else {
-            let fileManager = FileManager.default
-            let imagePAth = (self.getDirectoryPath() as NSString).appendingPathComponent(name!)
-            if fileManager.fileExists(atPath: imagePAth) {
-                block(UIImage(contentsOfFile: imagePAth))
-            } else {
-                block(nil)
-            }
-        }
-    }
-    public func saveUIImage (_ name:String?,_ img:UIImage?) {
-        if (name != nil && img != nil) {
-            let data:Data? = UIImagePNGRepresentation(img!)!
-            if (data != nil) {
-                let fileManager = FileManager.default
-                let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask,true)[0] as NSString).appendingPathComponent(name!)
-                fileManager.createFile(atPath: paths as String,contents: data,attributes: nil)
-            }
-        }
-    }
-    public func saveUIImageForUrlSVG (_ url:String?,_ data:Data?) {
-        if (url != nil) {
-            var filename = url?.imageName()
-            filename = filename?.replacingOccurrences(of: ".jpg",with: ".svg")
-            if (data != nil) {
-                let fileManager = FileManager.default
-                let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask,true)[0] as NSString).appendingPathComponent(filename!)
-                fileManager.createFile(atPath: paths as String,contents: data,attributes: nil)
-            }
-        }
-    }
-    public func saveUIImageForUrl (_ url:String?,_ img:UIImage?) {
-        if (url != nil && img != nil) {
-            let data:Data? = UIImagePNGRepresentation(img!)!
-            if (data != nil) {
-                let fileManager = FileManager.default
-                let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask,true)[0] as NSString).appendingPathComponent(url!.imageName())
-                fileManager.createFile(atPath: paths as String,contents: data,attributes: nil)
-            }
-        }
-    }
-    @objc public func displayImage (_ dict:NSDictionary) {
-        DispatchQueue.main.async {
-            let boolCustomScale:Bool = dict["scale"] as! Bool
-            if (boolCustomScale) {
-                self.clipsToBounds = true;
-                self.contentMode = .scaleAspectFill
-            }
-            let url: String = dict["url"] as! String
-            let boolSVG = url.subInSensetive(".svg")
-            let imgV = self as? ImageView
-            if imgV != nil {
-                let superView = dict["superView"] as? UIView
-                if (imgV?.url.count)! > 0 {
-                    if imgV != nil {
-                        let imageUrl = imgV?.url[(imgV?.url.count)!-1]
-                        if imageUrl != nil {
-                            if imageUrl! == url {
-                                if let img = dict["image"] as? UIImage {
-                                    if boolSVG {
-                                        self.setSVG(url)
-                                    } else {
-                                        self.image = img
-                                        imgV?.createZoomView(superView)
-                                    }
-                                } else if let dimg = dict["dimage"] as? String {
-                                    if boolSVG {
-                                        self.setSVG(url)
-                                    } else {
-                                        self.image = UIImage(named: dimg)
-                                    }
-                                }
-                            }
-                        }
-                    } else {
-                        if let img = dict["image"] as? UIImage {
-                            if boolSVG {
-                                self.setSVG(url)
-                            } else {
-                                self.image = img
-                                imgV?.createZoomView(superView)
-                            }
-                        } else if let dimg = dict["dimage"] as? String {
-                            if boolSVG {
-                                self.setSVG(url)
-                            } else {
-                                self.image = UIImage(named: dimg)
-                            }
-                        }
-                    }
-                }
-            } else {
-                if boolSVG {
-                    self.setSVG(url)
-                } else if let img = dict["image"] as? UIImage {
-                    self.image = img
-                } else if let dimg = dict["dimage"] as? String {
-                    self.image = UIImage(named: dimg)
-                }
-            }
-            if let ai = dict["ai"] as? UIActivityIndicatorView {
-                ai.isHidden = true
-                ai.stopAnimating()
-            }
-        }
-    }
-    func setSVG (_ url: String) {
-        let imgV = self as? ImageView
-        if imgV != nil {
-            let imageUrl = imgV?.url[(imgV?.url.count)!-1]
-            if imageUrl != nil {
-                if imageUrl! == url {
-                    var filename = url.imageName()
-                    filename = filename.replacingOccurrences(of: ".jpg",with: ".svg")
-                    let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask,true)[0] as NSString).appendingPathComponent(filename)
-                    let url1: NSURL = NSURL.fileURL(withPath: paths) as NSURL
-                    let request1: URLRequest = URLRequest(url: url1 as URL)
-                    if imgV?.webView == nil {
-                        imgV?.webView = UIWebView(frame: CGRect(x:0,y:0,width:self.frame.size.width,height:self.frame.size.height))
-                        imgV?.webView?.backgroundColor = UIColor.clear
-                        imgV?.webView?.isOpaque = false
-                        imgV?.webView?.scrollView.bounces = false
-                        imgV?.webView?.scrollView.isScrollEnabled = false
-                        self.addSubview((imgV?.webView)!)
-                    }
-                    imgV?.webView?.loadRequest(request1)
-                }
-            }
-        }
-    }
-    public func downloadUIImage (_ url:String?,block: @escaping (UIImage?,Bool) -> Swift.Void) {
-        let md = NSMutableDictionary()
-        md["url"] = url
-        md["block"] = block
-        self.performSelector(inBackground: #selector(downloadUIImageThread (_ :)),with: md)
-    }
-    @objc public func downloadUIImageThread (_ md:NSMutableDictionary) {
-        let url:String? = md["url"] as? String
-        let block = md["block"] as! (UIImage?,Bool) -> Swift.Void
-        self.savedUIImageForUrl(url!,block: { (img,boolSVG) in
-            if (img != nil) {
-                block(img,false)
-            } else if boolSVG {
-                block(nil,true)
-            } else {
-                let urlL = URL(string: (url?.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)!)!)!
-                let data = NSData(contentsOf: urlL as URL) as Data?
-                var image:UIImage? = nil;
-                var boolSVG1 = false
-                if (data != nil) {
-                    image = UIImage(data: data! as Data)
-                    if (image != nil) {
-                        self.saveUIImageForUrl(url,image)
-                    } else {
-                        if (url?.subInSensetive(".svg"))! {
-                            boolSVG1 = true
-                            self.saveUIImageForUrlSVG(url,data)
-                        }
-                    }
-                } else {
-                    self.deleteFileForUrl(url)
-                }
-                if boolSVG1 {
-                    block(nil,true)
-                } else {
-                    block(image,false)
-                }
-            }
-        })
-    }
-    public func uiimage (_ url:String?,_ dImage:String?,_ boolScal:Bool,_ ai:UIActivityIndicatorView?,_ superView:UIView? = nil) {
-        if url != nil {
-            var dImage = dImage
-            if (dImage == nil) {
-                dImage = "noimage.jpg";
-            } else if (dImage?.count == 0) {
-                dImage = "noimage.jpg";
-            }
-            if ((url?.count)! > 0 && url != "") {
-                savedUIImageForUrl(url!,block: { (image,boolSVG) in
-                    if image != nil {
-                        self.image = image
-                        if superView != nil {
-                            let imgV = self as? ImageView
-                            if imgV != nil {
-                                imgV?.createZoomView(superView)
-                            }
-                        }
-                    } else if boolSVG {
-                        if self is ImageView {
-                            let iiii = self as? ImageView
-                            iiii?.url.append(url!)
-                        }
-                        self.setSVG (url!)
-                    } else {
-                        self.image = UIImage()
-                        if self is ImageView {
-                            let iiii = self as? ImageView
-                            iiii?.url.append(url!)
-                        }
-                        if ai != nil {
-                            ai?.isHidden = false
-                            ai?.startAnimating()
-                        }
-                        let url = url?.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)!
-                        let dict = NSMutableDictionary()
-                        dict["url"] = url
-                        dict["scale"] = boolScal
-                        if ai != nil {
-                            dict["ai"] = ai;
-                        }
-                        dict["dimage"] = dImage
-                        if superView != nil {
-                            dict["superView"] = superView
-                        }
-                        self.performSelector(inBackground: #selector(self.getNSetUIImagee(_ :)),with: dict)
-                    }
-                })
-            } else {
-                self.image = UIImage(named: dImage!)
-                if superView != nil {
-                    let imgV = self as? ImageView
-                    if imgV != nil {
-                        imgV?.createZoomView(superView)
-                    }
-                }
-                if ai != nil {
-                    ai?.isHidden = true
-                    ai?.stopAnimating()
-                }
-            }
-        }
-    }
-    @objc public func getNSetUIImagee (_ dict:NSDictionary) {
-        let url: String = dict["url"] as! String
-        self.downloadUIImage(url) { (image,boolSVG) in
-            let dt = NSMutableDictionary()
-            for (key,value) in dict {
-                dt[key] = value
-            }
-            if (image != nil) {
-                dt["image"] = image
-            }
-            if let superView = dict["superView"] as? UIView {
-                dt["superView"] = superView
-            }
-            self.performSelector(inBackground: #selector(self.displayImage(_:)),with: dt)
-        }
-    }
-}
-

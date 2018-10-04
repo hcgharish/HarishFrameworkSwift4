@@ -5,91 +5,99 @@
 //  Created by Harish on 11/01/18.
 //  Copyright © 2018 Harish. All rights reserved.
 //
-
 import UIKit
-
 class Array1: NSArray {
-
 }
-
 public extension NSArray {
     public func string () -> String {
         do {
-            let jsonData: NSData = try JSONSerialization.data(withJSONObject: self,options: JSONSerialization.WritingOptions.prettyPrinted) as NSData
-                    let str = NSString(data: jsonData as Data,encoding: String.Encoding.utf8.rawValue)! as String
-                    return str.replacingOccurrences(of: "\n",with: "")
+            let opt = JSONSerialization.WritingOptions.prettyPrinted
+            let jsonData: NSData = try JSONSerialization.data(withJSONObject: self,
+                                                              options: opt) as NSData
+                    let str = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+                    return str.replacingOccurrences(of: "\n", with: "")
         } catch {
                 }
             return "[]"
     }
-    public func getMutable (_ ma:NSMutableArray?) -> NSMutableArray? {
+    public func getMutable (_ maA: NSMutableArray?) -> NSMutableArray? {
         let array = self
-            var ma = ma
-            if ma == nil {
-            ma = NSMutableArray ()
+            var maA = maA
+            if maA == nil {
+            maA = NSMutableArray ()
         }
-            for i in 0..<array.count {
-            if let val = array[i] as? String {
-                ma?.add(val)
-            } else if let val = array[i] as? Double {
-                ma?.add(val)
-            } else if let val = array[i] as? Int {
-                ma?.add(val)
-            } else if let val = array[i] as? NSArray {
-                ma?.add(val.getMutable(nil)!)
-            } else if let val = array[i] as? NSDictionary {
-                ma?.add(val.getMutable(nil)!)
-            } else if let val = array[i] as? Float {
-                ma?.add(val)
+            for iii in 0..<array.count {
+            if let val = array[iii] as? String {
+                maA?.add(val)
+            } else if let val = array[iii] as? Double {
+                maA?.add(val)
+            } else if let val = array[iii] as? Int {
+                maA?.add(val)
+            } else if let val = array[iii] as? NSArray {
+                maA?.add(val.getMutable(nil)!)
+            } else if let val = array[iii] as? NSDictionary {
+                maA?.add(val.getMutable(nil)!)
+            } else if let val = array[iii] as? Float {
+                maA?.add(val)
             }
         }
-            return ma
+            return maA
     }
-    public func toString (_ caller:Bool = true)  -> String {
+    public func toString (_ caller: Bool = true) -> String {
         var str = "["
-            for i in 0..<self.count {
-            if (str.count == 1) {
-                if let val = self[i] as? String {
-                    str = "\(str)\(val.colon ())"
-                } else if let val = self[i] as? Double {
-                    str = "\(str)\("\(val)".colon ())"
-                } else if let val = self[i] as? Int {
-                    str = "\(str)\("\(val)".colon ())"
-                } else if let val = self[i] as? NSArray {
-                    str = "\(str)\(val.toString(false))"
-                } else if let val = self[i] as? NSDictionary {
-                    str = "\(str)\(val.toString(false))"
-                } else if let val = self[i] as? Float {
-                    str = "\(str)\("\(val)".colon ())"
-                } else if let val = self[i] as? Bool {
-                    str = "\(str)\("\(val)".colon ())"
-                } else if let val = self[i] as? Double {
-                    str = "\(str)\("\(val)".colon ())"
-                }
+        for iii in 0..<self.count {
+            if str.count == 1 {
+                str = logincIf(str, iii)
             } else {
-                if let val = self[i] as? String {
-                    str = "\(str),\(val.colon ())"
-                } else if let val = self[i] as? Double {
-                    str = "\(str),\("\(val)".colon ())"
-                } else if let val = self[i] as? Int {
-                    str = "\(str),\("\(val)".colon ())"
-                } else if let val = self[i] as? NSArray {
-                    str = "\(str),\(val.toString(false))"
-                } else if let val = self[i] as? NSDictionary {
-                    str = "\(str),\(val.toString(false))"
-                } else if let val = self[i] as? Float {
-                    str = "\(str),\("\(val)".colon ())"
-                } else if let val = self[i] as? Bool {
-                    str = "\(str),\("\(val)".colon ())"
-                } else if let val = self[i] as? Double {
-                    str = "\(str),\("\(val)".colon ())"
-                }
+                str = logincElse(str, iii)
             }
         }
-            if caller {
+        if caller {
             return "\(str)]".colon ()
         } else {
             return "\(str)]"
         }
+    }
+    func logincElse(_ str: String, _ iii: Int) -> String {
+        var str = str
+        if let val = self[iii] as? String {
+            str = "\(str),\(val.colon ())"
+        } else if let val = self[iii] as? Double {
+            str = "\(str),\("\(val)".colon ())"
+        } else if let val = self[iii] as? Int {
+            str = "\(str),\("\(val)".colon ())"
+        } else if let val = self[iii] as? NSArray {
+            str = "\(str),\(val.toString(false))"
+        } else if let val = self[iii] as? NSDictionary {
+            str = "\(str),\(val.toString(false))"
+        } else if let val = self[iii] as? Float {
+            str = "\(str),\("\(val)".colon ())"
+        } else if let val = self[iii] as? Bool {
+            str = "\(str),\("\(val)".colon ())"
+        } else if let val = self[iii] as? Double {
+            str = "\(str),\("\(val)".colon ())"
+        }
+        return str
+    }
+    func logincIf(_ str: String, _ iii: Int) -> String {
+        var str = str
+        if let val = self[iii] as? String {
+            str = "\(str)\(val.colon ())"
+        } else if let val = self[iii] as? Double {
+            str = "\(str)\("\(val)".colon ())"
+        } else if let val = self[iii] as? Int {
+            str = "\(str)\("\(val)".colon ())"
+        } else if let val = self[iii] as? NSArray {
+            str = "\(str)\(val.toString(false))"
+        } else if let val = self[iii] as? NSDictionary {
+            str = "\(str)\(val.toString(false))"
+        } else if let val = self[iii] as? Float {
+            str = "\(str)\("\(val)".colon ())"
+        } else if let val = self[iii] as? Bool {
+            str = "\(str)\("\(val)".colon ())"
+        } else if let val = self[iii] as? Double {
+            str = "\(str)\("\(val)".colon ())"
+        }
+        return str
     }
 }

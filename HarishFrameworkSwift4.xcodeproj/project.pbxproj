@@ -35,6 +35,8 @@
 		685A1AE2200DD61D00E764B0 /* CreditCardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1AC7200DD61D00E764B0 /* CreditCardValidator.swift */; };
 		685A1AE3200DD61D00E764B0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A1AC9200DD61D00E764B0 /* String.swift */; };
 		688462B92036A8A8004A9160 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688462B82036A8A8004A9160 /* Validation.swift */; };
+		6886D6D02166227100AB13FC /* ImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6886D6CF2166227100AB13FC /* ImageViewExtension.swift */; };
+		6886D6D2216623A800AB13FC /* HttpExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6886D6D1216623A800AB13FC /* HttpExtension.swift */; };
 		6889637D20F63DD400D00E99 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889637C20F63DD400D00E99 /* Functions.swift */; };
 		6889637F20F63DE100D00E99 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889637E20F63DE100D00E99 /* Map.swift */; };
 		6891A2A620219DB000BA7C9D /* DotLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6891A2A520219DB000BA7C9D /* DotLoader.swift */; };
@@ -43,6 +45,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4B15E4F368473AA4F5860185 /* Pods_HarishFrameworkSwift4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HarishFrameworkSwift4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		51C7103FFC2958E61D2EEE62 /* Pods-HarishFrameworkSwift4.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarishFrameworkSwift4.release.xcconfig"; path = "Pods/Target Support Files/Pods-HarishFrameworkSwift4/Pods-HarishFrameworkSwift4.release.xcconfig"; sourceTree = "<group>"; };
 		683AA50F200E0C42009212BB /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		685A1A8F200DD60400E764B0 /* HarishFrameworkSwift4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HarishFrameworkSwift4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		685A1A92200DD60400E764B0 /* HarishFrameworkSwift4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HarishFrameworkSwift4.h; sourceTree = "<group>"; };
@@ -73,9 +77,12 @@
 		685A1AC7200DD61D00E764B0 /* CreditCardValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardValidator.swift; sourceTree = "<group>"; };
 		685A1AC9200DD61D00E764B0 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		688462B82036A8A8004A9160 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		6886D6CF2166227100AB13FC /* ImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewExtension.swift; sourceTree = "<group>"; };
+		6886D6D1216623A800AB13FC /* HttpExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpExtension.swift; sourceTree = "<group>"; };
 		6889637C20F63DD400D00E99 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		6889637E20F63DE100D00E99 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		6891A2A520219DB000BA7C9D /* DotLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotLoader.swift; sourceTree = "<group>"; };
+		689798905848F35BB6A08783 /* Pods-HarishFrameworkSwift4.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarishFrameworkSwift4.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HarishFrameworkSwift4/Pods-HarishFrameworkSwift4.debug.xcconfig"; sourceTree = "<group>"; };
 		68BD8F3E202C31690047E838 /* GifLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifLoader.swift; sourceTree = "<group>"; };
 		68BD8FB9202C48780047E838 /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,6 +103,8 @@
 			children = (
 				685A1A91200DD60400E764B0 /* HarishFrameworkSwift4 */,
 				685A1A90200DD60400E764B0 /* Products */,
+				E71A5D0F6262D1B50A754614 /* Pods */,
+				D00151C998E8D263B64FCD3F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -205,6 +214,7 @@
 			children = (
 				685A1AAA200DD61C00E764B0 /* ImageView.swift */,
 				685A1AAB200DD61C00E764B0 /* noimage.jpg */,
+				6886D6CF2166227100AB13FC /* ImageViewExtension.swift */,
 			);
 			path = ImageView;
 			sourceTree = "<group>";
@@ -229,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				685A1AB1200DD61C00E764B0 /* Http.swift */,
+				6886D6D1216623A800AB13FC /* HttpExtension.swift */,
 			);
 			path = Http;
 			sourceTree = "<group>";
@@ -356,6 +367,23 @@
 			path = GifLoader;
 			sourceTree = "<group>";
 		};
+		D00151C998E8D263B64FCD3F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4B15E4F368473AA4F5860185 /* Pods_HarishFrameworkSwift4.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E71A5D0F6262D1B50A754614 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				689798905848F35BB6A08783 /* Pods-HarishFrameworkSwift4.debug.xcconfig */,
+				51C7103FFC2958E61D2EEE62 /* Pods-HarishFrameworkSwift4.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -374,10 +402,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 685A1A97200DD60400E764B0 /* Build configuration list for PBXNativeTarget "HarishFrameworkSwift4" */;
 			buildPhases = (
+				6B4E4BE2FA6833BD399919CD /* [CP] Check Pods Manifest.lock */,
 				685A1A8A200DD60400E764B0 /* Sources */,
 				685A1A8B200DD60400E764B0 /* Frameworks */,
 				685A1A8C200DD60400E764B0 /* Headers */,
 				685A1A8D200DD60400E764B0 /* Resources */,
+				68C1F4AB2163A73300F6D448 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -432,6 +462,40 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		68C1F4AB2163A73300F6D448 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+		6B4E4BE2FA6833BD399919CD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HarishFrameworkSwift4-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		685A1A8A200DD60400E764B0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -441,12 +505,14 @@
 				685A1AD5200DD61D00E764B0 /* Device.swift in Sources */,
 				685A1ACC200DD61D00E764B0 /* TextView.swift in Sources */,
 				6891A2A620219DB000BA7C9D /* DotLoader.swift in Sources */,
+				6886D6D02166227100AB13FC /* ImageViewExtension.swift in Sources */,
 				685A1AD1200DD61D00E764B0 /* Dictionary.swift in Sources */,
 				68BD8F3F202C31690047E838 /* GifLoader.swift in Sources */,
 				685A1ACE200DD61D00E764B0 /* Date.swift in Sources */,
 				685A1AE3200DD61D00E764B0 /* String.swift in Sources */,
 				685A1ADA200DD61D00E764B0 /* Color.swift in Sources */,
 				685A1AE0200DD61D00E764B0 /* Image.swift in Sources */,
+				6886D6D2216623A800AB13FC /* HttpExtension.swift in Sources */,
 				685A1ADC200DD61D00E764B0 /* Reachability.swift in Sources */,
 				685A1ACB200DD61D00E764B0 /* Label.swift in Sources */,
 				685A1AD6200DD61D00E764B0 /* Http.swift in Sources */,
@@ -588,6 +654,7 @@
 		};
 		685A1A98200DD60400E764B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 689798905848F35BB6A08783 /* Pods-HarishFrameworkSwift4.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -611,6 +678,7 @@
 		};
 		685A1A99200DD60400E764B0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51C7103FFC2958E61D2EEE62 /* Pods-HarishFrameworkSwift4.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;

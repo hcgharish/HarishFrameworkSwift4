@@ -7,31 +7,20 @@
 //
 
 import UIKit
-
-let KeyChainItemWrapper_Identifier = "KeyChainItemWrapper_Identifier"
-
+let keyChainItemWrapperIdentifier = "KeyChainItemWrapper_Identifier"
 public class StoreToDevice: NSObject {
-    static let ob = KeychainPasswordItem(service: "password1",account: "password2")// = Keychai
+    static let obb = KeychainPasswordItem(service: "password1",
+                                         account: "password2")
     public func setDeviceStoredData (_ data: String) {
         do {
-            try StoreToDevice.ob.savePassword(data)
+            try StoreToDevice.obb.savePassword(data)
         } catch {
-                }
+        }
     }
     public func getStoredData () -> String? {
         do {
-            return try StoreToDevice.ob.readPassword()
+            return try StoreToDevice.obb.readPassword()
         } catch { }
-            return nil
+        return nil
     }
 }
-
-
-
-
-
-
-
-
-
-

@@ -15,5 +15,3 @@ FOUNDATION_EXPORT double HarishFrameworkSwift4VersionNumber;
 FOUNDATION_EXPORT const unsigned char HarishFrameworkSwift4VersionString[];
 
 // In this header,you should import all the public headers of your framework using statements like #import <HarishFrameworkSwift4/PublicHeader.h>
-
-

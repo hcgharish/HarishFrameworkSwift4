@@ -7,7 +7,8 @@
 
 import Foundation
 
-public func == (lhs: CreditCardValidationType,rhs: CreditCardValidationType) -> Bool {
+public func == (lhs: CreditCardValidationType,
+                rhs: CreditCardValidationType) -> Bool {
     return lhs.name == rhs.name
 }
 
@@ -28,4 +29,3 @@ public struct CreditCardValidationType: Equatable {
         }
     }
 }
-
