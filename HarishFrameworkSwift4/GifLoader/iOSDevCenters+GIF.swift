@@ -9,7 +9,7 @@
 import UIKit
 import ImageIO
 
-fileprivate func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
+private func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
     switch (lhs, rhs) {
     case let (lll?, rrr?):
         return lll < rrr
@@ -96,7 +96,7 @@ extension UIImage {
             }
         }
     }
-    class func gcdForArray(_ array: Array<Int>) -> Int {
+    class func gcdForArray(_ array: [Int]) -> Int {
         if array.isEmpty {
             return 1
         }

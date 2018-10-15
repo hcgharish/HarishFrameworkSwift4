@@ -80,9 +80,6 @@ open class Http: NSObject {
             if httpParams.aai {
                 startActivityIndicator()
             }
-            /*var request = NSMutableURLRequest(url:
-                NSURL(string: (httpParams.api!.addingPercentEncoding(
-                    withAllowedCharacters: .urlQueryAllowed)!))! as URL)*/
             let request = makeDecision (httpParams)
             addHeader (request, httpParams)
             startSession(request, httpParams, completionHandler)

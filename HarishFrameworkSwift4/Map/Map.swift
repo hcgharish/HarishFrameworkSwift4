@@ -178,7 +178,8 @@ open class Map: NSObject {
         url += "destination=\(polilineObject.ll2.coordinate.latitude),\(polilineObject.ll2.coordinate.longitude)&"
         url += "sensor=false&"
         url += "mode=WALKING\(withKey)"
-        Http.instance().json(url, nil, nil, aai: polilineObject.aii, popup: polilineObject.popup, prnt: polilineObject.prnt) { (json, _, _) in
+        Http.instance().json(url, nil, nil, aai: polilineObject.aii, popup: polilineObject.popup,
+                             prnt: polilineObject.prnt) { (json, _, _) in
             var ggo = true
             if json != nil {
                 let json = json as? NSDictionary

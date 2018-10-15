@@ -38,15 +38,15 @@ public func filterByPrice (_ maA: NSMutableArray, _ high: Bool) -> NSMutableArra
     }
     return NSMutableArray(array: swiftArray!)
 }
-public func array (_ dict: NSDictionary, _ key: String) -> Array<Any>? {
-    if let title = dict[key] as? Array<Any> {
+public func array (_ dict: NSDictionary, _ key: String) -> [Any]? {
+    if let title = dict[key] as? [Any] {
         return title
     } else {
         return nil
     }
 }
-public func dictionary (_ dict: NSDictionary, _ key: String) -> Dictionary<String, Any>? {
-    if let title = dict[key] as? Dictionary<String, Any> {
+public func dictionary (_ dict: NSDictionary, _ key: String) -> [String: Any]? {
+    if let title = dict[key] as? [String: Any] {
         return title
     } else {
         return nil

@@ -44,8 +44,7 @@ public class CreditCardValidator {
         var reversedString = ""
         let range: Range<String.Index> = numbers.startIndex..<numbers.endIndex
         numbers.enumerateSubstrings(in: range,
-                                    options: [.reverse, .byComposedCharacterSequences]
-        ) { (substring, _, _, _) -> () in
+                                    options: [.reverse, .byComposedCharacterSequences]) { (substring, _, _, _) in
             reversedString += substring!
         }
         var oddSum = 0, evenSum = 0

@@ -168,55 +168,64 @@ public  extension UIImageView {
                 let superView = dict["superView"] as? UIView
                 if (imgV?.url.count)! > 0 {
                     if imgV != nil {
-                        let imageUrl = imgV?.url[(imgV?.url.count)!-1]
-                        if imageUrl != nil {
-                            if imageUrl! == url {
-                                if let img = dict["image"] as? UIImage {
-                                    if boolSVG {
-                                        self.setSVG(url)
-                                    } else {
-                                        self.image = img
-                                        imgV?.createZoomView(superView)
-                                    }
-                                } else if let dimg = dict["dimage"] as? String {
-                                    if boolSVG {
-                                        self.setSVG(url)
-                                    } else {
-                                        self.image = UIImage(named: dimg)
-                                    }
-                                }
-                            }
-                        }
+                        self.imageLogic1 (dict, boolSVG, url, imgV, superView)
                     } else {
-                        if let img = dict["image"] as? UIImage {
-                            if boolSVG {
-                                self.setSVG(url)
-                            } else {
-                                self.image = img
-                                imgV?.createZoomView(superView)
-                            }
-                        } else if let dimg = dict["dimage"] as? String {
-                            if boolSVG {
-                                self.setSVG(url)
-                            } else {
-                                self.image = UIImage(named: dimg)
-                            }
-                        }
+                        self.imageLogic2 (dict, boolSVG, url, imgV, superView)
                     }
                 }
             } else {
-                if boolSVG {
-                    self.setSVG(url)
-                } else if let img = dict["image"] as? UIImage {
-                    self.image = img
-                } else if let dimg = dict["dimage"] as? String {
-                    self.image = UIImage(named: dimg)
-                }
+                self.imageLogic3 (dict, boolSVG, url)
             }
             if let aai = dict["ai"] as? UIActivityIndicatorView {
                 aai.isHidden = true
                 aai.stopAnimating()
             }
+        }
+    }
+    func imageLogic1 (_ dict: NSDictionary, _ boolSVG: Bool, _ url: String, _ imgV: ImageView?, _ superView: UIView?) {
+        let imageUrl = imgV?.url[(imgV?.url.count)!-1]
+        if imageUrl != nil {
+            if imageUrl! == url {
+                if let img = dict["image"] as? UIImage {
+                    if boolSVG {
+                        self.setSVG(url)
+                    } else {
+                        self.image = img
+                        imgV?.createZoomView(superView)
+                    }
+                } else if let dimg = dict["dimage"] as? String {
+                    if boolSVG {
+                        self.setSVG(url)
+                    } else {
+                        self.image = UIImage(named: dimg)
+                    }
+                }
+            }
+        }
+    }
+    func imageLogic2 (_ dict: NSDictionary, _ boolSVG: Bool, _ url: String, _ imgV: ImageView?, _ superView: UIView?) {
+        if let img = dict["image"] as? UIImage {
+            if boolSVG {
+                self.setSVG(url)
+            } else {
+                self.image = img
+                imgV?.createZoomView(superView)
+            }
+        } else if let dimg = dict["dimage"] as? String {
+            if boolSVG {
+                self.setSVG(url)
+            } else {
+                self.image = UIImage(named: dimg)
+            }
+        }
+    }
+    func imageLogic3 (_ dict: NSDictionary, _ boolSVG: Bool, _ url: String) {
+        if boolSVG {
+            self.setSVG(url)
+        } else if let img = dict["image"] as? UIImage {
+            self.image = img
+        } else if let dimg = dict["dimage"] as? String {
+            self.image = UIImage(named: dimg)
         }
     }
     func setSVG (_ url: String) {
@@ -289,18 +298,22 @@ public  extension UIImageView {
             }
         })
     }
+    func defaultImage(_ dImage: String?) -> String? {
+        var dImage = dImage
+        if dImage == nil {
+            dImage = "noimage.jpg"
+        } else if dImage?.count == 0 {
+            dImage = "noimage.jpg"
+        }
+        return dImage
+    }
     public func uiimage (_ url: String?,
                          _ dImage: String?,
                          _ boolScal: Bool,
                          _ aai: UIActivityIndicatorView?,
                          _ superView: UIView? = nil) {
         if url != nil {
-            var dImage = dImage
-            if dImage == nil {
-                dImage = "noimage.jpg"
-            } else if dImage?.count == 0 {
-                dImage = "noimage.jpg"
-            }
+            let dImage = defaultImage(dImage)
             if (url?.count)! > 0 && url != "" {
                 savedUIImageForUrl(url!, block: { (image, boolSVG) in
                     if image != nil {
